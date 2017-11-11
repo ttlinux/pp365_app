@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#76C5F0</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="codebagcolor">#DEDEDE</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="topbagcolor">#3F4447</color>
+    <color name="usertopbagcolor">#0093dd</color>
+    <color name="usertopbagcolor2">#FF1F1B19</color>
+    <color name="userbagcolor">#F5F5F5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white2">#fdfcfc</color>
+    <color name="line">#D3D3D3</color>
+    <color name="lined">#e2e2e2</color>
+    <color name="hompagetitlecolor">#605F5D</color>
+    <color name="gray">#605F5D</color>
+    <color name="black">#000000</color>
+    <color name="gray1">#EEEEEE</color>
+    <color name="gray2">#817F80</color>
+    <color name="gray3">#82817F</color>
+    <color name="gray4">#A9A9A9</color>
+    <color name="gray5">#615E5F</color>
+    <color name="gray6">#F5F5F5</color>
+    <color name="gray7">#8A8A8A</color>
+    <color name="gray8">#868485</color>
+    <color name="gray9">#F2F2F2</color>
+    <color name="gray10">#838280</color>
+    <color name="gray11">#F5F5F5</color>
+    <color name="gray12">#ebebeb</color>
+    <color name="gray13">#F9F9F9</color>
+    <color name="pichold">#909090</color>
+    <color name="gg">#EEEEEE</color>
+
+    <color name="deepblue">#33414A</color>
+
+    <color name="loess">#bb8233</color>
+    <color name="loess2">#C9A66C</color>
+    <color name="loess3">#C9A766</color>
+
+    <color name="line2">#B8B8B8</color>
+    <color name="green">#85C226</color>
+    <color name="green2">#80C328</color>
+    <color name="blue2">#76C5F0</color>
+    <color name="blue3">#0093DD</color>
+    <color name="blue4">#EDF1FA</color>
+    <color name="blue5">#2395C5</color>
+    <color name="red">#DE231C</color>
+    <color name="red2">#eb3d00</color>
+
+    <color name="lottery">#B82432</color>
+    <color name="lotteryred">#B82432</color>
+    <color name="lotteryblue">#0093DD</color>
+    <color name="orderstatetext">#4E5775</color>
+    <color name="lotteryfragmenttitle">#d5d5d5</color>
+    <color name="lotteryfragmenttitle2">#c1c1c1</color>
+    <color name="lotteryfragmenttitle3">#a9a9a9</color>
+    <color name="yellow">#FBDC43</color>
+    <color name="yellow2">#FFFCC7</color>
+    <color name="yellow3">#FFFFC7</color>
+
+
+    <color name="pk1">#FED300</color>
+    <color name="pk2">#0047c5</color>
+    <color name="pk3">#605d5c</color>
+    <color name="pk4">#f48000</color>
+    <color name="pk5">#60bff3</color>
+    <color name="pk6">#715d9d</color>
+    <color name="pk7">#c1c0bf</color>
+    <color name="pk8">#e40005</color>
+    <color name="pk9">#5c2220</color>
+    <color name="pk10">#6ac334</color>
+
+    <color name="bbintopbag">#2d3134</color>
+    <color name="bbinbag">#393534</color>
+    <color name="bbinitembag">#494544</color>
+</resources>

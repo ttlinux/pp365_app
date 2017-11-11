@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.sex.hanker.View.MyRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:id="@+id/relayout"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/user_message"
+        />
+    <ImageView
+        android:id="@+id/circle_red"
+        android:layout_width="10dip"
+        android:layout_height="10dip"
+        android:visibility="gone"
+        android:layout_alignRight="@id/img"
+        android:layout_alignTop="@id/img"
+        android:layout_marginTop="-10dip"
+        android:background="@drawable/circle_red"
+        />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:button="@null"
+        android:drawablePadding="20dp"
+        android:gravity="left|center"
+        android:text="会员消息"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/icon_backindicator" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/srcid" />
+</org.sex.hanker.View.MyRelativeLayout>
+

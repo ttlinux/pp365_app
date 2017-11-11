@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mybusiness</string>
+    <string name="action_settings">Settings</string>
+    <string name="connecterr">网络连接错误</string>
+    <string name="home_str">首页</string>
+    <string name="video_str">视频</string>
+    <string name="note_str">小说</string>
+    <string name="picture_str">图片</string>
+    <string name="setting">设置</string>
+</resources>
