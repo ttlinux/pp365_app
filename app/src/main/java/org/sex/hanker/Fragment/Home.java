@@ -1,5 +1,6 @@
 package org.sex.hanker.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import org.sex.hanker.Activity.Testcar;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.Adapter.ScrollAdapter;
 import org.sex.hanker.BaseParent.BaseFragment;
@@ -163,7 +165,6 @@ public class Home extends BaseFragment {
             imageView.setLayoutParams(layoutParams);
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.yindaocheck));
             imageviews.add(imageView);
-
             linearLayout.addView(imageView);
         }
         relayout.addView(linearLayout);
@@ -173,6 +174,12 @@ public class Home extends BaseFragment {
     {
         for (int i = 0; i < 2; i++) {
             View view=View.inflate(getActivity(),R.layout.model1_horizontal_video,null);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), Testcar.class));
+                }
+            });
             linearLayout.addView(view);
         }
     }
