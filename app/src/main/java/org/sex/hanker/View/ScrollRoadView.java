@@ -40,7 +40,7 @@ public class ScrollRoadView extends LinearLayout {
     boolean begin = true;
     boolean loaddirection = true;//路的方向 false是左，true是右
     Context context;
-    int result[];
+    Integer result[];
     int resulttime = 4000;
     int RunTime = 20000;
     int carpianyi = 0;
@@ -49,6 +49,7 @@ public class ScrollRoadView extends LinearLayout {
 
     Random radom = new Random();
     int m_times = 0;
+    EndListener endlistener;
 
     int[] zubiaos;//车的坐标
     SparseArray<Integer> Speeds = new SparseArray<>();//车突然加速的距离
@@ -61,6 +62,9 @@ public class ScrollRoadView extends LinearLayout {
     long linespeed = 0;
     long lineX = 0;
     boolean end = false;
+    boolean isrunning=false;
+
+
 
     Handler handler = new Handler() {
         @Override
@@ -84,6 +88,7 @@ public class ScrollRoadView extends LinearLayout {
                         m_times--;
                         if (isinresulttime == true && m_times == 0) {
                             end = true;
+                            isrunning=false;
                         }
                     }
 
@@ -100,7 +105,7 @@ public class ScrollRoadView extends LinearLayout {
                         else
                             Onresult();
                     }
-                    if (onchangrank != null) {
+                    if (onchangrank != null && zubiaos!=null) {
                         int result[] = new int[carCount];
                         SparseArray<Integer> temp = new SparseArray<>();
                         for (int i = 0; i < carCount; i++) {
@@ -109,8 +114,13 @@ public class ScrollRoadView extends LinearLayout {
                         Arrays.sort(zubiaos);
                         for (int i = 0; i < result.length; i++) {
                             result[i] = temp.get(zubiaos[i]) + 1;
+                            LogTools.e("zuobiao",zubiaos[i]+"  "+temp.get(zubiaos[i]));
                         }
                         onchangrank.Rank(result);
+                        if(!hasend && end && endlistener!=null)
+                        {
+                            endlistener.Over(result);
+                        }
                     }
 //                    postInvalidate();
                     break;
@@ -264,17 +274,17 @@ public class ScrollRoadView extends LinearLayout {
         this.context = context;
     }
 
-    public void setResult(int result[], int resulttime) {
+    public void setResult(Integer result[], int resulttime) {
         //设置最后开奖结果 resulttime是调整车的位置到开奖结果的时间
         this.result = result;
         this.resulttime = resulttime;
-        begintime = System.currentTimeMillis();
+        if (carCount>0 && carCount != result.length) {
+            throw new ExceptionInInitializerError("设置结果位数和车的数量不匹配");
+        }
     }
 
     public void setRunTime(int RunTime) {
         this.RunTime = RunTime;
-        handler.removeMessages(1);
-        handler.sendEmptyMessageDelayed(1, RunTime);
     }
 
     private void Initview() {
@@ -307,9 +317,7 @@ public class ScrollRoadView extends LinearLayout {
             }
         }
         carCount = getChildCount();
-        if (carCount != result.length) {
-            throw new ExceptionInInitializerError("设置结果位数和车的数量不匹配");
-        }
+
         tags = new int[carCount];
         zubiaos = new int[carCount];
         for (int i = 0; i < carCount; i++) {
@@ -418,8 +426,24 @@ public class ScrollRoadView extends LinearLayout {
     }
 
     public void start() {
+        if(isrunning)return;
+        end=false;
+        lineX=0;
+        isinresulttime=false;
+        if(carwidth>0)
+        for (int i = 0; i <getChildCount(); i++) {
+            if (getChildAt(i) instanceof Car) {
+                Car car = (Car) getChildAt(i);
+                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
+                ll.leftMargin = ScreenWidth - carwidth;
+                car.setLayoutParams(ll);
+            }
+        }
         begintime = System.currentTimeMillis();
         handler.sendEmptyMessageDelayed(0, 30);
+        handler.removeMessages(1);
+        handler.sendEmptyMessageDelayed(1, RunTime);
+        isrunning=true;
     }
 
     public void sethasend(boolean hasend) {
@@ -438,5 +462,18 @@ public class ScrollRoadView extends LinearLayout {
 
     public void setOnchangrank(OnChangRankListener onchangrank) {
         this.onchangrank = onchangrank;
+    }
+
+    public interface EndListener
+    {
+        public void Over(int rank[]);
+    }
+
+    public EndListener getEndlistener() {
+        return endlistener;
+    }
+
+    public void setEndlistener(EndListener endlistener) {
+        this.endlistener = endlistener;
     }
 }

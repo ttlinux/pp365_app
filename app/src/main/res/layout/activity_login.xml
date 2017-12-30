@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <include
+        layout="@layout/app_toplayout"/>
+    <RelativeLayout
+        android:id="@+id/accountlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/login_img_user"
+            android:drawablePadding="5dp"
+            android:text="账号"
+            android:textSize="13sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBaseline="@+id/radioButton"
+            android:layout_alignBottom="@+id/radioButton"
+            android:layout_centerVertical="true"
+            android:hint="请输入账号"
+            android:textColorHint="@color/gray4"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/radioButton"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:inputType="textAutoComplete"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/topbagcolor" />
+
+    <RelativeLayout
+        android:id="@+id/passwlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/login_img"
+            android:drawablePadding="5dp"
+            android:text="密码"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBaseline="@+id/radioButton2"
+            android:layout_alignBottom="@+id/radioButton2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:hint="请输入密码"
+            android:textColorHint="@color/gray4"
+            android:layout_toEndOf="@+id/radioButton2"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:inputType="textAutoComplete"
+            android:password="true"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/topbagcolor" />
+
+    <Button
+        android:id="@+id/comit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/radius_imageview"
+        android:padding="10dp"
+        android:text="登录"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/layout"
+        android:padding="10dp">
+
+        <TextView
+
+            android:id="@+id/forgetpassw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="忘记密码"
+            android:padding="5dip"
+            android:textColor="@color/usertopbagcolor"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/registered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="立即注册"
+            android:textColor="@color/usertopbagcolor"
+            android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -31,6 +31,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sex.hanker.Bean.user;
 import org.sex.hanker.Utils.Crasherr;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.NetBroadcastReceiver;
@@ -60,7 +61,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public ImageLoader imageloader = null;
     public DisplayImageOptions options = null;
     public ImageLoaderConfiguration config = null;
-    public static String username;//用户名
+    public static user user;//用户名
     public static boolean NoticehasClick = false;
     public static NetBroadcastReceiver.NetEvevt evevt;
     public static String packagename;
@@ -74,12 +75,12 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public static boolean isMNC() {
         return Build.VERSION.SDK_INT >= 23;
     }
-    public String getBaseapplicationUsername() {
-        return username;
+    public user getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(user user) {
+        this.user = user;
     }
 
     @Override

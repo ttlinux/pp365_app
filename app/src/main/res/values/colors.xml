@@ -29,6 +29,17 @@
     <color name="gray11">#F5F5F5</color>
     <color name="gray12">#ebebeb</color>
     <color name="gray13">#F9F9F9</color>
+    <color name="gray14">#414247</color>
+    <color name="gray15">#2A2D32</color>
+    <color name="gray16">#EDEDED</color>
+    <color name="gray17">#Efefef</color>
+    <color name="gray18">#F3F3F3</color>
+    <color name="gray19">#666666</color>
+    <color name="gray20">#999999</color>
+    <color name="gray21">#F7F7F7</color>
+    <color name="gray22">#F4F3EE</color>
+
+
     <color name="pichold">#909090</color>
     <color name="gg">#EEEEEE</color>
 
@@ -37,6 +48,8 @@
     <color name="loess">#bb8233</color>
     <color name="loess2">#C9A66C</color>
     <color name="loess3">#C9A766</color>
+    <color name="loess4">#FF7701</color>
+
 
     <color name="line2">#B8B8B8</color>
     <color name="green">#85C226</color>
@@ -47,6 +60,7 @@
     <color name="blue5">#2395C5</color>
     <color name="red">#DE231C</color>
     <color name="red2">#eb3d00</color>
+    <color name="red3">#EE1F3B</color>
 
     <color name="lottery">#B82432</color>
     <color name="lotteryred">#B82432</color>

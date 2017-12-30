@@ -36,21 +36,26 @@ public class Httputils {
     public static String AndroidApkPath;
     public static String AndroidUpdate="";
     public static String BaseUrl="http://www.xokong.com";
-    private static String Home="/interface/Home";
+    public static String ImgBaseUrl="http://www.xokong.com";
+    public static String Home="/interface/Home";
     //小说
-    private static String notemenu="/interface/notemenu";
-    private static String note="/interface/note";
-    private static String noteSearch="/interface/noteSearch";
-    private static String notedetail="/interface/notedetail";
+    public static String notemenu="/interface/notemenu";
+    public static String note="/interface/note";
+    public static String noteSearch="/interface/noteSearch";
+    public static String notedetail="/interface/notedetail";
 
     //视频
-    private static String Videomenu="/interface/Videomenu";
-    private static String Video="/interface/Video";
-    private static String VideoSearch="/interface/VideoSearch";
+    public static String Videomenu="/interface/Videomenu";
+    public static String Video="/interface/VideoDetail";
+    public static String VideoSearch="/interface/VideoSearch";
     //图片
-    private static String picturemenu="/interface/picturemenu";
-    private static String picture="/interface/picture";
-    private static String picturedetail="/interface/picturedetail";
+    public static String picturemenu="/interface/picturemenu";
+    public static String picture="/interface/picture";
+    public static String picturedetail="/interface/picturedetail";
+    //注册登陆
+    public static String login="/userlogin";
+    public static String register="/register";
+
 
     public interface BalanceListener
     {

@@ -7,4 +7,15 @@
     <string name="note_str">小说</string>
     <string name="picture_str">图片</string>
     <string name="setting">设置</string>
+    <string name="login_name">登录</string>
+    <string name="reg_name">注册</string>
+    <string name="account">账号</string>
+    
+    <string-array name="sexuals">
+        <item>直男</item>
+        <item>同志</item>
+        <item>妖</item>
+        <item>蕾丝(女同)</item>
+        <item>直女</item>
+    </string-array>
 </resources>

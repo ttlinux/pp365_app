@@ -1,8 +1,11 @@
 package org.sex.hanker.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,10 +18,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.sex.hanker.Activity.LoginActivity;
+import org.sex.hanker.Activity.RegisterActivity;
 import org.sex.hanker.Activity.Testcar;
+import org.sex.hanker.Activity.VideoActivity;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.Adapter.ScrollAdapter;
+import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
+import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
+import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.View.MyViewPager;
 import org.sex.hanker.View.RoundScroller;
@@ -30,12 +46,16 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/11/3.
  */
-public class Home extends BaseFragment {
+public class Home extends BaseFragment implements View.OnClickListener{
 
     private static Home home;
     MyViewPager viewpager;
     ArrayList<ImageView> imageviews = new ArrayList<ImageView>();
     LinearLayout linearLayout;
+    TextView register,login;
+    LinearLayout videomain,notemain,imagmain;
+    HorizontalScrollView scorll;
+    private ImageLoader mImageDownLoader;
 
     public static Home GetInstance(Bundle arg) {
         if (home == null)
@@ -48,6 +68,7 @@ public class Home extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setNeedCallBack(true);
         Init();
     }
 
@@ -57,8 +78,22 @@ public class Home extends BaseFragment {
         return View.inflate(getActivity(), R.layout.fragment_home, null);
     }
 
+    @Override
+    public void OnViewShowOrHide(boolean state) {
+        super.OnViewShowOrHide(state);
+
+    }
+
     private void Init() {
         //////banner
+        mImageDownLoader = ((BaseApplication) getActivity().getApplication())
+                .getImageLoader();
+        register=(TextView)FindView(R.id.register);
+        login=(TextView)FindView(R.id.login);
+        register.setVisibility(View.VISIBLE);
+        login.setVisibility(View.VISIBLE);
+        register.setOnClickListener(this);
+        login.setOnClickListener(this);
         linearLayout=(LinearLayout)FindView(R.id.mainll);
         viewpager = (MyViewPager) FindView(R.id.viewpager);
         viewpager.setOffscreenPageLimit(2);
@@ -69,14 +104,11 @@ public class Home extends BaseFragment {
 
             }
         });
-        RelativeLayout testlayout = (RelativeLayout) FindView(R.id.testlayout);
-        String strs[] = {"http://img.ybres.net//m//site//a8//banner//homebanner//1501153509548.jpg", "http://img.ybres.net//m//site//a8//banner//homebanner//1501153509548.jpg"};
-        viewpager.setAdapter(new MainbannerPagerAdapter(getActivity(), strs));
-        AddButton(testlayout, 2);
+
         //////banner
 
         //////video
-        LinearLayout videomain = new LinearLayout(getActivity());
+        videomain = new LinearLayout(getActivity());
         videomain.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
@@ -94,12 +126,11 @@ public class Home extends BaseFragment {
         textView.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icon_backindicator), null);
         videomain.addView(textView);
 
-        AddVideoItem(videomain);
         linearLayout.addView(videomain);
         //////video
 
         //////note
-        LinearLayout notemain = new LinearLayout(getActivity());
+        notemain = new LinearLayout(getActivity());
         notemain.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams note_mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         note_mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
@@ -117,12 +148,11 @@ public class Home extends BaseFragment {
         notetitle.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icon_backindicator), null);
         notemain.addView(notetitle);
 
-        AddNoteitem(notemain);
         linearLayout.addView(notemain);
         //////note
 
         //////image
-        LinearLayout imagmain = new LinearLayout(getActivity());
+         imagmain = new LinearLayout(getActivity());
         imagmain.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams image_mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         image_mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
@@ -140,12 +170,13 @@ public class Home extends BaseFragment {
         imagtitle.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icon_backindicator), null);
         imagmain.addView(imagtitle);
 
-        HorizontalScrollView scorll=new HorizontalScrollView(getActivity());
+         scorll=new HorizontalScrollView(getActivity());
         scorll.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        AddPictureItem(scorll);
         imagmain.addView(scorll);
         linearLayout.addView(imagmain);
         //////image
+
+        Mainrequest();
     }
 
     private void AddButton(RelativeLayout relayout, int size) {
@@ -170,22 +201,39 @@ public class Home extends BaseFragment {
         relayout.addView(linearLayout);
     }
 
-    private void AddVideoItem(LinearLayout linearLayout)
+    private void AddVideoItem(JSONArray jsonArray)
     {
-        for (int i = 0; i < 2; i++) {
-            View view=View.inflate(getActivity(),R.layout.model1_horizontal_video,null);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), Testcar.class));
-                }
-            });
-            linearLayout.addView(view);
+        for (int i = 0; i < jsonArray.length()/3; i++) {
+            LinearLayout view=(LinearLayout)View.inflate(getActivity(),R.layout.model1_horizontal_video,null);
+            for (int j = 0; j <3 ; j++) {
+                final JSONObject jsob= jsonArray.optJSONObject(i*3+j);
+                LinearLayout linlayout=(LinearLayout)view.getChildAt(j);
+                linlayout.setTag(i*3+j);
+                ImageView imageview=(ImageView)linlayout.getChildAt(0);
+                LinearLayout.LayoutParams ll= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ScreenUtils.getScreenWH(getActivity())[0]/3+10);
+                ll.weight=1;
+                imageview.setLayoutParams(ll);
+                imageview.setScaleType(ImageView.ScaleType.FIT_XY);
+                TextView title=(TextView)linlayout.getChildAt(1);
+                title.setText(jsob.optString("title"));
+                imageview.setImageDrawable(new ColorDrawable(0x783748));
+                linlayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), VideoActivity.class);
+                        intent.putExtra(BundleTag.ProductId,jsob.optString("id"));
+                        intent.putExtra(BundleTag.Country,jsob.optString("arg"));
+                        startActivity(new Intent(getActivity(), VideoActivity.class));
+                    }
+                });
+//                mImageDownLoader.displayImage(jsob.optString("pictureurl"), imageview);
+            }
+            videomain.addView(view);
         }
     }
 
 
-    private void AddPictureItem(HorizontalScrollView round)
+    private void AddPictureItem(JSONArray jsonarr)
     {
         LinearLayout  videomain = new LinearLayout(getActivity());
         videomain.setOrientation(LinearLayout.HORIZONTAL);
@@ -193,24 +241,84 @@ public class Home extends BaseFragment {
         mainv.topMargin=ScreenUtils.getDIP2PX(getActivity(),10);
         videomain.setLayoutParams(mainv);
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < jsonarr.length(); i++) {
             RelativeLayout llview=(RelativeLayout)View.inflate(getActivity(),R.layout.model3_galley_picture,null);
+            ImageView image=(ImageView)llview.getChildAt(0);
                 TextView title=(TextView)llview.getChildAt(1);
-                title.setText("我是 "+(i));
+            title.setVisibility(View.GONE);
+            image.setScaleType(ImageView.ScaleType.FIT_XY);
+            mImageDownLoader.displayImage(jsonarr.optJSONObject(i).optString("pictureurl"),image);
             videomain.addView(llview);
         }
-        round.addView(videomain);
+        scorll.addView(videomain);
     }
-    private void AddNoteitem(LinearLayout linearLayout)
+    private void AddNoteitem(JSONArray jsonarr)
     {
-        for (int i = 0; i < 2; i++) {
-            View view=View.inflate(getActivity(),R.layout.model2_vertical_note,null);
+        for (int i = 0; i < jsonarr.length(); i++) {
+            JSONObject json= jsonarr.optJSONObject(i);
+            LinearLayout view=(LinearLayout)View.inflate(getActivity(), R.layout.model2_vertical_note, null);
+            TextView text1=(TextView)view.findViewById(R.id.title);
+            TextView text2=(TextView)view.findViewById(R.id.content);
+            text1.setText(json.optString("title"));
+            text2.setText(Html.fromHtml(json.optString("content")));
             LinearLayout.LayoutParams ll=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            ll.setMargins(0,1,0,0);
-            linearLayout.addView(view,ll);
+            ll.setMargins(0, 1, 0, 0);
+            notemain.addView(view,ll);
         }
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.register:
+                startActivityForResult(new Intent(getActivity(), RegisterActivity.class), BundleTag.Status);
+                break;
+            case R.id.login:
+                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.Status);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogTools.e("sadsadsad",requestCode+" "+resultCode);
+        if(resultCode==BundleTag.LoginSuccess)
+        {
+            register.setVisibility(View.GONE);
+            login.setVisibility(View.GONE);
+        }
+    }
+
+    public void Mainrequest()
+    {
+        RequestParams requestParams=new RequestParams();
+        Httputils.PostWithBaseUrl(Httputils.Home,requestParams,new MyJsonHttpResponseHandler(getActivity(),true){
+            @Override
+            public void onSuccessOfMe(JSONObject jsonObject) {
+                super.onSuccessOfMe(jsonObject);
+                if(!jsonObject.optString("status").equalsIgnoreCase("000000"))return;
+                JSONObject datas=jsonObject.optJSONObject("datas");
+
+                RelativeLayout testlayout = (RelativeLayout) FindView(R.id.testlayout);
+                JSONArray jsonarr=datas.optJSONArray("banner");
+                viewpager.setAdapter(new MainbannerPagerAdapter(getActivity(), jsonarr));
+                AddButton(testlayout, jsonarr.length());
+
+                AddVideoItem(datas.optJSONArray("video"));
+
+                AddNoteitem(datas.optJSONArray("note"));
+
+                AddPictureItem(datas.optJSONArray("picture"));
+            }
+
+            @Override
+            public void onFailureOfMe(Throwable throwable, String s) {
+                super.onFailureOfMe(throwable, s);
+            }
+        });
+    }
 
 }
