@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="line">
+            <size android:width="1500px" android:height="2dip"/>
+            <stroke android:color="@color/gray4" android:width="2dip"/>
+            <!--<gradient-->
+            <!--android:angle="270"-->
+            <!--android:centerColor="#2B2B2B"-->
+            <!--android:centerY="0.75"-->
+            <!--android:endColor="#ff747674"-->
+            <!--android:startColor="#ff9d9e9d" />-->
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="line" >
+                <stroke android:color="#2496F6" android:width="2dip"/>
+                <size android:width="1500px" android:height="2dip"/>
+                <!--<gradient-->
+                <!--android:angle="270"-->
+                <!--android:centerColor="#ff3399CC"-->
+                <!--android:centerY="0.75"-->
+                <!--android:endColor="#ff6699CC"-->
+                <!--android:startColor="#ff0099CC" />-->
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="line">
+                <size android:width="1500px" android:height="2dip"/>
+                <stroke android:color="@color/gray4" android:width="2dip"/>
+                <!--<gradient-->
+                <!--android:angle="270"-->
+                <!--android:centerColor="#ff3399CC"-->
+                <!--android:centerY="0.75"-->
+                <!--android:endColor="#ff6699CC"-->
+                <!--android:startColor="#ff0099CC" />-->
+            </shape>
+        </clip>
+    </item>
+</layer-list>  

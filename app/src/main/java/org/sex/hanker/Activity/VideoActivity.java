@@ -8,8 +8,10 @@ import org.json.JSONObject;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ToastUtil;
+import org.sex.hanker.mybusiness.R;
 
 /**
  * Created by Administrator on 2017/12/29.
@@ -21,6 +23,7 @@ public class VideoActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Initview();
+        setContentView(R.layout.activity_videoview);
     }
 
     private void Initview()
@@ -39,6 +42,7 @@ public class VideoActivity extends BaseActivity{
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
                 super.onSuccessOfMe(jsonObject);
+                LogTools.e("jssss",jsonObject.toString());
                 if(jsonObject.optString("status").equalsIgnoreCase("000000"))
                 {
 

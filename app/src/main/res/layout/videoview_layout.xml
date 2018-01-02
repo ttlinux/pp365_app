@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <io.vov.vitamio.widget.CenterLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:background="@color/black"
+        android:id="@+id/clayout"
+        android:orientation="vertical" >
+
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/buffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </io.vov.vitamio.widget.CenterLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:id="@+id/probar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/download_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/load_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+    </LinearLayout>
+
+    <CheckBox
+        android:button="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:id="@+id/lock"
+        android:layout_centerVertical="true"
+        android:background="@drawable/lock_backgroud"
+        />
+
+    <RelativeLayout
+        android:id="@+id/bottomview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/clayout"
+        android:orientation="horizontal"
+        android:background="@color/gray15"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="13:00:00 / 14:00:00"
+            />
+        <ImageView
+            android:id="@+id/pauseorstart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:layout_centerInParent="true"
+            android:src="@drawable/player_pause_normal"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:layout_alignParentRight="true"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:src="@drawable/player_brightness"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:padding="5dip"
+                android:src="@drawable/player_volume"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:padding="5dip"
+                android:src="@drawable/btn_smallplayer_back"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="20dip"
+        android:layout_above="@id/bottomview"
+        android:layout_marginBottom="-10dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:max="1000"
+        android:progress="0"
+        android:progressDrawable="@drawable/bg_bar"
+        android:thumb="@drawable/thumb_bar"
+        />
+    <RelativeLayout
+        android:id="@+id/sidebar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dip"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/seekbar"
+        >
+
+    <ImageView
+        android:id="@+id/imagetag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/player_brightness"
+        />
+    <org.sex.hanker.View.VerticalSeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:thumb="@drawable/thumb_bar"
+        android:progressDrawable="@drawable/bg_bar"
+        android:layout_above="@id/imagetag"
+        />
+    </RelativeLayout>
+</RelativeLayout>

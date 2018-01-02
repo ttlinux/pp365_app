@@ -221,9 +221,9 @@ public class Home extends BaseFragment implements View.OnClickListener{
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), VideoActivity.class);
-                        intent.putExtra(BundleTag.ProductId,jsob.optString("id"));
-                        intent.putExtra(BundleTag.Country,jsob.optString("arg"));
-                        startActivity(new Intent(getActivity(), VideoActivity.class));
+                        intent.putExtra(BundleTag.ProductId,jsob.optString("id",""));
+                        intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
+                        startActivity(intent);
                     }
                 });
 //                mImageDownLoader.displayImage(jsob.optString("pictureurl"), imageview);
@@ -231,7 +231,6 @@ public class Home extends BaseFragment implements View.OnClickListener{
             videomain.addView(view);
         }
     }
-
 
     private void AddPictureItem(JSONArray jsonarr)
     {
