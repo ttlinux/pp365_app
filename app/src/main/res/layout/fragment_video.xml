@@ -4,8 +4,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <include
-        layout="@layout/top_layout"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="vertical"
+        android:background="@color/usertopbagcolor"
+        >
+        <TextView
+            android:id="@+id/country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:text="欧美"
+            android:textColor="@color/white"
+            android:drawableRight="@drawable/down_triangle"
+            android:drawablePadding="5dip"
+            android:textSize="14sp"
+            android:padding="10dip"
+            android:layout_marginLeft="5dip"
+            />
+
+
+        <TextView
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:text="清除"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:padding="10dip"
+            android:layout_marginRight="10dip"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:hint="搜索"
+            android:textColorHighlight="@color/line"
+            android:textColorHint="@color/line"
+            android:layout_toRightOf="@id/country"
+            android:layout_toLeftOf="@id/clear"
+            android:padding="6dip"
+            android:background="@drawable/radiu_gray4_rangle"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line"
+            />
+    </RelativeLayout>
+
     <HorizontalScrollView
         android:id="@+id/titles"
         android:layout_width="match_parent"

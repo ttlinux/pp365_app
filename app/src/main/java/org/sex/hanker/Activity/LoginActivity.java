@@ -85,7 +85,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 comit.setEnabled(true);
                 ToastUtil.showMessage(LoginActivity.this, jsonObject.optString("info", ""));
                 if (jsonObject.optString("status").equalsIgnoreCase("000000")) {
-                    ((BaseApplication)getApplication()).setUser(user.analysis(jsonObject.optJSONObject("user")));
+                    BaseApplication base= ((BaseApplication)getApplication());
+                    base.setUser(user.analysis(jsonObject.optJSONObject("user")));
                     setResult(BundleTag.LoginSuccess);
                     finish();
                 }

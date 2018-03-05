@@ -35,8 +35,9 @@ public class Httputils {
     public static boolean isShow = false;//
     public static String AndroidApkPath;
     public static String AndroidUpdate="";
-    public static String BaseUrl="http://www.xokong.com";
-    public static String ImgBaseUrl="http://www.xokong.com";
+    public static String BaseUrl="http://www.xokong.com/pp365";//http://www.xokong.com
+    public static String WSBaseurl="ws://www.xokong.com/pp365/websocket?";//ws://www.xokong.com/pp365/websocket?
+    public static String ImgBaseUrl="http://www.xokong.com/pp365";
     public static String Home="/interface/Home";
     //小说
     public static String notemenu="/interface/notemenu";
@@ -56,6 +57,8 @@ public class Httputils {
     public static String login="/userlogin";
     public static String register="/register";
 
+    //聊天记录
+    public static String MessageRecord="/interface/MessageRecord";
 
     public interface BalanceListener
     {

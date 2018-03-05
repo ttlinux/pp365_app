@@ -10,12 +10,21 @@
     <string name="login_name">登录</string>
     <string name="reg_name">注册</string>
     <string name="account">账号</string>
-    
+    <string name="send">发送</string>
+    <string name="tip">发表评论时间间隔不得少于3秒</string>
+    <string name="writecomment">写评论</string>
+    <string name="noconnection">无网络连接，请检查网络</string>
+    <string name="load_more_text">正在加载...</string>
+    <string name="nomoredata">已无更多数据</string>
     <string-array name="sexuals">
         <item>直男</item>
         <item>同志</item>
         <item>妖</item>
         <item>蕾丝(女同)</item>
         <item>直女</item>
+    </string-array>
+    <string-array name="country">
+        <item>欧美</item>
+        <item>亚洲</item>
     </string-array>
 </resources>

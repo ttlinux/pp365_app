@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include
+        layout="@layout/app_toplayout"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray2"
+        android:text="相册集"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:padding="5dip"
+        />
+    <org.sex.hanker.View.HorizontalListView
+        android:id="@+id/toplistview"
+        android:layout_width="match_parent"
+        android:layout_height="65dip">
+
+    </org.sex.hanker.View.HorizontalListView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dip"
+        >
+
+        <org.sex.hanker.View.HorizontalListView
+            android:id="@+id/bottomlistview"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="100dip">
+
+        </org.sex.hanker.View.HorizontalListView>
+
+        <org.sex.hanker.View.MyViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomlistview"
+            >
+
+        </org.sex.hanker.View.MyViewPager>
+    </RelativeLayout>
+
+</LinearLayout>

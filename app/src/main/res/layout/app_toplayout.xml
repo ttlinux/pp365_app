@@ -8,7 +8,7 @@
         android:id="@+id/toplayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/topbagcolor">
+        android:background="@color/usertopbagcolor">
 
         <ImageView
             android:id="@+id/back"

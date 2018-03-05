@@ -2,12 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <org.sex.hanker.View.Videoview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:id="@+id/videoview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     </org.sex.hanker.View.Videoview>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/bottomview"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray4" />
+
+            <org.sex.hanker.View.ColorTextview
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_marginRight="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:textSize="16sp"
+                android:textColor="@color/gray4"
+                android:text="@string/send" />
+
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:layout_toLeftOf="@id/send"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dip"
+                android:cursorVisible="false"
+                android:hint="@string/writecomment"
+                android:paddingLeft="10dip"
+                android:textColorHint="@color/gray4"
+                android:textSize="15sp"
+                android:background="@drawable/radiu_gray4_rangle" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomview"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000">
+
+        </ListView>
+
+    </RelativeLayout>
 </LinearLayout>

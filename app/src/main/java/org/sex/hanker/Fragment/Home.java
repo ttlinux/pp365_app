@@ -221,7 +221,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), VideoActivity.class);
-                        intent.putExtra(BundleTag.ProductId,jsob.optString("id",""));
+                        intent.putExtra(BundleTag.ProductId,jsob.optString("modelid",""));
                         intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
                         startActivity(intent);
                     }
@@ -283,7 +283,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTools.e("sadsadsad",requestCode+" "+resultCode);
+//        LogTools.e("sadsadsad",requestCode+" "+resultCode);
         if(resultCode==BundleTag.LoginSuccess)
         {
             register.setVisibility(View.GONE);

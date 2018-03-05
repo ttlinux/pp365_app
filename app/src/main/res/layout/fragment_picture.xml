@@ -4,8 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <include
-        layout="@layout/top_layout"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="vertical"
+        android:background="@color/usertopbagcolor"
+        >
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            />
+        </RelativeLayout>
     <HorizontalScrollView
         android:id="@+id/titles"
         android:layout_width="match_parent"
@@ -19,11 +32,10 @@
         android:layout_height="1px"
         android:background="@color/line"
         />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+ <org.sex.hanker.View.PullLoadMoreRecyclerView
+     android:id="@+id/pullLoadMoreRecyclerView"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+ </org.sex.hanker.View.PullLoadMoreRecyclerView>
 </LinearLayout>

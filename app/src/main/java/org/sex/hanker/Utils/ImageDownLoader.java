@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
@@ -196,7 +197,6 @@ public class ImageDownLoader {
      * @return
      */
     private boolean getBitmapFormUrl(String url) {
-        LogTools.e("imgurl:", "imgurl2222:-->" + url);
 //		HttpURLConnection con = null;
 //		try {
 //			URL mImageUrl = new URL(url);
@@ -292,12 +292,76 @@ public class ImageDownLoader {
     };
 
     @SuppressWarnings({"unused", "deprecation"})
+    public void showImage_SetdefaultImage(final Context mContext, final String url, final ImageView img, final int i,final Drawable drawable) {
+        Bitmap bitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        final String urlimg = url.replaceAll("[^\\w]", "");
+        bitmap = showCacheBitmap(urlimg);
+        if (bitmap != null) {
+            if (i == 0) {
+                img.setBackgroundDrawable(new BitmapDrawable(bitmap));
+            } else if (i == -9999) {
+                img.setImageBitmap(getCircleBitmap(bitmap));
+            } else if (i == -1) {
+                img.setBackgroundDrawable(new BitmapDrawable(getRoundedCornerBitmap(bitmap, 15, CORNER_TOP)));
+            } else {
+                img.setImageBitmap(bitmap);
+            }
+        } else {
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+//						listener.onImageLoader((Bitmap)msg.obj, urlimg);
+                    if ((Bitmap) msg.obj != null) {
+                        if (i == 0) {
+                            img.setBackgroundDrawable(new BitmapDrawable((Bitmap) msg.obj));
+                        } else if (i == -9999) {
+                            img.setImageBitmap(getCircleBitmap((Bitmap) msg.obj));
+                        } else if (i == -1) {
+                            img.setBackgroundDrawable(new BitmapDrawable(getRoundedCornerBitmap((Bitmap) msg.obj, 15, CORNER_TOP)));
+                        } else {
+                            img.setImageBitmap((Bitmap) msg.obj);
+                        }
+                    } else {
+                        if (i == 0) {
+                            img.setBackgroundDrawable(drawable);
+                        } else {
+                            img.setImageDrawable(drawable);
+                        }
+                    }
+                }
+            };
+            getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (getBitmapFormUrl(url)) {
+                        Message msg = handler.obtainMessage();
+                        msg.obj = bitmapd;
+                        handler.sendMessage(msg);
+                        try {
+                            //保存在SD卡或者手机目录
+                            fileUtils.savaBitmap(urlimg, bitmapd);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        //将Bitmap 加入内存缓存
+                        addBitmapToMemoryCache(urlimg, bitmapd);
+                    }
+
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings({"unused", "deprecation"})
     public void showImage(final Context mContext, final String url, final ImageView img, final int i) {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 4;
         final String urlimg = url.replaceAll("[^\\w]", "");
-        LogTools.i("", "imgurl:");
         bitmap = showCacheBitmap(urlimg);
         if (bitmap != null) {
             if (i == 0) {
@@ -364,7 +428,6 @@ public class ImageDownLoader {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 4;
         final String urlimg = url.replaceAll("[^\\w]", "");
-        LogTools.i("", "imgurl:");
         bitmap = showCacheBitmap(urlimg);
         if (bitmap != null) {
             if (i == 0) {
@@ -426,49 +489,6 @@ public class ImageDownLoader {
         }
     }
 
-    public void showImagelayouot(final Context mContext, final String url, final ImageView img, final int i) {
-        Bitmap bitmap = null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 4;
-        if (url == null || url.equalsIgnoreCase("")) return;
-        final String urlimg = url.replaceAll("[^\\w]", "");
-        LogTools.i("", "imgurl:");
-        bitmap = showCacheBitmap(urlimg);
-        if (bitmap != null) {
-            ((ImageView) img).setImageBitmap(bitmap);
-        } else {
-            final Handler handler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-//						listener.onImageLoader((Bitmap)msg.obj, urlimg);
-                    if ((Bitmap) msg.obj != null) {
-                        ((ImageView) img).setImageBitmap((Bitmap) msg.obj);
-//						((ImageView)img).setImageDrawable(new BitmapDrawable((Bitmap) msg.obj));
-                    }
-                }
-            };
-            getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    if (getBitmapFormUrl(url)) {
-                        Message msg = handler.obtainMessage();
-                        msg.obj = bitmapd;
-                        handler.sendMessage(msg);
-                        try {
-                            //保存在SD卡或者手机目录
-                            fileUtils.savaBitmap(urlimg, bitmapd);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        //将Bitmap 加入内存缓存
-                        addBitmapToMemoryCache(urlimg, bitmapd);
-                    }
-                }
-            });
-        }
-    }
 
 
     @SuppressWarnings({"unused", "deprecation"})
@@ -477,7 +497,6 @@ public class ImageDownLoader {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 4;
         final String urlimg = url.replaceAll("[^\\w]", "");
-        LogTools.e("imgurl:", "imgurl:-->" + url);
         bitmap = showCacheBitmap(urlimg);
         if (bitmap != null) {
             if (img instanceof MyLinearLayout)
