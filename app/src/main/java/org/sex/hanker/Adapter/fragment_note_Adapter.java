@@ -1,14 +1,19 @@
 package org.sex.hanker.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.sex.hanker.Activity.NoteDetailActivity;
 import org.sex.hanker.Bean.NoteBean;
 import org.sex.hanker.Bean.PictureEPBean;
+import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
@@ -37,6 +42,12 @@ public class fragment_note_Adapter extends RecyclerView.Adapter<fragment_note_Ad
             notifyDataSetChanged();
     }
 
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     @Override
     public fragment_note_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(context, R.layout.model2_vertical_note,null);
@@ -44,9 +55,22 @@ public class fragment_note_Adapter extends RecyclerView.Adapter<fragment_note_Ad
     }
 
     @Override
-    public void onBindViewHolder(fragment_note_Adapter.ViewHolder holder, int position) {
-        holder.title.setText(noteBeans.get(position).getTitle());
-        holder.content.setText(noteBeans.get(position).getContent());
+    public void onBindViewHolder(fragment_note_Adapter.ViewHolder holder, final int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(context, NoteDetailActivity.class);
+                String url= Httputils.ImgBaseUrl+noteBeans.get(position).getContentpath()+noteBeans.get(position).getNotepath();
+                intent.putExtra(BundleTag.URL,url);
+                intent.putExtra(BundleTag.Title,noteBeans.get(position).getTitle());
+                context.startActivity(intent);
+            }
+        });
+        TextView title=(TextView)holder.itemView.findViewById(R.id.title);
+        TextView content=(TextView)holder.itemView.findViewById(R.id.content);
+        title.setText(noteBeans.get(position).getTitle());
+        content.setText(Html.fromHtml(noteBeans.get(position).getContent()));
     }
 
     @Override

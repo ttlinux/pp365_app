@@ -15,4 +15,6 @@ public class BundleTag {
     public static final String Data="Data";
     public static final String Index="Index";
     public static final String ID="ID";
+    public static final String URL="URL";
+    public static final String Title="Title";
 }

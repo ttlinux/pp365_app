@@ -3,6 +3,7 @@ package org.sex.hanker.Fragment;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +27,7 @@ import org.sex.hanker.Bean.NoteBean;
 import org.sex.hanker.Bean.NoteMenuBean;
 import org.sex.hanker.Bean.PictureEPBean;
 import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.Utils.ToastUtil;
@@ -32,6 +35,8 @@ import org.sex.hanker.View.PullLoadMoreRecyclerView;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
+
+import io.vov.vitamio.utils.Log;
 
 /**
  * Created by Administrator on 2017/11/3.
@@ -49,6 +54,7 @@ public class Note extends BaseFragment{
     private int index=0;
     private final int count=20;
     fragment_note_Adapter fna;
+    ImageView bookshelf;
 
     public static Note GetInstance(Bundle arg) {
         if (note == null)
@@ -73,6 +79,7 @@ public class Note extends BaseFragment{
     public void Initview()
     {
         listView=(PullLoadMoreRecyclerView)FindView(R.id.listview);
+        bookshelf=(ImageView)FindView(R.id.bookshelf);
         listView.setLinearLayout();
         listView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
@@ -115,7 +122,7 @@ public class Note extends BaseFragment{
                     {
                         ArrayList<NoteMenuBean> arrnotebean=new ArrayList<NoteMenuBean>();
                         arrnotebean.add(notebean);
-                        notemenubeans.put(i,arrnotebean);
+                        notemenubeans.put(notebean.getId(),arrnotebean);
 
                         RadioButton textview = new RadioButton(getActivity());
                         textview.setButtonDrawable(new ColorDrawable(0));

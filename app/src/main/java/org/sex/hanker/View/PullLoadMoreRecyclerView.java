@@ -103,6 +103,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout{
     public void setStaggeredGridLayout(int spanCount) {
         StaggeredGridLayoutManager staggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(spanCount, LinearLayoutManager.VERTICAL);
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
     }
 

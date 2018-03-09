@@ -66,6 +66,13 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
         else
            notifyDataSetChanged();
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(context, R.layout.model3_galley_picture,null);

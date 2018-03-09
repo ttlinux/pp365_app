@@ -139,7 +139,13 @@ public class Httputils {
         client.get(url, requestParams, jsonHttpResponseHandler);
     }
 
-
+    public static void Get(String url,RequestParams requestParams,JsonHttpResponseHandler jsonHttpResponseHandler)
+    {
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.setTimeout(timeout);
+        LogTools.e("url", url);
+        client.get(url, requestParams, jsonHttpResponseHandler);
+    }
 
     public static void PostWithBaseUrl(String url,RequestParams requestParams,MyJsonHttpResponseHandler jsonHttpResponseHandler) {
 
