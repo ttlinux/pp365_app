@@ -43,4 +43,34 @@
         android:textColor="@color/gray"
         android:textSize="15sp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dip"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+
+    <TextView
+        android:id="@+id/backtoindex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:padding="10dip"
+        android:textColor="@color/gray"
+        android:text="返回首页"
+        />
+
+        <TextView
+            android:id="@+id/jumptoend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:padding="10dip"
+            android:textColor="@color/gray"
+            android:text="跳到末页"
+            />
+    </LinearLayout>
 </RelativeLayout>

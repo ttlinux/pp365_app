@@ -17,4 +17,6 @@ public class BundleTag {
     public static final String ID="ID";
     public static final String URL="URL";
     public static final String Title="Title";
+    public static final String NoteRecord="NoteRecord";
+    public static final String PageRecord="PageRecord";
 }

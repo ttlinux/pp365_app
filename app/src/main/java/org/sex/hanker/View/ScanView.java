@@ -19,6 +19,8 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import org.sex.hanker.Utils.LogTools;
+
 /**
  * 更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38728119
  * 
@@ -68,6 +70,53 @@ public class ScanView extends RelativeLayout
 	 */
 	private int mEvents;
 
+	public int getCurrPage() {
+		return index;
+	}
+
+	public void setAdapter(ScanViewAdapter adapter,int index)
+	{
+		this.index=index;
+		removeAllViews();
+		this.adapter = adapter;
+		prePage = adapter.getView();
+		addView(prePage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		adapter.addContent(prePage, index - 1);
+
+		currPage = adapter.getView();
+		addView(currPage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		adapter.addContent(currPage, index);
+
+		nextPage = adapter.getView();
+		addView(nextPage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		adapter.addContent(nextPage, index + 1);
+
+	}
+	public void jumpPage(int index)
+	{
+		if(adapter!=null && index>0)
+		{
+			removeAllViews();
+			this.index=index;
+			prePage = adapter.getView();
+			addView(prePage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			adapter.addContent(prePage, index - 1);
+
+			currPage = adapter.getView();
+			addView(currPage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			adapter.addContent(currPage, index);
+
+			nextPage = adapter.getView();
+			addView(nextPage, 0, new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			adapter.addContent(nextPage, index + 1);
+		}
+	}
 	public void setAdapter(ScanViewAdapter adapter)
 	{
 		removeAllViews();

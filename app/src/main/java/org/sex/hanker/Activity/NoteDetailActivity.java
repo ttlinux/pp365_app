@@ -2,6 +2,7 @@ package org.sex.hanker.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class NoteDetailActivity extends BaseActivity{
     ScanView scanView;
     String URL,Title;
     List<String> contents;
+    SharedPreferences share;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -62,6 +64,14 @@ public class NoteDetailActivity extends BaseActivity{
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogTools.e("scanView",scanView.getCurrPage()+"");
+        share.edit().putString(BundleTag.PageRecord,scanView.getCurrPage()+"").commit();
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
@@ -70,6 +80,7 @@ public class NoteDetailActivity extends BaseActivity{
 
     public void Initview()
     {
+         share=getSharedPreferences(BundleTag.NoteRecord,MODE_PRIVATE);
         scanView=FindView(R.id.scanview);
         URL=getIntent().getStringExtra(BundleTag.URL);
         Title=getIntent().getStringExtra(BundleTag.Title);
@@ -127,7 +138,14 @@ public class NoteDetailActivity extends BaseActivity{
                 this, "/PP365/note/").getAbsolutePath()+"/"+title+url.hashCode());
         contents= NoteMethod.getStrList(fnote,Amount,HorAmount);
         ScanViewAdapter adapter = new ScanViewAdapter(NoteDetailActivity.this,Title,contents);
-        scanView.setAdapter(adapter);
+        String index=share.getString(BundleTag.PageRecord,"1");
+        scanView.setAdapter(adapter,Integer.valueOf(index));
+        adapter.setOnJumpPageListener(new ScanViewAdapter.OnJumpPageListener() {
+            @Override
+            public void Onjump(int page) {
+                scanView.jumpPage(page);
+            }
+        });
     }
 
 

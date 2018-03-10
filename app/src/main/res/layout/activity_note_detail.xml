@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<TextView
-    android:id="@+id/test"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="14sp"
-    android:text="挥洒的"
-    />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        android:scaleType="fitXY"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        />
     <org.sex.hanker.View.ScanView
         android:id="@+id/scanview"
         android:layout_width="match_parent"
