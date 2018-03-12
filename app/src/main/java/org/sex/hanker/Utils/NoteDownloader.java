@@ -76,7 +76,7 @@ public class NoteDownloader {
                     "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA)");
             conn.setRequestProperty("Content-Type", "text/plain");
             conn.setRequestProperty("Charset", "UTF-8");
-            conn.addRequestProperty("connection", "keep-alive");
+//            conn.addRequestProperty("connection", "keep-alive");
 
 //            if(Unicode!=null)
 //                conn.addRequestProperty("Content-Type", "text/html; charset="+Unicode);

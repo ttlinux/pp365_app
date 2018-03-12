@@ -7,9 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -20,6 +22,7 @@ import org.json.JSONArray;
 import org.sex.hanker.Activity.PicDetailActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.PictureEPBean;
+import org.sex.hanker.Bean.ViewRound;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.Utils.ImageDownLoader;
@@ -42,6 +45,7 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
     ArrayList<PictureEPBean> pepbeans;
     JSONArray jsonArray;
     int index;
+    SparseArray<ViewRound> sparseArray=new SparseArray<>();
 
     public fragment_Picture_Adapter(Context context,ArrayList<PictureEPBean> pepbeans) {
         super();
@@ -87,6 +91,15 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
         final ImageView imageView=(ImageView)holder.itemView.findViewById(R.id.image);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.getLayoutParams().width=itemwidth;
+        if(sparseArray.get(position)!=null)
+        {
+            ViewRound viewRound=sparseArray.get(position);
+            imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,itemwidth*viewRound.getHeight()/viewRound.getWidth()));
+        }
+        else
+        {
+            imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,itemwidth));
+        }
         String url= Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +107,8 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
                 StartActivity(position);
             }
         });
-        imageDownLoader2.showImage(context,url,imageView,ImageDownLoader.SRC);
+        imageDownLoader2.showImageForSpecialListview(context,url,imageView,ImageDownLoader.SRC,sparseArray,position,itemwidth);
+
 //        imageLoader.loadImage(pics[position % 3], new ImageLoadingListener() {
 //            @Override
 //            public void onLoadingStarted(String s, View view) {
@@ -168,4 +182,5 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
         intent.setClass(context, PicDetailActivity.class);
         context.startActivity(intent);
     }
+
 }

@@ -130,7 +130,7 @@ public class Picture extends BaseFragment{
                             if (isChecked) {
                                 recordbutton=(RadioButton)buttonView;
                                 buttonView.setTextColor(getResources().getColor(R.color.red2));
-                                hasmoredata=true;
+
                                 getPicturelist(String.valueOf(buttonView.getTag() + ""), true);
                             } else {
                                 buttonView.setTextColor(getResources().getColor(R.color.black));
@@ -159,6 +159,7 @@ public class Picture extends BaseFragment{
             jsonarr=null;
             jsonarr=new JSONArray();
             index=0;
+            hasmoredata=true;
             setAdapter();
 
         }

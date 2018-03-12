@@ -102,7 +102,7 @@ public class PicDetailActivity extends BaseActivity{
                 if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))return;
                 JSONObject datas=jsonObject.optJSONObject("datas");
                 JSONObject picture=datas.optJSONObject("picture");
-                String cstr=picture.optString("contentpath","")+picture.optString("picpath","")+"/";
+                String cstr=picture.optString("contentpath","")+picture.optString("picpath","").replaceAll(" ","%20")+"/";
                 JSONArray images=picture.optJSONArray("images");
                     setViewPagerAdapter(images,cstr);
                 setHorlistviewBotAdapter(images,cstr);

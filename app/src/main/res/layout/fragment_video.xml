@@ -73,14 +73,10 @@
         android:layout_height="1px"
         android:background="@color/line"
         />
-    <GridView
-        android:id="@+id/gridview"
+    <org.sex.hanker.View.PullLoadMoreRecyclerView
+        android:id="@+id/pullLoadMoreRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3"
-        android:verticalSpacing="1px"
-        android:horizontalSpacing="1px"
-        >
+        android:layout_height="match_parent">
 
-    </GridView>
+    </org.sex.hanker.View.PullLoadMoreRecyclerView>
 </LinearLayout>

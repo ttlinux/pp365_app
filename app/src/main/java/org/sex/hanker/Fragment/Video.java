@@ -20,15 +20,19 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.sex.hanker.Adapter.fragment_Picture_Adapter;
 import org.sex.hanker.Adapter.fragment_Video_Adapter;
 import org.sex.hanker.BaseParent.BaseFragment;
+import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.Country;
 import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
+import org.sex.hanker.Utils.ToastUtil;
 import org.sex.hanker.View.Lottery_RandomNumber_Dialog;
 import org.sex.hanker.View.Lottery_more_Dialog;
+import org.sex.hanker.View.PullLoadMoreRecyclerView;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
@@ -39,11 +43,17 @@ import java.util.ArrayList;
 public class Video extends BaseFragment implements View.OnClickListener{
 
     public static Video video;
-    private GridView gridView;
+    private PullLoadMoreRecyclerView pullLoadMoreRecyclerView ;
     private HorizontalScrollView hsv;
     private TextView country;
-    private ArrayList<ArrayList<String>> titls=new ArrayList<>();
     fragment_Video_Adapter video_adapter;
+    String CountryArg;
+    String strs[],MenuIndex;
+    private boolean hasmoredata=true;
+    private int index=0;
+    private final int count=20;
+    private ArrayList<VideoBean> videoBeans=new ArrayList<>();
+
 
     public static Video GetInstance(Bundle arg) {
         if (video == null)
@@ -67,16 +77,33 @@ public class Video extends BaseFragment implements View.OnClickListener{
 
     public void Initview()
     {
-        gridView=(GridView)FindView(R.id.gridview);
+        strs=getResources().getStringArray(R.array.country);
+        pullLoadMoreRecyclerView=(PullLoadMoreRecyclerView)FindView(R.id.pullLoadMoreRecyclerView);
+        pullLoadMoreRecyclerView.setStaggeredGridLayout(3);
+        pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                getVideolist(MenuIndex, CountryArg,true);
+            }
+
+            @Override
+            public void onLoadMore() {
+                if(hasmoredata)
+                    getVideolist(MenuIndex, CountryArg, false);
+                else
+                    pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            }
+        });
         country=(TextView)FindView(R.id.country);
         country.setOnClickListener(this);
         hsv=(HorizontalScrollView)FindView(R.id.titles);
+        CountryArg=Country.US;
         getVideoMenu(0);
     }
 
     private void Showdialog(View v)
     {
-        final String strs[]=getResources().getStringArray(R.array.country);
+
         final Lottery_more_Dialog dialog=new Lottery_more_Dialog(getActivity(),strs);
         dialog.showDropdown(v);
         dialog.setOnDiaClickitemListener(new Lottery_more_Dialog.OnDiaClickitemListener() {
@@ -84,6 +111,7 @@ public class Video extends BaseFragment implements View.OnClickListener{
             public void Onclickitem(int index) {
                 dialog.hide();
                 country.setText(strs[index]);
+                CountryArg = index < 1 ? Country.US : Country.ASIA;
                 getVideoMenu(index);
             }
         });
@@ -101,8 +129,6 @@ public class Video extends BaseFragment implements View.OnClickListener{
 
     private void getVideoMenu(final int index)
     {
-        if(titls.size()<=index)
-        {
             RequestParams requestParams=new RequestParams();
             requestParams.put("country",index<1? Country.US:Country.ASIA);
             Httputils.PostWithBaseUrl(Httputils.Videomenu,requestParams,new MyJsonHttpResponseHandler(getActivity(),true)
@@ -139,8 +165,9 @@ public class Video extends BaseFragment implements View.OnClickListener{
                                 @Override
                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                     if (isChecked) {
+                                        MenuIndex=String.valueOf(buttonView.getTag() + "");
                                         buttonView.setTextColor(getResources().getColor(R.color.red2));
-                                        getVideolist(String.valueOf(buttonView.getTag()+""),index<1? Country.US:Country.ASIA);
+                                        getVideolist(MenuIndex,index<1? Country.US:Country.ASIA,true);
                                     } else {
                                         buttonView.setTextColor(getResources().getColor(R.color.black));
                                     }
@@ -154,24 +181,49 @@ public class Video extends BaseFragment implements View.OnClickListener{
                     }
                 }
             });
-        }
     }
 
-    private void getVideolist(String id,String country)
+    private void getVideolist(String id,String country,final boolean isinit)
     {
+        if(isinit)
+        {
+            videoBeans.clear();
+            index=0;
+            hasmoredata=true;
+            setAdapter();
+
+        }
+        else
+        {
+            index=index+count;
+        }
+
         RequestParams requestParams=new RequestParams();
-        requestParams.put("id",id);
+        requestParams.put("typeid",id);
         requestParams.put("country",country);
-        Httputils.PostWithBaseUrl(Httputils.login,requestParams,new MyJsonHttpResponseHandler(getActivity(),true)
+        requestParams.put("index",index+"");
+        requestParams.put("count",count+"");
+        Httputils.PostWithBaseUrl(Httputils.Video,requestParams,new MyJsonHttpResponseHandler(getActivity(),true)
         {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
                 super.onSuccessOfMe(jsonObject);
-                if(jsonObject.optString("status","").equalsIgnoreCase("000000"))
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+                if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))return;
+                JSONObject datas=jsonObject.optJSONObject("datas");
+                JSONArray videos=datas.optJSONArray("videos");
+                if(videos.length()<1)
                 {
-                    gridView.setAdapter(new fragment_Video_Adapter(getActivity()));
+                    ToastUtil.showMessage(getActivity(), getString(R.string.nomoredata));
+                    index=index-count;
+                    hasmoredata=false;
+                    return;
                 }
-
+                for (int i = 0; i <videos.length() ; i++) {
+                    VideoBean vbean=VideoBean.AnalynsisData(videos.optJSONObject(i));
+                    videoBeans.add(vbean);
+                }
+                setAdapter();
             }
 
             @Override
@@ -179,5 +231,19 @@ public class Video extends BaseFragment implements View.OnClickListener{
                 super.onFailureOfMe(throwable, s);
             }
         });
+    }
+
+    private void setAdapter()
+    {
+        if(video_adapter==null)
+        {
+            video_adapter=new fragment_Video_Adapter(getActivity(),videoBeans);
+            pullLoadMoreRecyclerView.setAdapter(video_adapter);
+        }
+        else
+        {
+            video_adapter.NotifyList(videoBeans);
+        }
+
     }
 }

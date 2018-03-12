@@ -15,9 +15,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
+import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import org.sex.hanker.Bean.ViewRound;
 import org.sex.hanker.View.MyLinearLayout;
 import org.sex.hanker.View.MyRadioButton;
 import org.sex.hanker.View.MyRelativeLayout;
@@ -220,6 +224,14 @@ public class ImageDownLoader {
             conn.setConnectTimeout(15 * 1000);
             conn.setReadTimeout(15 * 1000);
             conn.setRequestMethod("GET");
+            conn.setUseCaches(false); // 不允许使用缓存
+            conn.setRequestProperty("Cookie", System.currentTimeMillis() + "");
+            conn.setRequestProperty("Referer", url);
+            conn.setRequestProperty("User-Agent",
+                    "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA)");
+            conn.setRequestProperty("Content-Type", "image/jpeg");
+            conn.setRequestProperty("Charset", "UTF-8");
+            LogTools.e("ImageDownLoader", "conn.getResponseCode() " + conn.getResponseCode() );
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = conn.getInputStream();
                 if (in != null) {
@@ -231,6 +243,10 @@ public class ImageDownLoader {
                     }
                     in.close();
                     conn.disconnect();
+                }
+                else
+                {
+                    LogTools.e("ImageDownLoader", "下载失败"+url );
                 }
 
             }
@@ -356,6 +372,93 @@ public class ImageDownLoader {
         }
     }
 
+
+    @SuppressWarnings({"unused", "deprecation"})
+    public void showImageForSpecialListview(final Context mContext, final String url, final ImageView img, final int i
+    ,final SparseArray<ViewRound> sparseArray,final int position,final int itemwidth
+    ) {
+        if (i == SRC || i==CircleSRC) {
+            img.setImageBitmap((Bitmap) BitmapFactory.decodeResource(mContext.getResources(), R.drawable.defaultimage));
+        } else {
+            img.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.defaultimage));
+        }
+        Bitmap bitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        final String urlimg = url.replaceAll("[^\\w]", "");
+        bitmap = showCacheBitmap(urlimg);
+        if (bitmap != null) {
+            if (i == 0) {
+                img.setBackgroundDrawable(new BitmapDrawable(bitmap));
+            } else if (i == -9999) {
+                img.setImageBitmap(getCircleBitmap(bitmap));
+            } else if (i == -1) {
+                img.setBackgroundDrawable(new BitmapDrawable(getRoundedCornerBitmap(bitmap, 15, CORNER_TOP)));
+            } else {
+                img.setImageBitmap(bitmap);
+            }
+            ViewRound viewRound=new ViewRound();
+            viewRound.setHeight(bitmap.getHeight());
+            viewRound.setWidth(bitmap.getWidth());
+            sparseArray.put(position, viewRound);
+            img.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth, itemwidth * viewRound.getHeight() / viewRound.getWidth()));
+        } else {
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+//						listener.onImageLoader((Bitmap)msg.obj, urlimg);
+                    if ((Bitmap) msg.obj != null) {
+                        if (i == 0) {
+                            img.setBackgroundDrawable(new BitmapDrawable((Bitmap) msg.obj));
+                        } else if (i == -9999) {
+                            img.setImageBitmap(getCircleBitmap((Bitmap) msg.obj));
+                        } else if (i == -1) {
+                            img.setBackgroundDrawable(new BitmapDrawable(getRoundedCornerBitmap((Bitmap) msg.obj, 15, CORNER_TOP)));
+                        } else {
+                            img.setImageBitmap((Bitmap) msg.obj);
+                        }
+                    } else {
+                        if (i == 0) {
+                            img.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.defaultimage));
+                        } else {
+                            img.setImageBitmap((Bitmap) BitmapFactory.decodeResource(mContext.getResources(), R.drawable.defaultimage));
+                        }
+                    }
+                    if( msg.obj!=null)
+                    {
+                        Bitmap bp=(Bitmap) msg.obj;
+                        ViewRound viewRound=new ViewRound();
+                        viewRound.setHeight(bp.getHeight());
+                        viewRound.setWidth(bp.getWidth());
+                        sparseArray.put(position, viewRound);
+                        img.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth, itemwidth * viewRound.getHeight() / viewRound.getWidth()));
+                    }
+                }
+            };
+            getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (getBitmapFormUrl(url)) {
+                        Message msg = handler.obtainMessage();
+                        msg.obj = bitmapd;
+                        handler.sendMessage(msg);
+                        try {
+                            //保存在SD卡或者手机目录
+                            fileUtils.savaBitmap(urlimg, bitmapd);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        //将Bitmap 加入内存缓存
+                        addBitmapToMemoryCache(urlimg, bitmapd);
+                    }
+
+                }
+            });
+        }
+    }
+
     @SuppressWarnings({"unused", "deprecation"})
     public void showImage(final Context mContext, final String url, final ImageView img, final int i) {
         Bitmap bitmap = null;
@@ -373,6 +476,7 @@ public class ImageDownLoader {
             } else {
                 img.setImageBitmap(bitmap);
             }
+
         } else {
             final Handler handler = new Handler() {
                 @Override

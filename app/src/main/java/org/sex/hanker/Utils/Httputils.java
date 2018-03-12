@@ -47,7 +47,8 @@ public class Httputils {
 
     //视频
     public static String Videomenu="/interface/Videomenu";
-    public static String Video="/interface/VideoDetail";
+    public static String VideoDetail="/interface/VideoDetail";
+    public static String Video="/interface/Video";
     public static String VideoSearch="/interface/VideoSearch";
     //图片
     public static String picturemenu="/interface/picturemenu";

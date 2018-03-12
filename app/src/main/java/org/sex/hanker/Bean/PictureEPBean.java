@@ -167,7 +167,7 @@ public class PictureEPBean {
         pbean.setIspublic(jsonObject.optBoolean("ispublic",true));
         pbean.setParentid(jsonObject.optInt("parentid",1));
         pbean.setPicpath(jsonObject.optString("picpath",""));
-        pbean.setSmallpic(jsonObject.optString("smallpic",""));
+        pbean.setSmallpic(jsonObject.optString("smallpic","").replaceAll(" ","%20"));
         pbean.setTitle(jsonObject.optString("title",""));
         return pbean;
     }
