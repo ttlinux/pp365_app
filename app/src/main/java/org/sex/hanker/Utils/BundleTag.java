@@ -19,4 +19,5 @@ public class BundleTag {
     public static final String Title="Title";
     public static final String NoteRecord="NoteRecord";
     public static final String PageRecord="PageRecord";
+    public static final String PicSavePath="/PP365/Picture/";
 }

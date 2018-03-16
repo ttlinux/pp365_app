@@ -193,6 +193,56 @@ public class ImageDownLoader {
         return null;
     }
 
+    /**
+     * 从Url中获取Bitmap
+     *
+     * @param url
+     * @return
+     */
+    private boolean getBitmapFormUrlAndFix(String url,int width) {
+        HttpURLConnection conn = null;
+        URL mImageUrl = null;
+        try {
+            mImageUrl = new URL(url);
+            conn = (HttpURLConnection) mImageUrl.openConnection();
+            conn.setConnectTimeout(15 * 1000);
+            conn.setReadTimeout(15 * 1000);
+            conn.setRequestMethod("GET");
+            conn.setUseCaches(false); // 不允许使用缓存
+            conn.setRequestProperty("Cookie", System.currentTimeMillis() + "");
+            conn.setRequestProperty("Referer", url);
+            conn.setRequestProperty("User-Agent",
+                    "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA)");
+            conn.setRequestProperty("Content-Type", "image/jpeg");
+            conn.setRequestProperty("Charset", "UTF-8");
+            LogTools.e("ImageDownLoader", "conn.getResponseCode() " + conn.getResponseCode() );
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream in = conn.getInputStream();
+                if (in != null) {
+                    try {
+                        bitmapd = BitmapHandler.zoomImg_Width( BitmapFactory.decodeStream(conn.getInputStream()),width);
+                        return true;
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                    in.close();
+                    conn.disconnect();
+                }
+                else
+                {
+                    LogTools.e("ImageDownLoader", "下载失败"+url );
+                }
+
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      * 从Url中获取Bitmap
@@ -201,21 +251,6 @@ public class ImageDownLoader {
      * @return
      */
     private boolean getBitmapFormUrl(String url) {
-//		HttpURLConnection con = null;
-//		try {
-//			URL mImageUrl = new URL(url);
-//			con = (HttpURLConnection) mImageUrl.openConnection();
-//			con.setConnectTimeout(15 * 1000);
-//			con.setReadTimeout(15 * 1000);
-//			con.setDoInput(true);
-//			con.setDoOutput(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (con != null) {
-//				con.disconnect();
-//			}
-//		}
         HttpURLConnection conn = null;
         URL mImageUrl = null;
         try {
@@ -439,7 +474,7 @@ public class ImageDownLoader {
             getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-                    if (getBitmapFormUrl(url)) {
+                    if (getBitmapFormUrlAndFix(url,itemwidth)) {
                         Message msg = handler.obtainMessage();
                         msg.obj = bitmapd;
                         handler.sendMessage(msg);

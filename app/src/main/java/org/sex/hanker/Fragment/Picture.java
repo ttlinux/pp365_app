@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -27,6 +28,7 @@ import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.PictureEPBean;
 import org.sex.hanker.Utils.Country;
 import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.Utils.ToastUtil;
@@ -151,6 +153,80 @@ public class Picture extends BaseFragment{
         });
     }
 
+//    private void getPicturelist(String id,final boolean isinit)
+//    {
+//        if(isinit)
+//        {
+//            pepbeans.clear();
+//            jsonarr=null;
+//            jsonarr=new JSONArray();
+//            index=0;
+//            hasmoredata=true;
+//            setAdapter();
+//
+//        }
+//        else
+//        {
+//            index=index+count;
+//        }
+//
+//        RequestParams requestParams=new RequestParams();
+//        requestParams.put("typeid",id);
+//        requestParams.put("index",index+"");
+//        requestParams.put("count",count+"");
+//        Httputils.PostWithBaseUrl(Httputils.picture,requestParams,new MyJsonHttpResponseHandler(getActivity(),false)
+//        {
+//            @Override
+//            public void onSuccessOfMe(JSONObject jsonObject) {
+//                super.onSuccessOfMe(jsonObject);
+//                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+//                if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))return;
+//
+//                JSONObject datas=jsonObject.optJSONObject("datas");
+//                JSONArray pictures=datas.optJSONArray("pictures");
+//                if(pictures.length()<1)
+//                {
+//                    ToastUtil.showMessage(getActivity(),getString(R.string.nomoredata));
+//                    index=index-count;
+//                    hasmoredata=false;
+//                   return;
+//                }
+//
+//                for (int i = 0; i <pictures.length() ; i++) {
+//                    JSONObject jsonobj=pictures.optJSONObject(i);
+//                    jsonarr.put(jsonobj);
+//                    PictureEPBean pebean=PictureEPBean.AnalysisData(jsonobj);
+//                    pepbeans.add(pebean);
+//                }
+//                setAdapter();
+//            }
+//
+//            @Override
+//            public void onFailureOfMe(Throwable throwable, String s) {
+//                super.onFailureOfMe(throwable, s);
+//                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+//            }
+//        });
+//    }
+
+    private void setAdapter()
+    {
+        if(fpa==null)
+        {
+            fpa=new fragment_Picture_Adapter(getActivity(),pepbeans);
+            fpa.setJsonarr(jsonarr);
+            fpa.SetIndex(index);
+            pullLoadMoreRecyclerView.setAdapter(fpa);
+        }
+        else
+        {
+            fpa.setJsonarr(jsonarr);
+            fpa.SetIndex(index);
+            fpa.NotifyList(pepbeans);
+        }
+
+    }
+
     private void getPicturelist(String id,final boolean isinit)
     {
         if(isinit)
@@ -169,59 +245,56 @@ public class Picture extends BaseFragment{
         }
 
         RequestParams requestParams=new RequestParams();
-        requestParams.put("typeid",id);
-        requestParams.put("index",index+"");
-        requestParams.put("count",count+"");
-        Httputils.PostWithBaseUrl(Httputils.picture,requestParams,new MyJsonHttpResponseHandler(getActivity(),false)
-        {
-            @Override
-            public void onSuccessOfMe(JSONObject jsonObject) {
-                super.onSuccessOfMe(jsonObject);
-                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-                if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))return;
+        requestParams.put("pn",index+"");
+        requestParams.put("rn",count+"");
+        requestParams.put("tag1","美女");
+        requestParams.put("tag2","全部");
 
-                JSONObject datas=jsonObject.optJSONObject("datas");
-                JSONArray pictures=datas.optJSONArray("pictures");
+        Httputils.Get("http://image.baidu.com/channel/listjson?",requestParams,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                super.onSuccess(jsonObject);
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+
+                JSONArray pictures=jsonObject.optJSONArray("data");
+                LogTools.e("pppppp",pictures.length()+"");
                 if(pictures.length()<1)
                 {
                     ToastUtil.showMessage(getActivity(),getString(R.string.nomoredata));
                     index=index-count;
                     hasmoredata=false;
-                   return;
+                    return;
                 }
 
                 for (int i = 0; i <pictures.length() ; i++) {
                     JSONObject jsonobj=pictures.optJSONObject(i);
+                    LogTools.e("pppppp222",jsonobj.toString());
                     jsonarr.put(jsonobj);
-                    PictureEPBean pebean=PictureEPBean.AnalysisData(jsonobj);
-                    pepbeans.add(pebean);
+                    PictureEPBean pbean=new PictureEPBean();
+                    pbean.setAlt(jsonobj.optString("alt",""));
+                    pbean.setAuthor(jsonobj.optString("author",""));
+                    pbean.setClick(jsonobj.optString("click",""));
+                    pbean.setContentpath(jsonobj.optString("contentpath",""));
+                    pbean.setCreatetime(jsonobj.optLong("createtime",0));
+                    pbean.setEpisode(jsonobj.optInt("episode",1));
+                    pbean.setFimageurl(jsonobj.optString("fimageurl",""));
+                    pbean.setId(jsonobj.optInt("id",1));
+                    pbean.setImages(jsonobj.optString("images",""));
+                    pbean.setIspublic(jsonobj.optBoolean("ispublic",true));
+                    pbean.setParentid(jsonobj.optInt("parentid",1));
+                    pbean.setPicpath(jsonobj.optString("picpath",""));
+                    pbean.setSmallpic(jsonobj.optString("image_url",""));
+                    pbean.setTitle(jsonobj.optString("title",""));
+                    pepbeans.add(pbean);
                 }
                 setAdapter();
             }
 
             @Override
-            public void onFailureOfMe(Throwable throwable, String s) {
-                super.onFailureOfMe(throwable, s);
-                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            public void onFailure(Throwable throwable, String s) {
+                super.onFailure(throwable, s);
             }
         });
-    }
-
-    private void setAdapter()
-    {
-        if(fpa==null)
-        {
-            fpa=new fragment_Picture_Adapter(getActivity(),pepbeans);
-            fpa.setJsonarr(jsonarr);
-            fpa.SetIndex(index);
-            pullLoadMoreRecyclerView.setAdapter(fpa);
-        }
-        else
-        {
-            fpa.setJsonarr(jsonarr);
-            fpa.SetIndex(index);
-            fpa.NotifyList(pepbeans);
-        }
-
     }
 }

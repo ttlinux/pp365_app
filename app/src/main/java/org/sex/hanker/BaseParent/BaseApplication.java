@@ -32,6 +32,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sex.hanker.Bean.user;
+import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Crasherr;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.NetBroadcastReceiver;
@@ -160,7 +161,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
                 .displayer(new FadeInBitmapDisplayer(100))// 是否图片加载好后渐入的动画时间
                 .build();// 构建完成
         File cacheDir = StorageUtils.getOwnCacheDirectory(
-                getApplicationContext(), "/PP365/");
+                getApplicationContext(), BundleTag.PicSavePath);
 
         config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .memoryCacheExtraOptions(1440, 2560) // max width, max

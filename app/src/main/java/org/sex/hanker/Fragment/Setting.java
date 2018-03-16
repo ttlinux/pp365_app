@@ -16,6 +16,7 @@ import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.user;
 import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.ClearCache;
 import org.sex.hanker.View.MyRelativeLayout;
 import org.sex.hanker.mybusiness.R;
 
@@ -72,6 +73,8 @@ public class Setting extends BaseFragment implements View.OnClickListener{
             MyRelativeLayout Item_view=(MyRelativeLayout)View.inflate(getActivity(),R.layout.item_fragment_setting,null);
             TextView textview=(TextView)Item_view.findViewById(R.id.title);
             textview.setText(titles[i]);
+            textview.setTag(1000+i);
+            textview.setOnClickListener(this);
             list_item.addView(Item_view);
         }
 
@@ -84,6 +87,20 @@ public class Setting extends BaseFragment implements View.OnClickListener{
             case R.id.imagehead:
             case R.id.loginlayout:
                 startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.Status);
+                break;
+        }
+        switch ((int)v.getTag())
+        {
+            case 1000:
+                break;
+            case 1001:
+                break;
+            case 1002:
+                break;
+            case 1003:
+                break;
+            case 1004:
+                ClearCache.Clear(ClearCache.Picture,getActivity());
                 break;
         }
     }

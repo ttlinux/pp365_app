@@ -144,7 +144,7 @@ public class Httputils {
     {
         AsyncHttpClient client=new AsyncHttpClient();
         client.setTimeout(timeout);
-        LogTools.e("url", url);
+        LogTools.e("url", url+ new Gson().toJson(requestParams));
         client.get(url, requestParams, jsonHttpResponseHandler);
     }
 

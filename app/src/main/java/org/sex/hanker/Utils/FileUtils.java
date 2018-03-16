@@ -16,7 +16,7 @@ public class FileUtils {
 	/**
 	 * sd卡的根目录                                                                    
 	 */                                 
-	private static String mSdRootPath = Environment.getExternalStorageDirectory().toString()+"/PP365/";
+	private static String mSdRootPath = Environment.getExternalStorageDirectory().toString()+BundleTag.PicSavePath;
 	/**
 	 * 手机的缓存根目录
 	 */
@@ -28,7 +28,7 @@ public class FileUtils {
 
 	public FileUtils(Context context){
 
-		mDataRootPath = context.getCacheDir().toString()+"/PP365/";
+		mDataRootPath = context.getCacheDir().toString()+BundleTag.PicSavePath;
 	}
 
 

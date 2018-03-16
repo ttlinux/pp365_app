@@ -88,26 +88,26 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
 //        holder.itemView.setBackground(context.getResources().getDrawable(R.drawable.radiu_gray_rangle));
         TextView textView=(TextView)holder.itemView.findViewById(R.id.title);
         textView.setVisibility(View.GONE);
-        final ImageView imageView=(ImageView)holder.itemView.findViewById(R.id.image);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.getLayoutParams().width=itemwidth;
+        holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         if(sparseArray.get(position)!=null)
         {
-            ViewRound viewRound=sparseArray.get(position);
-            imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,itemwidth*viewRound.getHeight()/viewRound.getWidth()));
+//            ViewRound viewRound=sparseArray.get(position);
+//            holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,itemwidth*viewRound.getHeight()/viewRound.getWidth()));
         }
         else
         {
-            imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,itemwidth));
+            holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,300));
         }
-        String url= Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic();
-        imageView.setOnClickListener(new View.OnClickListener() {
+//        String url= Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic();
+        String url= pepbeans.get(position).getSmallpic();
+        LogTools.e("urlurl",position+holder.imageView.toString());
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StartActivity(position);
             }
         });
-        imageDownLoader2.showImageForSpecialListview(context,url,imageView,ImageDownLoader.SRC,sparseArray,position,itemwidth);
+        imageDownLoader2.showImageForSpecialListview(context,url,holder.imageView,ImageDownLoader.SRC,sparseArray,position,itemwidth);
 
 //        imageLoader.loadImage(pics[position % 3], new ImageLoadingListener() {
 //            @Override
@@ -143,9 +143,10 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView imageView;
         public ViewHolder(View itemView) {
             super(itemView);
-
+            imageView=(ImageView)itemView.findViewById(R.id.image);
         }
     }
 
