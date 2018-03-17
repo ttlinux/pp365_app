@@ -46,4 +46,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile project(':vitamio')
     compile files('libs/Java-WebSocket-1.3.7.jar')
+    compile files('libs/glide-3.7.0.jar')
+    compile project(':library')
 }

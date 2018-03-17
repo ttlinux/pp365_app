@@ -53,6 +53,7 @@
         <activity android:name="org.sex.hanker.Activity.RegisterActivity" />
         <activity android:name="org.sex.hanker.Activity.PicDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.NoteDetailActivity" />
+        <activity android:name="org.sex.hanker.Activity.TestActivity"/>
         <activity
             android:name="org.sex.hanker.Activity.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -65,6 +66,9 @@
                 <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
             <!--</intent-filter>-->
         <!--</receiver>-->
+        <meta-data
+            android:name="org.sex.hanker.Utils.GlideModuleConfig"
+            android:value="GlideModule" />
     </application>
 
 </manifest>

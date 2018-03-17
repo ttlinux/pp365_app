@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -107,8 +112,8 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
                 StartActivity(position);
             }
         });
-        imageDownLoader2.showImageForSpecialListview(context,url,holder.imageView,ImageDownLoader.SRC,sparseArray,position,itemwidth);
-
+//        imageDownLoader2.showImageForSpecialListview(context, url, holder.imageView, ImageDownLoader.SRC, sparseArray, position, itemwidth);
+        setImage(url,holder.imageView);
 //        imageLoader.loadImage(pics[position % 3], new ImageLoadingListener() {
 //            @Override
 //            public void onLoadingStarted(String s, View view) {
@@ -184,4 +189,25 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
         context.startActivity(intent);
     }
 
+    public void setImage(final String url,final ImageView imageView)
+    {
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        LogTools.e("kkkk", glideDrawable.getMinimumWidth() + "  " + glideDrawable.getMinimumHeight());
+                        LogTools.e("kkkk2222", glideDrawable.getIntrinsicWidth() + "  " + glideDrawable.getIntrinsicHeight());
+                        imageView .setLayoutParams(new RelativeLayout.LayoutParams(itemwidth, itemwidth * glideDrawable.getMinimumHeight() / glideDrawable.getMinimumWidth()));
+                        return false;
+                    }
+                })
+                .into(imageView);
+    }
 }
