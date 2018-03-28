@@ -7,17 +7,12 @@ import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
 
@@ -37,18 +32,18 @@ import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.OrientationSensorListener;
 import org.sex.hanker.Utils.ToastUtil;
 import org.sex.hanker.View.ColorTextview;
-import org.sex.hanker.View.Videoview;
+import org.sex.hanker.View.NewVideoView;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2017/12/29.
+ * Created by Administrator on 2018/3/20.
  */
-public class VideoActivity extends BaseActivity implements Videoview.OnLockScreenListener{
+public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLockScreenListener{
 
     private String ProductId,Country;
-    Videoview videoview;
+    NewVideoView videoview;
 
     private ChangeOrientationHandler handler;
     private OrientationSensorListener listener;
@@ -66,7 +61,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_videoview);
+        setContentView(R.layout.activity_new_videoview);
         Initview();
     }
 
@@ -100,7 +95,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
                     BaseApplication base=(BaseApplication)getApplication();
                     if(base.getUser()==null)
                     {
-                        startActivity(new Intent(VideoActivity.this,LoginActivity.class));
+                        startActivity(new Intent(NewVideoActivity.this,LoginActivity.class));
                     }
                     else
                     {
@@ -118,7 +113,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
                 BaseApplication base=(BaseApplication)getApplication();
                 if(base.getUser()==null)
                 {
-                    startActivity(new Intent(VideoActivity.this,LoginActivity.class));
+                    startActivity(new Intent(NewVideoActivity.this,LoginActivity.class));
                     return;
                 }
                 InitChat();
@@ -139,7 +134,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
         RequestParams requestParams=new RequestParams();
         requestParams.put("id",ProductId);
         requestParams.put("country", Country.length() > 0 ? BundleTag.ASIA:BundleTag.US);
-        Httputils.PostWithBaseUrl(Httputils.Video, requestParams, new MyJsonHttpResponseHandler(this, true) {
+        Httputils.PostWithBaseUrl(Httputils.VideoDetail, requestParams, new MyJsonHttpResponseHandler(this, true) {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
                 super.onSuccessOfMe(jsonObject);
@@ -149,9 +144,9 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
                     JSONObject datas = jsonObject.optJSONObject("datas");
                     JSONObject videos = datas.optJSONObject("videos");
                     //http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/1.m3u8 videos.optString("quality480p","")
-                    videoview.setPathAndPlay(videos.optString("quality480p",""));
+                    videoview.setPathAndPlay(Environment.getExternalStorageDirectory() + "/kk.mp4");//videos.optString("quality480p", "")
                 } else {
-                    ToastUtil.showMessage(VideoActivity.this, jsonObject.optString("info"));
+                    ToastUtil.showMessage(NewVideoActivity.this, jsonObject.optString("info"));
                 }
             }
 
@@ -166,7 +161,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
     protected void onDestroy() {
         super.onDestroy();
         if(videoview.getReceiver()!=null)
-        unregisterReceiver(videoview.getReceiver());
+            unregisterReceiver(videoview.getReceiver());
         if(chatMethod!=null)
         {
             unregisterReceiver(chatMethod);
@@ -225,7 +220,7 @@ public class VideoActivity extends BaseActivity implements Videoview.OnLockScree
         requestParams.put("videoid",videoid);
         requestParams.put("index",MessagePage+"");
         requestParams.put("amount", pageAmount + "");
-        requestParams.put("sequence","ASC");//ASC 升序 DESC 降序
+        requestParams.put("sequence", "ASC");//ASC 升序 DESC 降序
         Httputils.PostWithBaseUrl(Httputils.MessageRecord, requestParams, new MyJsonHttpResponseHandler(this, false) {
             @Override
             public void onFailureOfMe(Throwable throwable, String s) {

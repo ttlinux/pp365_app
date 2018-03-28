@@ -39,6 +39,24 @@ public class PictureEPBean {
     private String click;
     private String fimageurl;
     private String images;
+    private int pictureHeight;
+    private int pictureWidth;
+
+    public int getPictureHeight() {
+        return pictureHeight;
+    }
+
+    public void setPictureHeight(int pictureHeight) {
+        this.pictureHeight = pictureHeight;
+    }
+
+    public int getPictureWidth() {
+        return pictureWidth;
+    }
+
+    public void setPictureWidth(int pictureWidth) {
+        this.pictureWidth = pictureWidth;
+    }
 
     public int getId() {
         return id;
@@ -156,19 +174,21 @@ public class PictureEPBean {
     {
         PictureEPBean pbean=new PictureEPBean();
         pbean.setAlt(jsonObject.optString("alt",""));
-        pbean.setAuthor(jsonObject.optString("author",""));
-        pbean.setClick(jsonObject.optString("click",""));
-        pbean.setContentpath(jsonObject.optString("contentpath",""));
-        pbean.setCreatetime(jsonObject.optLong("createtime",0));
-        pbean.setEpisode(jsonObject.optInt("episode",1));
-        pbean.setFimageurl(jsonObject.optString("fimageurl",""));
-        pbean.setId(jsonObject.optInt("id",1));
-        pbean.setImages(jsonObject.optString("images",""));
-        pbean.setIspublic(jsonObject.optBoolean("ispublic",true));
-        pbean.setParentid(jsonObject.optInt("parentid",1));
-        pbean.setPicpath(jsonObject.optString("picpath",""));
-        pbean.setSmallpic(jsonObject.optString("smallpic","").replaceAll(" ","%20"));
-        pbean.setTitle(jsonObject.optString("title",""));
+        pbean.setAuthor(jsonObject.optString("author", ""));
+        pbean.setClick(jsonObject.optString("click", ""));
+        pbean.setContentpath(jsonObject.optString("contentpath", ""));
+        pbean.setCreatetime(jsonObject.optLong("createtime", 0));
+        pbean.setEpisode(jsonObject.optInt("episode", 1));
+        pbean.setFimageurl(jsonObject.optString("fimageurl", ""));
+        pbean.setId(jsonObject.optInt("id", 1));
+        pbean.setImages(jsonObject.optString("images", ""));
+        pbean.setIspublic(jsonObject.optBoolean("ispublic", true));
+        pbean.setParentid(jsonObject.optInt("parentid", 1));
+        pbean.setPicpath(jsonObject.optString("picpath", ""));
+        pbean.setSmallpic(jsonObject.optString("smallpic", "").replaceAll(" ", "%20"));
+        pbean.setTitle(jsonObject.optString("title", ""));
+        pbean.setPictureHeight(jsonObject.optInt("pictureHeight",0));
+        pbean.setPictureWidth(jsonObject.optInt("pictureWidth",0));
         return pbean;
     }
 }

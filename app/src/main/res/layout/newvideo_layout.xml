@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <org.sex.hanker.View.VideoPlayerIJK
+        android:id="@+id/ijkplayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </org.sex.hanker.View.VideoPlayerIJK>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:id="@+id/probar"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/dialog_loading"
+            android:indeterminateOnly="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+
+        <TextView
+            android:id="@+id/download_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/load_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:text="" />
+    </LinearLayout>
+
+    <CheckBox
+        android:button="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:id="@+id/lock"
+        android:layout_centerVertical="true"
+        android:background="@drawable/lock_backgroud"
+        />
+
+    <RelativeLayout
+        android:id="@+id/bottomview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ijkplayer"
+        android:orientation="horizontal"
+        android:background="@color/gray15"
+        >
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            />
+        <ImageView
+            android:id="@+id/pauseorstart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_centerInParent="true"
+            android:src="@drawable/player_pause_normal"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            >
+            <ImageView
+                android:id="@+id/bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:src="@drawable/player_brightness"
+                />
+            <ImageView
+                android:id="@+id/volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:src="@drawable/player_volume"
+                />
+            <ImageView
+                android:id="@+id/fullscreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:src="@drawable/btn_smallplayer_back"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <org.sex.hanker.View.HorSeekbar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="20dip"
+        android:layout_above="@id/bottomview"
+        android:layout_marginBottom="-10dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:max="1000"
+        android:progress="0"
+        android:progressDrawable="@drawable/bg_bar"
+        android:thumb="@drawable/thumb_bar"
+        />
+    <RelativeLayout
+        android:id="@+id/sidebar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dip"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/seekbar"
+        >
+
+        <ImageView
+            android:id="@+id/imagetag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/player_volume"
+            />
+        <org.sex.hanker.View.VerticalSeekBar
+            android:id="@+id/volunmseekbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:thumb="@drawable/thumb_bar"
+            android:progressDrawable="@drawable/bg_bar"
+            android:layout_above="@id/imagetag"
+            />
+    </RelativeLayout>
+</RelativeLayout>

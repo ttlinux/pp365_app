@@ -101,14 +101,21 @@ public class fragment_Picture_Adapter extends RecyclerView.Adapter<fragment_Pict
         }
         else
         {
-            holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,300));
+
         }
-//        String url= Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic();
-        String url= pepbeans.get(position).getSmallpic();
-        LogTools.e("urlurl",position+holder.imageView.toString());
+        if( pepbeans.get(position).getPictureHeight()>0 &&  pepbeans.get(position).getPictureWidth()>0)
+        {
+            int realheight=itemwidth*pepbeans.get(position).getPictureHeight()/pepbeans.get(position).getPictureWidth();
+            holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,realheight));
+        }
+        else
+             holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(itemwidth,300));
+        String url= Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic();
+//        String url= pepbeans.get(position).getSmallpic();
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LogTools.e("urrrr",Httputils.ImgBaseUrl+pepbeans.get(position).getContentpath()+pepbeans.get(position).getSmallpic());
                 StartActivity(position);
             }
         });

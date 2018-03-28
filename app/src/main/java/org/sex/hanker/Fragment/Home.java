@@ -24,9 +24,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sex.hanker.Activity.LoginActivity;
+import org.sex.hanker.Activity.NewVideoActivity;
 import org.sex.hanker.Activity.RegisterActivity;
 import org.sex.hanker.Activity.Testcar;
-import org.sex.hanker.Activity.VideoActivity;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.Adapter.ScrollAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
@@ -220,7 +220,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
                 linlayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), VideoActivity.class);
+                        Intent intent = new Intent(getActivity(), NewVideoActivity.class);
                         intent.putExtra(BundleTag.ProductId,jsob.optString("modelid",""));
                         intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
                         startActivity(intent);

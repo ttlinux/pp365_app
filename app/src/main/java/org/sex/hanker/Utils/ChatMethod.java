@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
-import io.vov.vitamio.utils.Log;
 
 /**
  * Created by Administrator on 2018/2/1.

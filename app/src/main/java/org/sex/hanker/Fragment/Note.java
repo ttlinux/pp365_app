@@ -36,7 +36,6 @@ import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
 
-import io.vov.vitamio.utils.Log;
 
 /**
  * Created by Administrator on 2017/11/3.
