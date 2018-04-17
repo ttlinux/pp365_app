@@ -120,6 +120,16 @@ public class Home extends BaseFragment implements View.OnClickListener{
 
         textView.setLayoutParams(ll);
         textView.setText("最新视频");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //测试
+                Intent intent = new Intent(getActivity(), Testcar.class);
+//                intent.putExtra(BundleTag.ProductId,jsob.optString("modelid",""));
+//                intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
+                startActivity(intent);
+            }
+        });
         textView.setPadding(ScreenUtils.getDIP2PX(getActivity(), 10), ScreenUtils.getDIP2PX(getActivity(), 10), ScreenUtils.getDIP2PX(getActivity(), 10), ScreenUtils.getDIP2PX(getActivity(), 10));
         textView.setBackgroundColor(0xffffffff);
         textView.setGravity(Gravity.LEFT | Gravity.CENTER);

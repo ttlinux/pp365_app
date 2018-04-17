@@ -1,5 +1,7 @@
 package org.sex.hanker.Utils;
 
+import android.os.Environment;
+
 /**
  * Created by Administrator on 2017/12/28.
  */
@@ -20,4 +22,5 @@ public class BundleTag {
     public static final String NoteRecord="NoteRecord";
     public static final String PageRecord="PageRecord";
     public static final String PicSavePath="/PP365/Picture/";
+    public static final String VideoCachePath= Environment.getExternalStorageDirectory().getPath()+"/Xokong/";
 }

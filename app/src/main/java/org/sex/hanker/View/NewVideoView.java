@@ -30,16 +30,25 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.danikula.videocache.HttpProxyCacheServer;
+
+import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.Utils.TimeUtils;
 import org.sex.hanker.mybusiness.R;
 
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+
 
 /**
  * Created by Administrator on 2018/3/20.
  */
-public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarChangeListener,GestureDetector.OnGestureListener,View.OnClickListener{
+public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarChangeListener,
+        GestureDetector.OnGestureListener,
+        View.OnClickListener
+
+{
 
     Context context;
     AudioManager am;
@@ -167,16 +176,18 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         this.onLockScreenListener = onLockScreenListener;
     }
     public void setPathAndPlay(String path) {
+        HttpProxyCacheServer proxy = BaseApplication.getProxy(context);
+        String proxyUrl = proxy.getProxyUrl(path);
+        LogTools.e("proxyUrl",proxyUrl);
         this.path = path;
 //        ijkplayer.setv(MediaPlayer.VIDEOQUALITY_LOW); //设置 MediaPlayer.VIDEOQUALITY_LOW  VIDEOQUALITY_MEDIUM VIDEOQUALITY_HIGH
-        ijkplayer.setVideoPath(path);
+        ijkplayer.setVideoPath(proxyUrl);
         ijkplayer.start();
     }
 
     public VolumeReceiver getReceiver() {
         return receiver;
     }
-
 
     public NewVideoView(Context context) {
         super(context);
@@ -198,6 +209,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         mDetector = new GestureDetectorCompat(context,this);
         this.addView(View.inflate(context, R.layout.newvideo_layout, null));
         ijkplayer = (VideoPlayerIJK) findViewById(R.id.ijkplayer);
+        ijkplayer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,ScreenUtils.getDIP2PX(context,300)));
         bright = (ImageView) findViewById(R.id.bright);
         volume = (ImageView) findViewById(R.id.volume);
         fullscreen=(ImageView)findViewById(R.id.fullscreen);
@@ -237,7 +249,45 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
         uri = Uri.parse(path);
         ijkplayer.requestFocus();
+        ijkplayer.setListener(new VideoPlayerListener() {
+            @Override
+            public void onBufferingUpdate(IMediaPlayer mp, int percent) {
+                LogTools.e("iii", "onBufferingUpdate");
+            }
 
+            @Override
+            public void onCompletion(IMediaPlayer mp) {
+                LogTools.e("iii","onCompletion");
+            }
+
+            @Override
+            public boolean onError(IMediaPlayer mp, int what, int extra) {
+                LogTools.e("iii","onError");
+                return false;
+            }
+
+            @Override
+            public boolean onInfo(IMediaPlayer mp, int what, int extra) {
+                LogTools.e("iii","onInfo");
+                return false;
+            }
+
+            @Override
+            public void onPrepared(IMediaPlayer mp) {
+                LogTools.e("iii","onPrepared");
+                seekbar.setEnabled(true);
+            }
+
+            @Override
+            public void onSeekComplete(IMediaPlayer mp) {
+                LogTools.e("iii", "onSeekComplete");
+            }
+
+            @Override
+            public void onVideoSizeChanged(IMediaPlayer mp, int width, int height, int sar_num, int sar_den) {
+                LogTools.e("iii","onVideoSizeChanged");
+            }
+        });
 
 //        buffer.setVideoLayout(VideoView.VIDEO_LAYOUT_SCALE, 0);
 //        buffer.pause();
@@ -448,4 +498,5 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
             }
         }
     }
+
 }

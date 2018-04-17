@@ -101,6 +101,7 @@ public class Setting extends BaseFragment implements View.OnClickListener{
                 break;
             case 1004:
                 ClearCache.Clear(ClearCache.Picture,getActivity());
+                ClearCache.Clear(ClearCache.DownloadMovie,getActivity());
                 break;
         }
     }

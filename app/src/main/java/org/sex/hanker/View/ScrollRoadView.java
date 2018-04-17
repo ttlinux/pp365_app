@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+
+import org.sex.hanker.Utils.BitmapHandler;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.mybusiness.R;
@@ -33,7 +36,7 @@ public class ScrollRoadView extends LinearLayout {
     private final long speed = 15;//匀速运动的速度
     private int times = 25;//匀速运动次数
     private boolean hasend = false;
-    private Bitmap roadpic;
+    private Bitmap roadpic,beijinpic,leftline;
     int ScreenWidth, picwidth, picheight, carwidth, carheight;
     long left = 0;
     int carCount;//能画几个车
@@ -42,11 +45,12 @@ public class ScrollRoadView extends LinearLayout {
     Context context;
     Integer result[];
     int resulttime = 4000;
-    int RunTime = 20000;
+    int RunTime = 20000;//动画时间
     int carpianyi = 0;
     long linepianyi = 0;
     OnChangRankListener onchangrank;
-
+int imgtop=5;
+int imgbottom=45;
     Random radom = new Random();
     int m_times = 0;
     EndListener endlistener;
@@ -58,7 +62,8 @@ public class ScrollRoadView extends LinearLayout {
 
     ArrayList<Car> cars = new ArrayList<>();
     long begintime = 0;
-    boolean isinresulttime = false;
+    boolean isinresulttime = false;//设置开奖
+    boolean starline = true;//设置开始的线
     long linespeed = 0;
     long lineX = 0;
     boolean end = false;
@@ -114,7 +119,7 @@ public class ScrollRoadView extends LinearLayout {
                         Arrays.sort(zubiaos);
                         for (int i = 0; i < result.length; i++) {
                             result[i] = temp.get(zubiaos[i]) + 1;
-                            LogTools.e("zuobiao",zubiaos[i]+"  "+temp.get(zubiaos[i]));
+                            LogTools.e("zuobiao", zubiaos[i] + "  " + temp.get(zubiaos[i]));
                         }
                         onchangrank.Rank(result);
                         if(!hasend && end && endlistener!=null)
@@ -175,7 +180,7 @@ public class ScrollRoadView extends LinearLayout {
         }
 
         for (int i = 0; i < cars.size(); i++) {
-            LinearLayout.LayoutParams ll = (LayoutParams) cars.get(i).getLayoutParams();
+            LayoutParams ll = (LayoutParams) cars.get(i).getLayoutParams();
             int speed = Speeds.get(i);
             if (ll.leftMargin <= dintance.get(i) && m_times == times) {
                 switch (tags[i]) {
@@ -199,7 +204,7 @@ public class ScrollRoadView extends LinearLayout {
             }
             Speeds.put(i, speed);
             ll.leftMargin = ll.leftMargin - speed;
-//            cars.get(i).jiasu(speed>0);
+            cars.get(i).jiasu(speed>0,i);
             cars.get(i).setLayoutParams(ll);
             zubiaos[i] = ll.leftMargin;
         }
@@ -210,7 +215,7 @@ public class ScrollRoadView extends LinearLayout {
         boolean hascarnotfinish = false;
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
-            LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
+            LayoutParams ll = (LayoutParams) car.getLayoutParams();
 
             ll.leftMargin = ll.leftMargin - 8;
             car.setLayoutParams(ll);
@@ -222,13 +227,14 @@ public class ScrollRoadView extends LinearLayout {
     }
 
     private void Onresult() {
+        //结束的时候
         if (m_times == times) {
             Random radom = new Random();
-            int endline = ScreenWidth / 7;//终点线
+            int endline = ScreenWidth /7;//终点线
             int carmagin = radom.nextInt(5);//设置随机车的间隔
             for (int i = 0; i < result.length; i++) {
                 Car car = cars.get(result[i] - 1);
-                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
+                LayoutParams ll = (LayoutParams) car.getLayoutParams();
                 int leftmagin = ll.leftMargin;
                 int needmagrin = i * (carwidth + carmagin) + endline;
                 int speed = Math.abs(leftmagin - needmagrin) / m_times;
@@ -237,11 +243,12 @@ public class ScrollRoadView extends LinearLayout {
                 Speeds.put(result[i] - 1, leftmagin > needmagrin ? -speed : speed);
             }
         }
+        //重新开始的时候
         int pianyiadd = 0;
         int numberone = result[0] - 1;
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
-            LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
+            LayoutParams ll = (LayoutParams) car.getLayoutParams();
             double speed = Speeds.get(i);
 
             if (carpianyi > 0 && i == numberone) {
@@ -291,10 +298,17 @@ public class ScrollRoadView extends LinearLayout {
         if (picwidth > 0) return;
         ScreenWidth = ScreenUtils.getScreenWH((Activity) context)[0];
         linespeed = speed;
-        roadpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic);
+        BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
+        bfoOptions.inScaled = false;
+        roadpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic,bfoOptions);
+        beijinpic= BitmapFactory.decodeResource(context.getResources(), R.drawable.shan, bfoOptions);
+        Bitmap temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic,bfoOptions);
+        leftline= BitmapHandler.zoomImg(temp,temp.getWidth(),600);
         picwidth = roadpic.getWidth();
-        picheight = roadpic.getHeight();
-        linepianyi = ScreenWidth / 7 % linespeed;
+        picheight = roadpic.getHeight()+beijinpic.getHeight();
+        linepianyi = ScreenWidth /7 % linespeed;
+        int idnx=0;
+        int idnx2=0;
 
         for (int i = 0; i < getChildCount(); i++) {
             if (getChildAt(i) instanceof Car) {
@@ -303,10 +317,11 @@ public class ScrollRoadView extends LinearLayout {
                     carwidth = car.getCarwith();
                     carheight = car.getCarheight();
                 }
-                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
-                ll.leftMargin = ScreenWidth - carwidth;
+                LayoutParams ll = (LayoutParams) car.getLayoutParams();
+                ll.leftMargin = ScreenWidth -carwidth/2- idnx;
                 car.setLayoutParams(ll);
                 cars.add(car);
+                idnx=idnx+20;
             } else {
                 try {
                     throw new ExceptionInInitializerError("只能用Car做子view");
@@ -321,9 +336,10 @@ public class ScrollRoadView extends LinearLayout {
         tags = new int[carCount];
         zubiaos = new int[carCount];
         for (int i = 0; i < carCount; i++) {
-            zubiaos[i] = ScreenWidth - carwidth;
+            zubiaos[i] = ScreenWidth-carwidth/2-idnx2 ;
             Speeds.put(i, 0);
             tags[i] = 0;
+            idnx2=idnx2+20;
         }
         handler.sendEmptyMessageDelayed(1, 1000 * 20);
 
@@ -334,12 +350,14 @@ public class ScrollRoadView extends LinearLayout {
 
 //        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         Initview();
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(roadpic.getHeight(), MeasureSpec.AT_MOST));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(picheight, MeasureSpec.AT_MOST));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+
         Paint paint = new Paint();
         paint.setAntiAlias(true);
 
@@ -356,13 +374,32 @@ public class ScrollRoadView extends LinearLayout {
         super.dispatchDraw(canvas);
         //1080
         Paint paint = new Paint();
+        //画开始的线
+        if(starline ) {
+            LogTools.e("lineX", lineX + " " );
+            Rect src2 = new Rect();// 图片
+            Rect dst2 = new Rect();// 屏幕位置及尺寸
+//                canvas.drawBitmap(leftline, lineX, beijinpic.getHeight(), paint);
+            src2 = new Rect(0, 0, leftline.getWidth(), leftline.getHeight());
+            dst2 = new Rect(ScreenWidth - carwidth-leftline.getWidth(), beijinpic.getHeight() + imgtop, ScreenWidth - carwidth, picheight - imgbottom);
+            canvas.drawBitmap(leftline, src2, dst2, paint);
+            LogTools.e("argg", ScreenWidth + " " + carwidth + " " + leftline.getWidth());
+            starline=false;
+        }
+
+
+        //画结束的线
         if (isinresulttime) {
+            starline=false;
             if (m_times <= ScreenWidth / 7 / linespeed + 1) {
-                paint.setAntiAlias(true);
-                paint.setColor(0xffffffff);
-                paint.setStrokeWidth(3);
-                canvas.drawLine(lineX, 0, lineX, picheight, paint);
-                LogTools.e("dispatchDraw", lineX + " " + m_times);
+                Rect src = new Rect();// 图片
+                Rect dst = new Rect();// 屏幕位置及尺寸
+//                canvas.drawBitmap(leftline, lineX, beijinpic.getHeight(), paint);
+                src = new Rect(0,0,leftline.getWidth(), leftline.getHeight());
+                dst = new Rect( carwidth/2, beijinpic.getHeight() + imgtop,carwidth/2 + leftline.getWidth(), picheight - imgbottom);
+//                dst = new Rect((int)lineX-leftline.getWidth()/2, beijinpic.getHeight()+imgtop, (int)lineX+leftline.getWidth(),picheight-imgbottom);
+                canvas.drawBitmap(leftline, src,dst, paint);
+                LogTools.e("dispatchDraw", lineX + " " + linepianyi);
                 if (!end) {
                     lineX = linespeed + lineX;
                     if (linepianyi > 0) {
@@ -370,18 +407,25 @@ public class ScrollRoadView extends LinearLayout {
                         linepianyi--;
                     }
                 }
+
+                src = null;
+                dst = null;
+
             }
             else
             {
                 if(hasend && end)
                 {
-                    paint.setAntiAlias(true);
-                    paint.setColor(0xffffffff);
-                    paint.setStrokeWidth(3);
-                    canvas.drawLine(lineX, 0, lineX, picheight, paint);
+                    Rect src = new Rect();// 图片
+                    Rect dst = new Rect();// 屏幕位置及尺寸
+
+                    src = new Rect(0,0,leftline.getWidth(), leftline.getHeight());
+                    dst = new Rect((int)lineX, beijinpic.getHeight()+imgtop, (int)lineX+leftline.getWidth(),picheight-imgbottom);
+                    canvas.drawBitmap(leftline, src,dst, paint);
                 }
             }
         }
+
     }
 
     private void left(Canvas canvas, Paint paint) {
@@ -393,13 +437,18 @@ public class ScrollRoadView extends LinearLayout {
                 //disapper
                 LogTools.e("ScrollRoad", "disapper");
                 left = speed;
-                canvas.drawBitmap(roadpic, -left, 0, paint);
+                canvas.drawBitmap(roadpic, -left, beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, -left, 0, paint);
             } else {
-                canvas.drawBitmap(roadpic, -left, 0, paint);
-                canvas.drawBitmap(roadpic, picwidth - left, 0, paint);
+                canvas.drawBitmap(roadpic, -left, beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, -left, 0, paint);
+                canvas.drawBitmap(roadpic, picwidth - left, beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, picwidth - left, 0, paint);
             }
         } else {
-            canvas.drawBitmap(roadpic, -left, 0, paint);
+            canvas.drawBitmap(roadpic, -left, beijinpic.getHeight(), paint);
+            canvas.drawBitmap(beijinpic, -left, 0, paint);
+
         }
         left = left + speed;
     }
@@ -413,14 +462,18 @@ public class ScrollRoadView extends LinearLayout {
                 //disapper
                 LogTools.e("ScrollRoad", "disapper");
                 left = speed;
-                canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, 0, paint);
+                canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, -(picwidth - ScreenWidth) + left, 0, paint);
             } else {
-                canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, 0, paint);
+                canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, -(picwidth - ScreenWidth) + left, 0, paint);
                 long juli = -(picwidth - ScreenWidth) + left;
-                canvas.drawBitmap(roadpic, -(picwidth - juli), 0, paint);
+                canvas.drawBitmap(roadpic, -(picwidth - juli), beijinpic.getHeight(), paint);
+                canvas.drawBitmap(beijinpic, -(picwidth - juli), 0, paint);
             }
         } else {
-            canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, 0, paint);
+            canvas.drawBitmap(roadpic, -(picwidth - ScreenWidth) + left, beijinpic.getHeight(), paint);
+            canvas.drawBitmap(beijinpic, -(picwidth - ScreenWidth) + left, 0, paint);
         }
         left = left + speed;
     }
@@ -430,15 +483,8 @@ public class ScrollRoadView extends LinearLayout {
         end=false;
         lineX=0;
         isinresulttime=false;
-        if(carwidth>0)
-        for (int i = 0; i <getChildCount(); i++) {
-            if (getChildAt(i) instanceof Car) {
-                Car car = (Car) getChildAt(i);
-                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) car.getLayoutParams();
-                ll.leftMargin = ScreenWidth - carwidth;
-                car.setLayoutParams(ll);
-            }
-        }
+        starline=true;
+
         begintime = System.currentTimeMillis();
         handler.sendEmptyMessageDelayed(0, 30);
         handler.removeMessages(1);

@@ -25,6 +25,7 @@ public class ClearCache {
                         activity, BundleTag.PicSavePath));
                 break;
             case DownloadMovie:
+                deleteDir(new File(BundleTag.VideoCachePath));
                 break;
         }
         ToastUtil.showMessage(activity,"清除完成");

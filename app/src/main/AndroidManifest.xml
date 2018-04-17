@@ -54,7 +54,9 @@
         <activity android:name="org.sex.hanker.Activity.PicDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.NoteDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.TestActivity"/>
-        <activity android:name="org.sex.hanker.Activity.NewVideoActivity"/>
+        <activity android:name="org.sex.hanker.Activity.NewVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity
             android:name="org.sex.hanker.Activity.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
