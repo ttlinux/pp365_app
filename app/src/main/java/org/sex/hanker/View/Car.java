@@ -105,7 +105,7 @@ public class Car extends LinearLayout{
 
 
         car=new ImageView(context);
-        car.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
         Bitmap carbitmap  = BitmapFactory.decodeResource(context.getResources(), R.drawable.car1,bfoOptions);;
@@ -134,9 +134,20 @@ public class Car extends LinearLayout{
         carheight=carbitmap.getHeight();
         carwith=carbitmap.getWidth();
         car.setImageBitmap(carbitmap);
+        car.setLayoutParams(new ViewGroup.LayoutParams(carwith, carheight));
 //        relayout.addView(car);
 ////        relayout.addView(jiasu);
 //        addView(relayout);
         addView(car);
+    }
+
+    public int getViewHeight()
+    {
+        return carheight;
+    }
+
+    public  int getViewWidth()
+    {
+        return carwith;
     }
 }

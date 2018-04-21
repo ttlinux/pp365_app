@@ -52,11 +52,13 @@ public class Testcar extends BaseActivity implements View.OnClickListener{
         aaa=FindView(R.id.aaa);
         aaa.setVisibility(View.VISIBLE);
         srollroad.setOrientation(LinearLayout.VERTICAL);
-        beijinpic= BitmapFactory.decodeResource(this.getResources(), R.drawable.shan);
-        roadpic = BitmapFactory.decodeResource(this.getResources(), R.drawable.gamepic);
+        BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
+        bfoOptions.inScaled = false;
+        beijinpic= BitmapFactory.decodeResource(this.getResources(), R.drawable.shan,bfoOptions);
+        roadpic = BitmapFactory.decodeResource(this.getResources(), R.drawable.gamepic,bfoOptions);
         for (int i = 0; i < 10; i++) {
             Car car=new Car(this,i);
-            LinearLayout.LayoutParams ll=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, car.getHeight());
+            LinearLayout.LayoutParams ll=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, car.getViewHeight());
             if(i==0)
             ll.topMargin=beijinpic.getHeight();
             if(i==9)

@@ -36,7 +36,7 @@ public class ScrollRoadView extends LinearLayout {
     private final long speed = 15;//匀速运动的速度
     private int times = 25;//匀速运动次数
     private boolean hasend = false;
-    private Bitmap roadpic,beijinpic,leftline;
+    private Bitmap roadpic, beijinpic, leftline;
     int ScreenWidth, picwidth, picheight, carwidth, carheight;
     long left = 0;
     int carCount;//能画几个车
@@ -49,8 +49,8 @@ public class ScrollRoadView extends LinearLayout {
     int carpianyi = 0;
     long linepianyi = 0;
     OnChangRankListener onchangrank;
-int imgtop=5;
-int imgbottom=45;
+    int imgtop = 5;
+    int imgbottom = 45;
     Random radom = new Random();
     int m_times = 0;
     EndListener endlistener;
@@ -67,8 +67,7 @@ int imgbottom=45;
     long linespeed = 0;
     long lineX = 0;
     boolean end = false;
-    boolean isrunning=false;
-
+    boolean isrunning = false;
 
 
     Handler handler = new Handler() {
@@ -93,7 +92,7 @@ int imgbottom=45;
                         m_times--;
                         if (isinresulttime == true && m_times == 0) {
                             end = true;
-                            isrunning=false;
+                            isrunning = false;
                         }
                     }
 
@@ -110,7 +109,7 @@ int imgbottom=45;
                         else
                             Onresult();
                     }
-                    if (onchangrank != null && zubiaos!=null) {
+                    if (onchangrank != null && zubiaos != null) {
                         int result[] = new int[carCount];
                         SparseArray<Integer> temp = new SparseArray<>();
                         for (int i = 0; i < carCount; i++) {
@@ -122,8 +121,7 @@ int imgbottom=45;
                             LogTools.e("zuobiao", zubiaos[i] + "  " + temp.get(zubiaos[i]));
                         }
                         onchangrank.Rank(result);
-                        if(!hasend && end && endlistener!=null)
-                        {
+                        if (!hasend && end && endlistener != null) {
                             endlistener.Over(result);
                         }
                     }
@@ -204,7 +202,7 @@ int imgbottom=45;
             }
             Speeds.put(i, speed);
             ll.leftMargin = ll.leftMargin - speed;
-            cars.get(i).jiasu(speed>0,i);
+            cars.get(i).jiasu(speed > 0, i);
             cars.get(i).setLayoutParams(ll);
             zubiaos[i] = ll.leftMargin;
         }
@@ -219,7 +217,7 @@ int imgbottom=45;
 
             ll.leftMargin = ll.leftMargin - 8;
             car.setLayoutParams(ll);
-            if (ll.leftMargin > -carwidth*2)
+            if (ll.leftMargin > -carwidth * 2)
                 hascarnotfinish = true;
             zubiaos[i] = ll.leftMargin;
         }
@@ -230,7 +228,7 @@ int imgbottom=45;
         //结束的时候
         if (m_times == times) {
             Random radom = new Random();
-            int endline = ScreenWidth /7;//终点线
+            int endline = ScreenWidth / 7;//终点线
             int carmagin = radom.nextInt(5);//设置随机车的间隔
             for (int i = 0; i < result.length; i++) {
                 Car car = cars.get(result[i] - 1);
@@ -285,7 +283,7 @@ int imgbottom=45;
         //设置最后开奖结果 resulttime是调整车的位置到开奖结果的时间
         this.result = result;
         this.resulttime = resulttime;
-        if (carCount>0 && carCount != result.length) {
+        if (carCount > 0 && carCount != result.length) {
             throw new ExceptionInInitializerError("设置结果位数和车的数量不匹配");
         }
     }
@@ -300,15 +298,16 @@ int imgbottom=45;
         linespeed = speed;
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
-        roadpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic,bfoOptions);
-        beijinpic= BitmapFactory.decodeResource(context.getResources(), R.drawable.shan, bfoOptions);
-        Bitmap temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic,bfoOptions);
-        leftline= BitmapHandler.zoomImg(temp,temp.getWidth(),600);
+        beijinpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.shan, bfoOptions);
+        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic, bfoOptions);
+        Bitmap road = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic, bfoOptions);
+        leftline = BitmapHandler.zoomImg(temp, temp.getWidth(), 600);
+        roadpic = BitmapHandler.zoomImg(road, road.getWidth(), 700);
         picwidth = roadpic.getWidth();
-        picheight = roadpic.getHeight()+beijinpic.getHeight();
-        linepianyi = ScreenWidth /7 % linespeed;
-        int idnx=0;
-        int idnx2=0;
+        picheight = roadpic.getHeight() + beijinpic.getHeight();
+        linepianyi = ScreenWidth / 7 % linespeed;
+        int idnx = 0;
+        int idnx2 = 0;
 
         for (int i = 0; i < getChildCount(); i++) {
             if (getChildAt(i) instanceof Car) {
@@ -318,10 +317,11 @@ int imgbottom=45;
                     carheight = car.getCarheight();
                 }
                 LayoutParams ll = (LayoutParams) car.getLayoutParams();
-                ll.leftMargin = ScreenWidth -carwidth/2- idnx;
+                ll.leftMargin = ScreenWidth - carwidth - idnx;
+                LogTools.e("llllll",ll.height+" ");
                 car.setLayoutParams(ll);
                 cars.add(car);
-                idnx=idnx+20;
+                idnx = idnx + 20;
             } else {
                 try {
                     throw new ExceptionInInitializerError("只能用Car做子view");
@@ -336,10 +336,10 @@ int imgbottom=45;
         tags = new int[carCount];
         zubiaos = new int[carCount];
         for (int i = 0; i < carCount; i++) {
-            zubiaos[i] = ScreenWidth-carwidth/2-idnx2 ;
+            zubiaos[i] = ScreenWidth - carwidth / 2 - idnx2;
             Speeds.put(i, 0);
             tags[i] = 0;
-            idnx2=idnx2+20;
+            idnx2 = idnx2 + 20;
         }
         handler.sendEmptyMessageDelayed(1, 1000 * 20);
 
@@ -375,30 +375,30 @@ int imgbottom=45;
         //1080
         Paint paint = new Paint();
         //画开始的线
-        if(starline ) {
-            LogTools.e("lineX", lineX + " " );
+        if (starline) {
+            LogTools.e("lineX", lineX + " ");
             Rect src2 = new Rect();// 图片
             Rect dst2 = new Rect();// 屏幕位置及尺寸
 //                canvas.drawBitmap(leftline, lineX, beijinpic.getHeight(), paint);
             src2 = new Rect(0, 0, leftline.getWidth(), leftline.getHeight());
-            dst2 = new Rect(ScreenWidth - carwidth-leftline.getWidth(), beijinpic.getHeight() + imgtop, ScreenWidth - carwidth, picheight - imgbottom);
+            dst2 = new Rect(ScreenWidth - carwidth - leftline.getWidth(), beijinpic.getHeight() + imgtop, ScreenWidth - carwidth, picheight - imgbottom);
             canvas.drawBitmap(leftline, src2, dst2, paint);
             LogTools.e("argg", ScreenWidth + " " + carwidth + " " + leftline.getWidth());
-            starline=false;
+            starline = false;
         }
 
 
         //画结束的线
         if (isinresulttime) {
-            starline=false;
+            starline = false;
             if (m_times <= ScreenWidth / 7 / linespeed + 1) {
                 Rect src = new Rect();// 图片
                 Rect dst = new Rect();// 屏幕位置及尺寸
 //                canvas.drawBitmap(leftline, lineX, beijinpic.getHeight(), paint);
-                src = new Rect(0,0,leftline.getWidth(), leftline.getHeight());
-                dst = new Rect( carwidth/2, beijinpic.getHeight() + imgtop,carwidth/2 + leftline.getWidth(), picheight - imgbottom);
+                src = new Rect(0, 0, leftline.getWidth(), leftline.getHeight());
+                dst = new Rect(carwidth / 2, beijinpic.getHeight() + imgtop, carwidth / 2 + leftline.getWidth(), picheight - imgbottom);
 //                dst = new Rect((int)lineX-leftline.getWidth()/2, beijinpic.getHeight()+imgtop, (int)lineX+leftline.getWidth(),picheight-imgbottom);
-                canvas.drawBitmap(leftline, src,dst, paint);
+                canvas.drawBitmap(leftline, src, dst, paint);
                 LogTools.e("dispatchDraw", lineX + " " + linepianyi);
                 if (!end) {
                     lineX = linespeed + lineX;
@@ -411,17 +411,14 @@ int imgbottom=45;
                 src = null;
                 dst = null;
 
-            }
-            else
-            {
-                if(hasend && end)
-                {
+            } else {
+                if (hasend && end) {
                     Rect src = new Rect();// 图片
                     Rect dst = new Rect();// 屏幕位置及尺寸
 
-                    src = new Rect(0,0,leftline.getWidth(), leftline.getHeight());
-                    dst = new Rect((int)lineX, beijinpic.getHeight()+imgtop, (int)lineX+leftline.getWidth(),picheight-imgbottom);
-                    canvas.drawBitmap(leftline, src,dst, paint);
+                    src = new Rect(0, 0, leftline.getWidth(), leftline.getHeight());
+                    dst = new Rect((int) lineX, beijinpic.getHeight() + imgtop, (int) lineX + leftline.getWidth(), picheight - imgbottom);
+                    canvas.drawBitmap(leftline, src, dst, paint);
                 }
             }
         }
@@ -479,17 +476,17 @@ int imgbottom=45;
     }
 
     public void start() {
-        if(isrunning)return;
-        end=false;
-        lineX=0;
-        isinresulttime=false;
-        starline=true;
+        if (isrunning) return;
+        end = false;
+        lineX = 0;
+        isinresulttime = false;
+        starline = true;
 
         begintime = System.currentTimeMillis();
         handler.sendEmptyMessageDelayed(0, 30);
         handler.removeMessages(1);
         handler.sendEmptyMessageDelayed(1, RunTime);
-        isrunning=true;
+        isrunning = true;
     }
 
     public void sethasend(boolean hasend) {
@@ -510,8 +507,7 @@ int imgbottom=45;
         this.onchangrank = onchangrank;
     }
 
-    public interface EndListener
-    {
+    public interface EndListener {
         public void Over(int rank[]);
     }
 
