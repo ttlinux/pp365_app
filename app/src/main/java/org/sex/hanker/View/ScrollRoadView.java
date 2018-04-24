@@ -319,6 +319,7 @@ public class ScrollRoadView extends LinearLayout {
                 LayoutParams ll = (LayoutParams) car.getLayoutParams();
                 ll.leftMargin = ScreenWidth - carwidth - idnx;
                 LogTools.e("llllll",ll.height+" ");
+                LogTools.e("llllll22",i+"");
                 car.setLayoutParams(ll);
                 cars.add(car);
                 idnx = idnx + 20;
