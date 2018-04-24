@@ -301,7 +301,7 @@ public class ScrollRoadView extends LinearLayout {
         beijinpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.shan, bfoOptions);
         Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic, bfoOptions);
         Bitmap road = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic, bfoOptions);
-        leftline = BitmapHandler.zoomImg(temp, temp.getWidth(), 600);
+        leftline = BitmapHandler.zoomImg_Height(temp, 600);
         roadpic = BitmapHandler.zoomImg(road, road.getWidth(), 700);
         picwidth = roadpic.getWidth();
         picheight = roadpic.getHeight() + beijinpic.getHeight();
@@ -318,8 +318,6 @@ public class ScrollRoadView extends LinearLayout {
                 }
                 LayoutParams ll = (LayoutParams) car.getLayoutParams();
                 ll.leftMargin = ScreenWidth - carwidth - idnx;
-                LogTools.e("llllll",ll.height+" ");
-                LogTools.e("llllll22",i+"");
                 car.setLayoutParams(ll);
                 cars.add(car);
                 idnx = idnx + 20;
@@ -348,8 +346,6 @@ public class ScrollRoadView extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         Initview();
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(picheight, MeasureSpec.AT_MOST));
     }
