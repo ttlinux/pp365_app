@@ -1,6 +1,5 @@
 package org.sex.hanker.Fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -28,20 +27,16 @@ import org.sex.hanker.Activity.NewVideoActivity;
 import org.sex.hanker.Activity.RegisterActivity;
 import org.sex.hanker.Activity.Testcar;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
-import org.sex.hanker.Adapter.ScrollAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
-import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.View.MyViewPager;
-import org.sex.hanker.View.RoundScroller;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/11/3.

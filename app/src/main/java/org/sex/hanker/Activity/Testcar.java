@@ -20,6 +20,7 @@ import android.widget.TextView;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.View.Car;
+import org.sex.hanker.View.RoadView;
 import org.sex.hanker.View.ScrollRoadView;
 import org.sex.hanker.mybusiness.R;
 
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class Testcar extends BaseActivity implements View.OnClickListener{
 
-    ScrollRoadView srollroad;
+    RoadView srollroad;
     TextView start,relayout;
     int hasmoney=100;
     int betmoney=0;
@@ -52,6 +53,8 @@ public class Testcar extends BaseActivity implements View.OnClickListener{
         aaa=FindView(R.id.aaa);
         aaa.setVisibility(View.VISIBLE);
         srollroad.setOrientation(LinearLayout.VERTICAL);
+        srollroad.setDirection(RoadView.Right);
+        srollroad.Start(8*1000);
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
         beijinpic= BitmapFactory.decodeResource(this.getResources(), R.drawable.shan,bfoOptions);
@@ -67,17 +70,6 @@ public class Testcar extends BaseActivity implements View.OnClickListener{
             srollroad.addView(car);
         }
 
-        srollroad.setRunTime(8 * 1000);
-        srollroad.setOnchangrank(new ScrollRoadView.OnChangRankListener() {
-            @Override
-            public void Rank(int[] rank) {
-                String rankstr = "";
-                for (int i = 0; i < rank.length; i++) {
-                    rankstr = rankstr + "," + rank[i];
-                }
-                LogTools.e("rank", rankstr);
-            }
-        });
 
 
         start=FindView(R.id.start);
@@ -106,8 +98,7 @@ public class Testcar extends BaseActivity implements View.OnClickListener{
         switch (v.getId())
         {
             case R.id.start:
-                srollroad.setResult(createArray(10), 2000);
-                srollroad.start();
+
                 break;
         }
     }

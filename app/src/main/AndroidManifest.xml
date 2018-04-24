@@ -57,9 +57,6 @@
         <activity android:name="org.sex.hanker.Activity.NewVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             />
-        <activity
-            android:name="org.sex.hanker.Activity.VideoActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <!--<receiver-->
             <!--android:name="org.sex.hanker.Utils.ChatMethod"-->

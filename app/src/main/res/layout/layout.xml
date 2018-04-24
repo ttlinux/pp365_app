@@ -8,14 +8,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <org.sex.hanker.View.ScrollRoadView
+    <org.sex.hanker.View.RoadView
         android:id="@+id/srollroad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/gamepic"
         >
-    </org.sex.hanker.View.ScrollRoadView>
+    </org.sex.hanker.View.RoadView>
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/imgshouqi"
