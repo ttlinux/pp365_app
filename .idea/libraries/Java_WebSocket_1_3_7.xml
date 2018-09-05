@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="GsonFormat1.2.1">
+  <library name="Java-WebSocket-1.3.7">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/GsonFormat1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/libs/Java-WebSocket-1.3.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

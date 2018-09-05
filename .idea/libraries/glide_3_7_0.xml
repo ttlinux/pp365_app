@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jpush-android_v3.0.6">
+  <library name="glide-3.7.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/jpush-android_v3.0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/libs/glide-3.7.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
