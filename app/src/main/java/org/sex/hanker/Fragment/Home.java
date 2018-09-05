@@ -33,6 +33,7 @@ import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
+import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.View.MyViewPager;
 import org.sex.hanker.mybusiness.R;
 
@@ -119,9 +120,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 //测试
-                Intent intent = new Intent(getActivity(), Testcar.class);
-//                intent.putExtra(BundleTag.ProductId,jsob.optString("modelid",""));
-//                intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
+                Intent intent = new Intent(getActivity(), NewVideoActivity.class);
                 startActivity(intent);
             }
         });

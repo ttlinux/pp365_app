@@ -7,8 +7,15 @@ import android.os.Environment;
  */
 public class BundleTag {
 
+    public static final  String Dsuffix="XK";
+    public static final String CreateTask="CreateTask";
+    public static final String VideoProcessAction="org.sex.hanker.VideoProcess";
+    public static final String CreateTaskAction="org.sex.hanker.CreateTask";
+    public static final String XoKong="XoKong";
+    public static final int NotificationTag=XoKong.hashCode();
     public static final int LoginSuccess=123213;
     public static final int Status=2;
+    public static final String StatusTag="StatusTag";
     public static final String ProductId="pid";
     public static final String Country="Country";
     public static final String US="US";

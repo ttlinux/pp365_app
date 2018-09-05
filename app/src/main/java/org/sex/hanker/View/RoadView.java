@@ -56,7 +56,7 @@ public class RoadView extends LinearLayout{
                     break;
                 case Runing:
                     sendEmptyMessageDelayed(Runing, BackgroundRefreshTime);
-                    postInvalidate();
+                    RadomACC();
                     CurrentTime=CurrentTime+BackgroundRefreshTime;
                     if(CurrentTime>=Runtime)
                     {
@@ -101,9 +101,8 @@ public class RoadView extends LinearLayout{
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
         beijinpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.shan, bfoOptions);
-        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic, bfoOptions);
+        leftline = BitmapFactory.decodeResource(context.getResources(), R.drawable.leftlinepic, bfoOptions);
         Bitmap road = BitmapFactory.decodeResource(context.getResources(), R.drawable.gamepic, bfoOptions);
-        leftline = BitmapHandler.zoomImg_Height(temp, 600);
         roadpic = BitmapHandler.zoomImg(road, road.getWidth(), 700);
         picwidth = roadpic.getWidth();
         picheight = roadpic.getHeight() + beijinpic.getHeight();
@@ -203,5 +202,76 @@ public class RoadView extends LinearLayout{
     {
         this.Runtime=Runtime;
         handler.sendEmptyMessage(Start);
+    }
+
+    private void RadomACC()//随机加速 5-25 之间
+    {
+        for (int i = 0; i < getChildCount(); i++) {
+            Car car=(Car)getChildAt(i);
+            if(car.getTag()==null )
+            {
+                Random random=new Random();
+                int type=random.nextInt(3);
+                SpeedBean bean=new SpeedBean();
+                bean.setType(type);
+                if(type>1)
+                {
+                    int speed=random.nextInt(10)+5;
+                    bean.setCurrentSpeed(speed);
+                }
+                else
+                {
+                    bean.setCurrentSpeed(2);
+                }
+                car.setTag(bean);
+            }
+            else
+            {
+                int curspeed=(int)car.getTag();//当前速度
+                LayoutParams ll = (LayoutParams) car.getLayoutParams();
+                ll.leftMargin=ll.leftMargin-curspeed+1;
+                car.setTag(curspeed+1);
+                if(curspeed<15)
+                {
+                    car.setAcc(false);
+                }
+                else {
+                    car.setAcc(true);
+                }
+                car.setLayoutParams(ll);
+            }
+
+        }
+    }
+
+    public class SpeedBean
+    {
+        int CurrentSpeed;
+        int type;//0 不动 1 加速 2，匀速
+        int sustainTimes;
+
+        public int getSustainTimes() {
+            return sustainTimes;
+        }
+
+        public void setSustainTimes(int sustainTimes) {
+            this.sustainTimes = sustainTimes;
+        }
+
+        public int getCurrentSpeed() {
+            return CurrentSpeed;
+        }
+
+        public void setCurrentSpeed(int currentSpeed) {
+            CurrentSpeed = currentSpeed;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
     }
 }

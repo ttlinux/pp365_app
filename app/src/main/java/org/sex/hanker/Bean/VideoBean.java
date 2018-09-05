@@ -2,10 +2,12 @@ package org.sex.hanker.Bean;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2018/3/12.
  */
-public class VideoBean {
+public class VideoBean implements Serializable {
 
 
     /**
@@ -49,6 +51,15 @@ public class VideoBean {
     private String linkUrl;
     private String videoTitle;
     private String quality480p;
+    private String Countryid;
+
+    public String getCountryid() {
+        return Countryid;
+    }
+
+    public void setCountryid(String countryid) {
+        Countryid = countryid;
+    }
 
     public int getId() {
         return id;

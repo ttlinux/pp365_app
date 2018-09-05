@@ -23,6 +23,7 @@ import org.sex.hanker.Fragment.Picture;
 import org.sex.hanker.Fragment.Setting;
 import org.sex.hanker.Fragment.Video;
 import org.sex.hanker.Utils.LogTools;
+import org.sex.hanker.Utils.Permission;
 import org.sex.hanker.Utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseFragmentActivity implements RadioGroup.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Permission.getPermission(this);
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
 

@@ -60,6 +60,12 @@ public class Car extends LinearLayout{
     {
         if(this.status==status)return;
         this.status=status;
+        jiasu.setVisibility(status ? VISIBLE : GONE);
+        benqi.setVisibility(status ? VISIBLE : GONE);
+    }
+
+    public void setAcc(boolean status)
+    {
         jiasu.setVisibility(status?VISIBLE:GONE);
         benqi.setVisibility(status?VISIBLE:GONE);
     }
@@ -72,7 +78,9 @@ public class Car extends LinearLayout{
         relayout=new RelativeLayout(context);
         relayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         jiasu=new ImageView(context);
-        jiasu.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        RelativeLayout.LayoutParams rl=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rl.leftMargin=10;
+        jiasu.setLayoutParams(rl);
 //       jiasu.setText("加速");
         jiasu.setBackground(context.getResources().getDrawable(+R.anim.animation_jiasu));
         jiasu.setVisibility(GONE);
@@ -88,7 +96,7 @@ public class Car extends LinearLayout{
 
 
         benqi=new ImageView(context);
-        benqi.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
 //        benqi.setText("喷气");
 
         benqi.setImageDrawable(context.getResources().getDrawable(+R.anim.animation_weiqi));
@@ -105,6 +113,7 @@ public class Car extends LinearLayout{
 
 
         car=new ImageView(context);
+        car.setId(88888);
 
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
@@ -135,10 +144,14 @@ public class Car extends LinearLayout{
         carwith=carbitmap.getWidth();
         car.setImageBitmap(carbitmap);
         car.setLayoutParams(new ViewGroup.LayoutParams(carwith, carheight));
-//        relayout.addView(car);
-////        relayout.addView(jiasu);
-//        addView(relayout);
-        addView(car);
+        relayout.addView(car);
+        relayout.addView(jiasu);
+        RelativeLayout.LayoutParams rl2=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rl2.addRule(RelativeLayout.RIGHT_OF,88888 );
+        benqi.setLayoutParams(rl2);
+        relayout.addView(benqi);
+        addView(relayout);
+//        addView(car);
     }
 
     public int getViewHeight()

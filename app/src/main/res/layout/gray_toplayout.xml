@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/topmainview"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/gray24">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/back"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/backtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_toRightOf="@id/back"
+            android:layout_marginLeft="5dip"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:drawablePadding="5dip"
+            android:textSize="17sp" />
+        <!--   <View
+               android:id="@+id/line"
+               android:layout_width="1dp"
+               android:layout_height="30dp"
+               android:layout_margin="5dp"
+               android:background="@color/white"
+               android:layout_toRightOf="@+id/back"
+               android:layout_centerVertical="true"
+               ></View>-->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:singleLine="true"
+            />
+
+
+        <TextView
+            android:id="@+id/assistant"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dip"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/assistant_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:padding="10dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dip"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

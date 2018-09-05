@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.sex.hanker.Activity.LoginActivity;
 import org.sex.hanker.Activity.RegisterActivity;
+import org.sex.hanker.Activity.VideoTaskActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.user;
@@ -68,7 +69,7 @@ public class Setting extends BaseFragment implements View.OnClickListener{
         loginlayout.setOnClickListener(this);
         imagehead.setOnClickListener(this);
         list_item=(LinearLayout)FindView(R.id.list_item);
-        String titles[]={"屏幕锁","缓存路径设置","收藏夹","正在缓存","缓存清除"};
+        String titles[]={"屏幕锁","收藏夹","下载管理","缓存清除"};
         for (int i = 0; i < titles.length; i++) {
             MyRelativeLayout Item_view=(MyRelativeLayout)View.inflate(getActivity(),R.layout.item_fragment_setting,null);
             TextView textview=(TextView)Item_view.findViewById(R.id.title);
@@ -96,10 +97,9 @@ public class Setting extends BaseFragment implements View.OnClickListener{
             case 1001:
                 break;
             case 1002:
+                startActivity(new Intent(getActivity(), VideoTaskActivity.class));
                 break;
             case 1003:
-                break;
-            case 1004:
                 ClearCache.Clear(ClearCache.Picture,getActivity());
                 ClearCache.Clear(ClearCache.DownloadMovie,getActivity());
                 break;

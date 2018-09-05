@@ -30,15 +30,15 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.danikula.videocache.HttpProxyCacheServer;
-
 import org.sex.hanker.BaseParent.BaseApplication;
+import org.sex.hanker.ProxyURL.ProxyServer;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.Utils.TimeUtils;
 import org.sex.hanker.mybusiness.R;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkTimedText;
 
 
 /**
@@ -54,7 +54,8 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     AudioManager am;
     VideoPlayerIJK ijkplayer;
     private GestureDetectorCompat mDetector;
-    private TextView downloadRateView, loadRateView,duration;
+    private ImageView back,download,list;
+    private TextView downloadRateView, loadRateView,duration,title;
     private String path = Environment.getExternalStorageDirectory() + "/kk.mp4";//UCDownloads/VideoData/kk.mp4
     private SeekBar seekbar, volunmseekbar;
     private RelativeLayout sidebar;
@@ -71,7 +72,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     private final static int PMode_Play = 0;
     private final static int FullScreen = 0;
     private final static int PartScreen = 1;
-    private final static int ToolviewDisappearTime=8000;
+    private final static int ToolviewDisappearTime=5000;
     private final int DisapearToolView = 0, ShowToolView=1,Play = 2,Pause=3;
     int vSeekMode = Mode_Volume;
     int pMode=PMode_Pause;
@@ -79,6 +80,22 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     private boolean istoolViewShow = false;
     VolumeReceiver receiver;
     public OnLockScreenListener onLockScreenListener;
+    public OnButtonClickListener onButtonClickListener;
+
+    public OnButtonClickListener getOnButtonClickListener() {
+        return onButtonClickListener;
+    }
+
+    public void setOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
+        this.onButtonClickListener = onButtonClickListener;
+    }
+
+    public interface OnButtonClickListener
+    {
+        public void OnBack();
+        public void OnDownload();
+        public void OnShwolist();
+    }
 
     private Handler handler = new Handler() {
         @Override
@@ -112,7 +129,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         LogTools.e("onProgressChanged","onProgressChanged  "+progress+"   "+fromUser);
         handler.removeMessages(DisapearToolView);
-        handler.sendEmptyMessageDelayed(DisapearToolView,ToolviewDisappearTime);
+        handler.sendEmptyMessageDelayed(DisapearToolView, ToolviewDisappearTime);
         switch (seekBar.getId()) {
             case R.id.seekbar:
                 if(fromUser)
@@ -121,14 +138,12 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
             case R.id.volunmseekbar:
                 switch (vSeekMode) {
                     case Mode_Bright:
-
                         setScreenBrightness(progress * 255 / seekBar.getMax());
                         break;
                     case Mode_Volume:
                         setVolume(progress);
                         break;
                 }
-
                 break;
         }
     }
@@ -160,7 +175,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        LogTools.e("onStartTrackingTouch","onStartTrackingTouch");
+        LogTools.e("onStartTrackingTouch", "onStartTrackingTouch");
     }
 
     @Override
@@ -176,12 +191,11 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         this.onLockScreenListener = onLockScreenListener;
     }
     public void setPathAndPlay(String path) {
-        HttpProxyCacheServer proxy = BaseApplication.getProxy(context);
-        String proxyUrl = proxy.getProxyUrl(path);
-        LogTools.e("proxyUrl",proxyUrl);
+        //1237344194
+//        String proxyUrl = ProxyServer.getInsance().getProxyUrl(path);
         this.path = path;
 //        ijkplayer.setv(MediaPlayer.VIDEOQUALITY_LOW); //设置 MediaPlayer.VIDEOQUALITY_LOW  VIDEOQUALITY_MEDIUM VIDEOQUALITY_HIGH
-        ijkplayer.setVideoPath(proxyUrl);
+        ijkplayer.setVideoPath(path);
         ijkplayer.start();
     }
 
@@ -209,7 +223,21 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         mDetector = new GestureDetectorCompat(context,this);
         this.addView(View.inflate(context, R.layout.newvideo_layout, null));
         ijkplayer = (VideoPlayerIJK) findViewById(R.id.ijkplayer);
-        ijkplayer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,ScreenUtils.getDIP2PX(context,300)));
+        ijkplayer.getLayoutParams().height=ScreenUtils.getDIP2PX(context, 300);
+//        ijkplayer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(context, 300)));
+        ijkplayer.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return mDetector.onTouchEvent(event);
+            }
+        });
+        download=(ImageView)findViewById(R.id.download);
+        list=(ImageView)findViewById(R.id.list);
+        title=(TextView)findViewById(R.id.title);
+        back=(ImageView)findViewById(R.id.back);
+        back.setOnClickListener(this);
+        title.setOnClickListener(this);
+        download.setOnClickListener(this);
         bright = (ImageView) findViewById(R.id.bright);
         volume = (ImageView) findViewById(R.id.volume);
         fullscreen=(ImageView)findViewById(R.id.fullscreen);
@@ -251,6 +279,11 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         ijkplayer.requestFocus();
         ijkplayer.setListener(new VideoPlayerListener() {
             @Override
+            public void onTimedText(IMediaPlayer mp, IjkTimedText text) {
+                LogTools.e("iii", text.getText());
+            }
+
+            @Override
             public void onBufferingUpdate(IMediaPlayer mp, int percent) {
                 LogTools.e("iii", "onBufferingUpdate");
             }
@@ -263,12 +296,29 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
             @Override
             public boolean onError(IMediaPlayer mp, int what, int extra) {
                 LogTools.e("iii","onError");
+                pb.setVisibility(VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onInfo(IMediaPlayer mp, int what, int extra) {
-                LogTools.e("iii","onInfo");
+                //702 正常 701 缓冲中 10001 10002初始化
+                LogTools.e("iii", "onInfo " + what + " " + extra);
+                switch (what)
+                {
+                    case 10001:
+                    case 10002:
+                        //初始化
+                        break;
+                    case 702:
+                        //正常
+                        pb.setVisibility(GONE);
+                        break;
+                    case 701:
+                        //缓冲中
+                        pb.setVisibility(VISIBLE);
+                        break;
+                }
                 return false;
             }
 
@@ -301,6 +351,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
     @Override
     public boolean onDown(MotionEvent e) {
+        LogTools.e("onDown","onDown");
         return true;
     }
 
@@ -311,8 +362,9 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        LogTools.e("onSingleTapUp","onSingleTapUp");
         handler.removeMessages(DisapearToolView);
-        handler.sendEmptyMessageDelayed(DisapearToolView,ToolviewDisappearTime);
+        handler.sendEmptyMessageDelayed(DisapearToolView, ToolviewDisappearTime);
         if (!istoolViewShow) {
             showappearToolView();
         } else {
@@ -322,6 +374,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     }
 
     private void disappearToolView() {
+        LogTools.e("disappearToolView","disappearToolView");
         istoolViewShow = false;
         bottomview.setVisibility(GONE);
         seekbar.setVisibility(GONE);
@@ -372,6 +425,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        LogTools.e("onFling","onFling");
         return false;
     }
 
@@ -392,8 +446,6 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
 
     @Override
     public void onClick(View v) {
-        handler.removeMessages(DisapearToolView);
-        handler.sendEmptyMessageDelayed(DisapearToolView, ToolviewDisappearTime);
         switch (v.getId()) {
             case R.id.clayout:
 //                LogTools.e("buffer","buffer "+istoolViewShow);
@@ -453,6 +505,15 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
                     setLandscapeOrPortrait(true);
                 }
                 break;
+            case R.id.list:
+                onButtonClickListener.OnShwolist();
+                break;
+            case R.id.download:
+                onButtonClickListener.OnDownload();
+                break;
+            case R.id.back:
+                onButtonClickListener.OnBack();
+                break;
         }
     }
 
@@ -499,4 +560,14 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
         }
     }
 
+
+    public void OnDestory()
+    {
+        ijkplayer.Ondestory();
+    }
+
+    public void setTitle(String text)
+    {
+        title.setText(text);
+    }
 }

@@ -1,11 +1,14 @@
 package org.sex.hanker.View;
 
 import android.content.Context;
+import android.media.MediaCodec;
+import android.os.Bundle;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -15,6 +18,7 @@ import java.io.IOException;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+import tv.danmaku.ijk.media.player.misc.IAndroidIO;
 
 /**
  * 普通的视频播放器
@@ -118,6 +122,7 @@ public class VideoPlayerIJK extends FrameLayout {
         createPlayer();
         try {
             mMediaPlayer.setDataSource(mPath);
+            mMediaPlayer.setKeepInBackground(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,6 +130,14 @@ public class VideoPlayerIJK extends FrameLayout {
         mMediaPlayer.setDisplay(surfaceView.getHolder());
 
         mMediaPlayer.prepareAsync();
+    }
+
+    public void Ondestory()
+    {
+        if(mMediaPlayer==null)return;
+        mMediaPlayer.stop();
+        mMediaPlayer.setDisplay(null);
+        mMediaPlayer.release();
     }
 
     /**
@@ -141,6 +154,30 @@ public class VideoPlayerIJK extends FrameLayout {
 
 //        //开启硬解码
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+        ijkMediaPlayer.setAndroidIOCallback(new IAndroidIO() {
+            @Override
+            public int open(String url) throws IOException {
+                Log.e("ijkMediaPlayer",url);
+                return 0;
+            }
+
+            @Override
+            public int read(byte[] buffer, int size) throws IOException {
+                Log.e("ijkMediaPlayer","read"+ " "+buffer.length);
+                return 0;
+            }
+
+            @Override
+            public long seek(long offset, int whence) throws IOException {
+                Log.e("ijkMediaPlayer","seek"+ " "+offset);
+                return 0;
+            }
+
+            @Override
+            public int close() throws IOException {
+                return 0;
+            }
+        });
 
         mMediaPlayer = ijkMediaPlayer;
 
@@ -150,6 +187,7 @@ public class VideoPlayerIJK extends FrameLayout {
             mMediaPlayer.setOnSeekCompleteListener(listener);
             mMediaPlayer.setOnBufferingUpdateListener(listener);
             mMediaPlayer.setOnErrorListener(listener);
+            mMediaPlayer.setOnTimedTextListener(listener);
         }
     }
 

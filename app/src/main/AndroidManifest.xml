@@ -53,19 +53,32 @@
         <activity android:name="org.sex.hanker.Activity.RegisterActivity" />
         <activity android:name="org.sex.hanker.Activity.PicDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.NoteDetailActivity" />
-        <activity android:name="org.sex.hanker.Activity.TestActivity"/>
-        <activity android:name="org.sex.hanker.Activity.NewVideoActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            />
+        <activity android:name="org.sex.hanker.Activity.TestActivity" />
+        <activity android:name="org.sex.hanker.Activity.VideoTaskActivity"/>
+        <activity
+            android:name="org.sex.hanker.Activity.NewVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <!--<receiver-->
-            <!--android:name="org.sex.hanker.Utils.ChatMethod"-->
-            <!--android:enabled="true"-->
-            <!-->-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-            <!--</intent-filter>-->
+        <!--android:name="org.sex.hanker.Utils.ChatMethod"-->
+        <!--android:enabled="true"-->
+        <!-->-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
+        <receiver android:name="org.sex.hanker.Receiver.VideoProcessReceiver"
+            >
+            <intent-filter>
+                <action android:name="org.sex.hanker.VideoProcess" />
+                <action android:name="org.sex.hanker.CreateTask" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="org.sex.hanker.Service.DownloadService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":VideoDownloader"
+            />
         <meta-data
             android:name="org.sex.hanker.Utils.GlideModuleConfig"
             android:value="GlideModule" />

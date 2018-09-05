@@ -23,6 +23,10 @@ import org.sex.hanker.Adapter.VideoMessageAdapter;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.ChatBean;
+import org.sex.hanker.Bean.LocalVideoBean;
+import org.sex.hanker.Bean.VideoBean;
+import org.sex.hanker.ProxyURL.IOUtil;
+import org.sex.hanker.Service.DownloadService;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.ChangeOrientationHandler;
 import org.sex.hanker.Utils.ChatMethod;
@@ -31,6 +35,8 @@ import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.OrientationSensorListener;
 import org.sex.hanker.Utils.ToastUtil;
+import org.sex.hanker.Utils.VideoDownload.VideoDownloader;
+import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.View.ColorTextview;
 import org.sex.hanker.View.NewVideoView;
 import org.sex.hanker.mybusiness.R;
@@ -53,16 +59,14 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     private OrientationSensorListener listener;
     private SensorManager sm;
     private Sensor sensor;
-    private ColorTextview send;
-    private EditText comment;
-    private ChatMethod chatMethod;
     private ListView listview;
     VideoMessageAdapter videoadapter;
     private int MessagePage = 0;
     private final int pageAmount = 20;
+    private VideoBean bean;
     ArrayList<ChatBean> chatbeans = new ArrayList<ChatBean>();
-    private static final String Testm3u8 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
-    private static final String TestMp4 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    private static final String Testm3u8 = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
+    private static final String TestMp4 = "http://10.20.20.1/E/%E7%88%B1%E6%83%85%E7%89%87/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86.mkv";
 
     //测试m3u8 http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
     @Override
@@ -93,48 +97,42 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
         ProductId = getIntent().getStringExtra(BundleTag.ProductId);
         Country = getIntent().getStringExtra(BundleTag.Country);
         videoview = FindView(R.id.videoview);
-        comment = FindView(R.id.comment);
-        comment.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    BaseApplication base = (BaseApplication) getApplication();
-                    if (base.getUser() == null) {
-                        startActivity(new Intent(NewVideoActivity.this, LoginActivity.class));
-                    } else {
-                        comment.setCursorVisible(true);
-                        InitChat();
-                    }
-                }
-                return false;
-            }
-        });
-        send = FindView(R.id.send);
-        send.setListener(new ColorTextview.OnUpListener() {
-            @Override
-            public void onClick(ColorTextview view) {
-                BaseApplication base = (BaseApplication) getApplication();
-                if (base.getUser() == null) {
-                    startActivity(new Intent(NewVideoActivity.this, LoginActivity.class));
-                    return;
-                }
-                InitChat();
-                if (chatMethod.sendMessage(comment.getText().toString())) {
-                    comment.setText("");
-                }
-            }
-        });
+
         videoview.setOnLockScreenListener(this);
-        InitChat();
-        videoview.setPathAndPlay(TestMp4);
-//        RequestUrl();
+        videoview.setOnButtonClickListener(new NewVideoView.OnButtonClickListener() {
+            @Override
+            public void OnBack() {
+                finish();
+            }
+
+            @Override
+            public void OnDownload() {
+                Intent intent = new Intent(NewVideoActivity.this, DownloadService.class);
+                bean.setQuality480p(Testm3u8);
+                intent.putExtra(BundleTag.Data, bean);
+                startService(intent);
+            }
+
+            @Override
+            public void OnShwolist() {
+
+            }
+        });
+//        videoview.setPathAndPlay(Testm3u8);
+        RequestUrl();
 //        RequestHistory(Country, ProductId);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void RequestUrl() {
+        if(Country==null || ProductId==null)return;
         RequestParams requestParams = new RequestParams();
         requestParams.put("id", ProductId);
-        requestParams.put("country", Country.length() > 0 ? BundleTag.ASIA : BundleTag.US);
+        requestParams.put("country", Country);
         Httputils.PostWithBaseUrl(Httputils.VideoDetail, requestParams, new MyJsonHttpResponseHandler(this, true) {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
@@ -143,10 +141,11 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
 
                 if (jsonObject.optString("status").equalsIgnoreCase("000000")) {
                     JSONObject datas = jsonObject.optJSONObject("datas");
-                    JSONObject videos = datas.optJSONObject("videos");
+                    bean=VideoBean.AnalynsisData(datas.optJSONObject("videos"));
+                    bean.setCountryid(Country);
                     //http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/1.m3u8 videos.optString("quality480p","")
 //                    videoview.setPathAndPlay(Environment.getExternalStorageDirectory() + "/kk.mp4");//videos.optString("quality480p", "")
-                    videoview.setPathAndPlay(TestMp4);
+//                    videoview.setPathAndPlay(TestMp4);
                 } else {
                     ToastUtil.showMessage(NewVideoActivity.this, jsonObject.optString("info"));
                 }
@@ -162,15 +161,12 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (videoview.getReceiver() != null)
-            unregisterReceiver(videoview.getReceiver());
-        if (chatMethod != null) {
-            unregisterReceiver(chatMethod);
-            chatMethod.setContext(null);
-            chatMethod.CloseConnect();
-            chatMethod = null;
+        if(videoview!=null)
+        {
+            videoview.OnDestory();
+            if (videoview.getReceiver() != null)
+                unregisterReceiver(videoview.getReceiver());
         }
-
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -185,26 +181,6 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     }
 
 
-    private void InitChat() {
-        BaseApplication base = (BaseApplication) getApplication();
-        if (chatMethod == null && base.getUser() != null) {
-            String country = Country.length() > 0 ? BundleTag.ASIA : BundleTag.US;
-            chatMethod = new ChatMethod(this, base.getUser().getUsename(), base.getUser().getSessionid(), ProductId, country);
-            chatMethod.setChatlistener(new ChatMethod.ChatListener() {
-                @Override
-                public void OnReceviceMessage(ChatBean cbean) {
-                    chatbeans.add(cbean);
-                    SetAdapter(chatbeans);
-                    listview.setSelection(chatbeans.size() - 1);
-                }
-            });
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver(chatMethod, filter);
-        }
-
-
-    }
 
     @Override
     public void onlock(boolean lock) {

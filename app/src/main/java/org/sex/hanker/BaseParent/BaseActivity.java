@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 
 import org.sex.hanker.mybusiness.R;
 
@@ -22,27 +24,92 @@ public class BaseActivity extends Activity{
     }
 
     boolean isneedback=true;
+
+    boolean isFront;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);//slide_right_in
+    }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);//slide_left_out
+    }
+
+    public boolean isFront()
+    {
+        return isFront;
+    }
+
+    public void setActivityTitle(String title)
+    {
+        View view=FindView(R.id.title);
+        if( view!=null)
+        {
+            view.setVisibility(View.VISIBLE);
+            ((TextView)view).setText(title);
+        }
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
+        isFront=true;
         View view=FindView(R.id.back);
-        if(view!=null && isneedback)
+        if(isneedback && view!=null)
         {
             view.setVisibility(View.VISIBLE);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     finish();
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isFront=false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isFront=false;
+    }
+
+    public void setneedback(boolean needback)
+    {
+        this.isneedback=needback;
+    }
+
+    public void setBacktitleFinish()
+    {
+        View view=FindView(R.id.backtitle);
+        if( view!=null)
+        {
+            view.setVisibility(View.VISIBLE);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+    }
+
+    public void setBacktitleText(String str)
+    {
+        View view=FindView(R.id.backtitle);
+        if( view!=null && view instanceof TextView)
+        {
+            ((TextView)view).setText(str);
         }
     }
     @Override

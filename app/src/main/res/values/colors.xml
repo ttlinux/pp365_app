@@ -38,9 +38,15 @@
     <color name="gray20">#999999</color>
     <color name="gray21">#F7F7F7</color>
     <color name="gray22">#F4F3EE</color>
+    <color name="gray23">#A6A6A6</color>
+    <color name="gray24">#2D2E33</color>
+    <color name="gray25">#F1F0F6</color>
+    <color name="gray26">#dfdfdf</color>
 
 
+    <color name="split_line">#11112233</color>
     <color name="pichold">#909090</color>
+    <color name="black2">#333333</color>
     <color name="gg">#EEEEEE</color>
 
     <color name="deepblue">#33414A</color>
@@ -49,12 +55,14 @@
     <color name="loess2">#C9A66C</color>
     <color name="loess3">#C9A766</color>
     <color name="loess4">#FF7701</color>
-    <color name="purple">#B24EF1</color>
 
 
     <color name="line2">#B8B8B8</color>
     <color name="green">#85C226</color>
     <color name="green2">#80C328</color>
+    <color name="green3">#1AAC19</color>
+    <color name="green4">#83C23D</color>
+    <color name="violet">#FFDA19B7</color>
     <color name="blue2">#76C5F0</color>
     <color name="blue3">#0093DD</color>
     <color name="blue4">#EDF1FA</color>
@@ -62,6 +70,9 @@
     <color name="red">#DE231C</color>
     <color name="red2">#eb3d00</color>
     <color name="red3">#EE1F3B</color>
+    <color name="red4">#CF2F2F</color>
+    <color name="red5">#E64241</color>
+    <color name="purple">#FF837485</color>
 
     <color name="lottery">#B82432</color>
     <color name="lotteryred">#B82432</color>
