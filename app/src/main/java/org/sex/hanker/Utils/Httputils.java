@@ -35,7 +35,7 @@ public class Httputils {
     public static boolean isShow = false;//
     public static String AndroidApkPath;
     public static String AndroidUpdate="";
-    public static String BaseUrl="http://192.168.254.102/pp365/";//http://www.xokong.com
+    public static String BaseUrl="http://192.168.0.112/pp365/";//http://www.xokong.com
     public static String WSBaseurl="ws://www.xokong.com/pp365/websocket?";//ws://www.xokong.com/pp365/websocket?
     public static String ImgBaseUrl="http://www.xokong.com/pp365";
     public static String Home="/interface/Home";

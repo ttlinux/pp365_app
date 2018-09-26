@@ -110,7 +110,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
                 Intent intent = new Intent(NewVideoActivity.this, DownloadService.class);
                 bean.setQuality480p(Testm3u8);
                 intent.putExtra(BundleTag.Data, bean);
-                startService(intent);
+                NewVideoActivity.this.startService(intent);
             }
 
             @Override
@@ -133,6 +133,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
         RequestParams requestParams = new RequestParams();
         requestParams.put("id", ProductId);
         requestParams.put("country", Country);
+        videoview.download.setVisibility(View.INVISIBLE);
         Httputils.PostWithBaseUrl(Httputils.VideoDetail, requestParams, new MyJsonHttpResponseHandler(this, true) {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
@@ -143,6 +144,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
                     JSONObject datas = jsonObject.optJSONObject("datas");
                     bean=VideoBean.AnalynsisData(datas.optJSONObject("videos"));
                     bean.setCountryid(Country);
+                    videoview.download.setVisibility(View.VISIBLE);
                     //http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/1.m3u8 videos.optString("quality480p","")
 //                    videoview.setPathAndPlay(Environment.getExternalStorageDirectory() + "/kk.mp4");//videos.optString("quality480p", "")
 //                    videoview.setPathAndPlay(TestMp4);

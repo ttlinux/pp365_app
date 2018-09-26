@@ -8,13 +8,11 @@
     <include
         layout="@layout/gray_toplayout"/>
 
-    <ListView
-        android:id="@+id/listview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="#00000000"
-        android:cacheColorHint="#00000000"
         >
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

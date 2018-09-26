@@ -54,7 +54,7 @@ public class NewVideoView extends RelativeLayout implements  SeekBar.OnSeekBarCh
     AudioManager am;
     VideoPlayerIJK ijkplayer;
     private GestureDetectorCompat mDetector;
-    private ImageView back,download,list;
+    public ImageView back,download,list;
     private TextView downloadRateView, loadRateView,duration,title;
     private String path = Environment.getExternalStorageDirectory() + "/kk.mp4";//UCDownloads/VideoData/kk.mp4
     private SeekBar seekbar, volunmseekbar;

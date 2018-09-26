@@ -48,6 +48,7 @@ import javax.security.cert.X509Certificate;
 public class VideoDownloader {
 
     public static final int Success = 1;
+    public static final int NewTask = 2;
     public static final int MaxCount = 10;
     public static final int Exits = -1;
     public static final int ERROR = -2;
@@ -74,9 +75,10 @@ public class VideoDownloader {
             return Full;
         }
 
+        int status=0;
         if (videoBean.getVideotype().toLowerCase().equalsIgnoreCase("m3u8")) {
             final LocalVideoBean Localbean = PrepareForM3U8(context, videoBean);
-            if (Localbean.getSTATUS() == VideoSQL.Finished) return Exits;
+            if ((status=Localbean.getSTATUS()) == VideoSQL.Finished) return Exits;
             MyRunnable runnable = new MyRunnable() {
                 @Override
                 public void run() {
@@ -87,19 +89,20 @@ public class VideoDownloader {
             socketProcessor.submit(runnable);
         } else {
             final LocalVideoBean Localbean = PrepareForSingleFileDownload(context, videoBean);
-            if (Localbean.getSTATUS() == VideoSQL.Finished) return Exits;
+            if ((status=Localbean.getSTATUS()) == VideoSQL.Finished) return Exits;
             MyRunnable runable = new MyRunnable() {
 
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
                     super.run();
+                    Localbean.setSTATUS(VideoSQL.Runing);
                     DownloadVideo(context, Localbean);
                 }
             };
             socketProcessor.submit(runable);
         }
-        return Success;
+        return Success | status;
     }
 
     private static LocalVideoBean PrepareForSingleFileDownload(Context context, VideoBean videoBean) {
@@ -147,7 +150,7 @@ public class VideoDownloader {
         bean.setVIDEO_TITLE(videoBean.getVideoTitle());
         bean.setVIDEO_ID(videoBean.getPhid());
         bean.setSUFFIX(videoBean.getVideotype());
-        bean.setSTATUS(VideoSQL.NotYetFinish);
+        bean.setSTATUS(VideoSQL.NewFile);
         bean.setVIDEO_PHOTO(videoBean.getImageUrl());
         if(videoBean.getTimelinecount().length()>0)
         bean.setTimeLineCount(Integer.valueOf(videoBean.getTimelinecount()));
@@ -293,14 +296,21 @@ public class VideoDownloader {
                 @Override
                 public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean) {
                     super.OnSuccess(contentlength, in, bean);
-                    HandlerVideoData(context, contentlength, in, bean);
+                    try {
+                        Thread.sleep(10);
+                        HandlerVideoData(context, contentlength, in, bean);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        //点击后暂停走这里
+
+                    }
+
                 }
 
                 @Override
                 public void OnFail(String fail) {
                     super.OnFail(fail);
                     bean.setSTATUS(VideoSQL.ERROR);
-                    bean.setPersent(0);
                     Intent intent = new Intent();
                     intent.putExtra(BundleTag.Data, bean);
                     intent.putExtra(BundleTag.Title, fail);
@@ -312,15 +322,20 @@ public class VideoDownloader {
                 @Override
                 public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean) {
                     super.OnSuccess(contentlength, in, bean);
-                    HandlerVideoData(context, contentlength, in, bean);
+                    try {
+                        Thread.sleep(10);
+                        HandlerVideoData(context, contentlength, in, bean);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        //点击后暂停走这里
 
+                    }
                 }
 
                 @Override
                 public void OnFail(String fail) {
                     super.OnFail(fail);
                     bean.setSTATUS(VideoSQL.ERROR);
-                    bean.setPersent(0);
                     Intent intent = new Intent();
                     intent.putExtra(BundleTag.Data, bean);
                     intent.putExtra(BundleTag.Title, fail);

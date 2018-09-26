@@ -17,6 +17,7 @@ import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.ToastUtil;
 import org.sex.hanker.Utils.VideoDownload.VideoDownloader;
+import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
 import java.io.Serializable;
@@ -46,7 +47,7 @@ public class DownloadService extends Service {
         if (obj == null) return super.onStartCommand(intent, START_STICKY, startId);
         VideoBean bean = (VideoBean) obj;
         int Code = VideoDownloader.request(bean, this);
-        if (Code == VideoDownloader.Success) {
+        if (Code == (VideoDownloader.Success | VideoSQL.NewFile)) {
             Intent cloneintent = new Intent();
             cloneintent.setAction(BundleTag.CreateTaskAction);
             cloneintent.putExtra(BundleTag.CreateTask, bean);
