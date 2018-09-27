@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -119,6 +120,16 @@ public class PLA_ListView extends PLA_AbsListView {
     private final Rect mTempRect = new Rect();
     private Paint mDividerPaint;
     private Paint mContentPaint = new Paint();
+
+    private OnScrollToBottomListener onScrollToBottomListener;
+
+    public OnScrollToBottomListener getOnScrollToBottomListener() {
+        return onScrollToBottomListener;
+    }
+
+    public void setOnScrollToBottomListener(OnScrollToBottomListener onScrollToBottomListener) {
+        this.onScrollToBottomListener = onScrollToBottomListener;
+    }
 
     public PLA_ListView(Context context) {
         this(context, null);
@@ -473,7 +484,7 @@ public class PLA_ListView extends PLA_AbsListView {
 
     @Override
     public int getFirstVisiblePosition() {
-        return Math.max( 0, mFirstPosition - getHeaderViewsCount());
+        return Math.max(0, mFirstPosition - getHeaderViewsCount());
     }
 
     @Override
@@ -1896,6 +1907,12 @@ public class PLA_ListView extends PLA_AbsListView {
 
         // Draw the indicators (these should be drawn above the dividers) and children
         super.dispatchDraw(canvas);
+        Log.e("asdsadsad222", "xxxxxxxxxx  " + getLastVisiblePosition());
+//        if(getAdapter()!=null && getAdapter().get)
+//        {
+//            if(onScrollToBottomListener!=null)
+//        }
+
     }
 
     private void drawContentBackground(Canvas canvas) {
@@ -2244,4 +2261,8 @@ public class PLA_ListView extends PLA_AbsListView {
     public void clearChoices() {
     }
 
+    public interface OnScrollToBottomListener
+    {
+        public void OnButtom();
+    }
 }//end of class
