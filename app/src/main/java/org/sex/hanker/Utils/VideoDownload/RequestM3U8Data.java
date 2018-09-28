@@ -38,6 +38,8 @@ import com.iheartradio.m3u8.data.Playlist;
 import com.iheartradio.m3u8.data.PlaylistData;
 import com.iheartradio.m3u8.data.TrackData;
 
+import org.sex.hanker.Utils.LogTools;
+
 public class RequestM3U8Data {
 
 	private final static int TimeOut = 20000;
@@ -60,6 +62,7 @@ public class RequestM3U8Data {
 
 	public ArrayList<M3U8URLbean> Excute(String Downloadurl)
 	{
+		LogTools.e("m3u8","获取"+Downloadurl+"的所有ts地址");
 		this.Downloadurl=Downloadurl;
 		boolean status=false;
 		while (!status && Error_Test<3)
@@ -108,7 +111,9 @@ public class RequestM3U8Data {
 					ArrayList<String> urls=new ArrayList<>();
 					for (int i = 0; i < playlist.getMediaPlaylist().getTracks().size(); i++) {
 						TrackData trackdata=playlist.getMediaPlaylist().getTracks().get(i);
-						urls.add(AnalysisURL(url,trackdata.getUri()));
+						String m_url=AnalysisURL(url, trackdata.getUri());
+						urls.add(m_url);
+						LogTools.e("ts地址", m_url);
 					}
 					bean.setUrls(urls);
 					m3u8bean.add(bean);

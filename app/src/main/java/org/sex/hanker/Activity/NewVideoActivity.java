@@ -65,7 +65,9 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     private final int pageAmount = 20;
     private VideoBean bean;
     ArrayList<ChatBean> chatbeans = new ArrayList<ChatBean>();
-    private static final String Testm3u8 = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
+    private static final String Testm3u8 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
+    //http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
+    //http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8
     private static final String TestMp4 = "http://10.20.20.1/E/%E7%88%B1%E6%83%85%E7%89%87/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86.mkv";
 
     //测试m3u8 http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8

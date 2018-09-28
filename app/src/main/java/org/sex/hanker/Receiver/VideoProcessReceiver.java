@@ -14,6 +14,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.SparseArray;
 
 import org.sex.hanker.Activity.VideoTaskActivity;
+import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
@@ -30,7 +31,7 @@ public class VideoProcessReceiver extends BroadcastReceiver {
 
     public interface VideoProcessListener
     {
-        public void onProcess(LocalVideoBean bean);
+        public void onProcess(BroadcastDataBean bean);
     }
     public static ArrayList<VideoProcessListener> listeners=new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class VideoProcessReceiver extends BroadcastReceiver {
             }
             if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))
             {
-                LocalVideoBean bean=(LocalVideoBean)intent.getSerializableExtra(BundleTag.Data);
+                BroadcastDataBean bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
                 if(bean==null)return;
                 for (int i = 0; i < listeners.size(); i++) {
                     listeners.get(i).onProcess(bean);

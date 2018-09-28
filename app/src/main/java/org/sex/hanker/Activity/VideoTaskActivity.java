@@ -10,10 +10,12 @@ import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.widget.ListView;
 
 import org.sex.hanker.Adapter.VideoTaskAdapter;
 import org.sex.hanker.BaseParent.BaseActivity;
+import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
@@ -29,7 +31,7 @@ public class VideoTaskActivity extends BaseActivity {
 
     RecyclerView recycleview;
     VideoTaskAdapter videoTaskAdapter;
-    ArrayList<LocalVideoBean> localVideoBeans;
+    SparseArray<BroadcastDataBean> localVideoBeans;
     final int MessageRepeat=0;
     BroadcastReceiver broadcastReceiver;
 
@@ -45,20 +47,28 @@ public class VideoTaskActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         localVideoBeans= VideoSQL.getColumnData(this, false);
-        setVideoTaskAdapter();
+        setVideoTaskAdapter(-1);
         RegisterBoardcast();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(broadcastReceiver);
+        if(broadcastReceiver!=null)
+        {
+            unregisterReceiver(broadcastReceiver);
+            broadcastReceiver= null;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(broadcastReceiver);
+        if(broadcastReceiver!=null)
+        {
+            unregisterReceiver(broadcastReceiver);
+            broadcastReceiver=null;
+        }
     }
 
     private void Initview()
@@ -71,10 +81,15 @@ public class VideoTaskActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
+        if(broadcastReceiver!=null)
+        {
+            unregisterReceiver(broadcastReceiver);
+            broadcastReceiver=null;
+        }
+
     }
 
-    private void setVideoTaskAdapter()
+    private void setVideoTaskAdapter(int index)
     {
         if(videoTaskAdapter==null)
         {
@@ -83,7 +98,14 @@ public class VideoTaskActivity extends BaseActivity {
         }
         else
         {
-            videoTaskAdapter.NotifyAdapter(localVideoBeans);
+            if(index>-1)
+            {
+                videoTaskAdapter.NotifyAdapter(localVideoBeans,index);
+            }
+            else
+            {
+                videoTaskAdapter.NotifyAdapter(localVideoBeans);
+            }
         }
     }
 
@@ -101,11 +123,13 @@ public class VideoTaskActivity extends BaseActivity {
                 {
 //                    VideoBean videoBean=(VideoBean)intent.getSerializableExtra(BundleTag.CreateTask);
                     localVideoBeans= VideoSQL.getColumnData(VideoTaskActivity.this, false);
+                    setVideoTaskAdapter(-1);
                 }
                 if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))
                 {
-                    LocalVideoBean bean=(LocalVideoBean)intent.getSerializableExtra(BundleTag.Data);
-
+                    BroadcastDataBean bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
+                    localVideoBeans.put(bean.getID(), bean);
+                    setVideoTaskAdapter( localVideoBeans.indexOfKey(bean.getID()));
                 }
             }
         };

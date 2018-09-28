@@ -7,8 +7,10 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.SparseArray;
 
 import org.sex.hanker.BaseParent.BaseApplication;
+import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
@@ -99,9 +101,9 @@ public class VideoSQL extends SQLiteOpenHelper {
 
     }
 
-    public synchronized static ArrayList<LocalVideoBean> getColumnData(Context context,boolean isDone)
+    public synchronized static SparseArray<BroadcastDataBean> getColumnData(Context context,boolean isDone)
     {
-        ArrayList<LocalVideoBean> beans=new ArrayList<>();
+        SparseArray<BroadcastDataBean> beans=new SparseArray<>();
         StringBuilder sb=new StringBuilder();
         sb.append("select * from ");
         sb.append(TABLE);
@@ -120,7 +122,7 @@ public class VideoSQL extends SQLiteOpenHelper {
         if (cursor.getCount() == 0) {
         } else {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                LocalVideoBean bean = new LocalVideoBean();
+                BroadcastDataBean bean = new BroadcastDataBean();
                 bean.setCOLUMN_URL(cursor.getString(cursor.getColumnIndex(COLUMN_URL)));
                 bean.setCOUNTRY(cursor.getString(cursor.getColumnIndex(COUNTRY)));
                 bean.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
@@ -134,7 +136,7 @@ public class VideoSQL extends SQLiteOpenHelper {
                 bean.setTimeLineUrl(cursor.getString(cursor.getColumnIndex(TimeLineUrl)));
                 bean.setTimeLineCount(cursor.getInt(cursor.getColumnIndex(TimeLineCount)));
                 bean.setTimeLineImageIype(cursor.getInt(cursor.getColumnIndex(TimeLineImageType)));
-                beans.add(bean);
+                beans.put(bean.getID(),bean);
             }
         }
         cursor.close();

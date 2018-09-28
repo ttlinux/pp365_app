@@ -76,8 +76,11 @@
         </receiver>
         <service
             android:name="org.sex.hanker.Service.DownloadService"
-            android:process=":VideoDownloader"
-            />
+
+            ></service>
+
+            <!--android:process=":VideoDownloader"-->
+
         <meta-data
             android:name="org.sex.hanker.Utils.GlideModuleConfig"
             android:value="GlideModule" />

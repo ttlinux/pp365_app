@@ -2,6 +2,8 @@ package org.sex.hanker.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.sex.hanker.BaseParent.BaseApplication;
+import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.mybusiness.R;
 
@@ -23,35 +26,36 @@ import java.util.ArrayList;
 public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<LocalVideoBean> localVideoBeans;
+    SparseArray<BroadcastDataBean> localVideoBeans;
     ImageLoader imageLoader;
 
-    public VideoTaskAdapter(Context context, ArrayList<LocalVideoBean> localVideoBeans) {
+    public VideoTaskAdapter(Context context, SparseArray<BroadcastDataBean> localVideoBeans) {
         this.context = context;
         this.localVideoBeans = localVideoBeans;
         imageLoader = ((BaseApplication) context.getApplicationContext()).getImageLoader();
         setHasStableIds(true);
     }
 
-    public void NotifyAdapter(ArrayList<LocalVideoBean> localVideoBeans) {
+    public void NotifyAdapter(SparseArray<BroadcastDataBean> localVideoBeans) {
         this.localVideoBeans = localVideoBeans;
         notifyItemRangeChanged(0, getItemCount());
     }
 
-    public void NotifyAdapter(ArrayList<LocalVideoBean> localVideoBeans, int position) {
+    public void NotifyAdapter(SparseArray<BroadcastDataBean> localVideoBeans, int position) {
         this.localVideoBeans = localVideoBeans;
         notifyItemChanged(position);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(View.inflate(context, R.layout.item_video_task, null));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video_task,parent,false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        LocalVideoBean bean = localVideoBeans.get(position);
+        BroadcastDataBean bean = localVideoBeans.valueAt(position);
         imageLoader.displayImage(bean.getVIDEO_PHOTO(), holder.image);
         holder.title.setText(bean.getVIDEO_TITLE());
         holder.progresstext.setText(bean.getPersent() + "%");

@@ -41,7 +41,7 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogTools.e("onStartCommand", "onStartCommand");
+        LogTools.e("DownloadService", "onStartCommand"+ (intent==null?"intent_null":"intent not null"));
         if (intent == null) return super.onStartCommand(intent, START_STICKY, startId);
         Serializable obj = intent.getSerializableExtra(BundleTag.Data);
         if (obj == null) return super.onStartCommand(intent, START_STICKY, startId);
@@ -52,6 +52,7 @@ public class DownloadService extends Service {
             cloneintent.setAction(BundleTag.CreateTaskAction);
             cloneintent.putExtra(BundleTag.CreateTask, bean);
             sendBroadcast(cloneintent);
+            ToastUtil.showMessage(this, "已加入下载队列");
         } else {
             switch (Code) {
                 case VideoDownloader.ERROR:
