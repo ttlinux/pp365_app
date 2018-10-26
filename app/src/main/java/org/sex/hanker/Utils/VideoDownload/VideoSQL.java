@@ -101,7 +101,7 @@ public class VideoSQL extends SQLiteOpenHelper {
 
     }
 
-    public synchronized static SparseArray<BroadcastDataBean> getColumnData(Context context,boolean isDone)
+    public synchronized static SparseArray<BroadcastDataBean> getColumnData(boolean isDone)
     {
         SparseArray<BroadcastDataBean> beans=new SparseArray<>();
         StringBuilder sb=new StringBuilder();
@@ -212,15 +212,10 @@ public class VideoSQL extends SQLiteOpenHelper {
                 VIDEO_ID, bean.getVIDEO_ID(), COUNTRY, bean.getCOUNTRY()));
     }
 
-    public synchronized static void delateSingleColumn(Context context, LocalVideoBean bean) {
+    public synchronized static void delateSingleColumn( LocalVideoBean bean) {
         String sqlstr = "DELETE from %s where %s='%s'";
         sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, VIDEO_ID, bean.getVIDEO_ID()));
     }
-
-    public synchronized static void deleteData(Context context) {
-        sqLiteDatabase.delete(TABLE, null, null);
-    }
-
 
     public synchronized static void rebuildTable(Context context) {
         try {

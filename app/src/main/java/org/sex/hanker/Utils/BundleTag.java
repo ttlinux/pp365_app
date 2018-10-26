@@ -22,6 +22,9 @@ public class BundleTag {
     public static final String ASIA="ASIA";
     public static final String Postion="Postion";
     public static final String Data="Data";
+    public static final String Speed="Speed";
+    public static final String RemainData="RemainData";
+    public static final String VideoStatus="VideoStatus";
     public static final String Index="Index";
     public static final String ID="ID";
     public static final String URL="URL";

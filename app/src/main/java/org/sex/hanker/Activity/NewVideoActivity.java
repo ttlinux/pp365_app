@@ -12,9 +12,13 @@ import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,8 +63,6 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     private OrientationSensorListener listener;
     private SensorManager sm;
     private Sensor sensor;
-    private ListView listview;
-    VideoMessageAdapter videoadapter;
     private int MessagePage = 0;
     private final int pageAmount = 20;
     private VideoBean bean;
@@ -68,9 +70,12 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     private static final String Testm3u8 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
     //http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
     //http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8
-    private static final String TestMp4 = "http://10.20.20.1/E/%E7%88%B1%E6%83%85%E7%89%87/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86/%E4%BA%B2%E7%88%B1%E7%9A%84,%E6%88%91%E8%A6%81%E5%92%8C%E5%88%AB%E4%BA%BA%E7%BB%93%E5%A9%9A%E4%BA%86.mkv";
-
+    private static final String TestMp4 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    //http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4
     //测试m3u8 http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
+    private LinearLayout mainlist;
+    private ImageLoader imageLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +94,9 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
 //                startActivity(intent);
 //            }
 //        }
-
+        imageLoader=((BaseApplication)getApplication()).getImageLoader();
+        mainlist=FindView(R.id.mainlist);
         handler = new ChangeOrientationHandler(this);
-        listview = FindView(R.id.listview);
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         listener = new OrientationSensorListener(handler);
@@ -110,7 +115,8 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
             @Override
             public void OnDownload() {
                 Intent intent = new Intent(NewVideoActivity.this, DownloadService.class);
-                bean.setQuality480p(Testm3u8);
+                bean.setQuality480p(TestMp4);
+                bean.setVideotype("MP4");
                 intent.putExtra(BundleTag.Data, bean);
                 NewVideoActivity.this.startService(intent);
             }
@@ -147,6 +153,16 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
                     bean=VideoBean.AnalynsisData(datas.optJSONObject("videos"));
                     bean.setCountryid(Country);
                     videoview.download.setVisibility(View.VISIBLE);
+                    JSONArray similar=datas.optJSONArray("similar");
+                    for (int i = 0; i < similar.length(); i++) {
+                        VideoBean bean=VideoBean.AnalynsisData(similar.optJSONObject(i));
+                        View view=View.inflate(NewVideoActivity.this, R.layout.item_video_relative, null);
+                        ImageView imageView=(ImageView)view.findViewById(R.id.picture);
+                        TextView videotitle=(TextView)view.findViewById(R.id.videotitle);
+                        imageLoader.displayImage(bean.getImageUrl(),imageView);
+                        videotitle.setText(bean.getVideoTitle());
+                        mainlist.addView(view);
+                    }
                     //http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/1.m3u8 videos.optString("quality480p","")
 //                    videoview.setPathAndPlay(Environment.getExternalStorageDirectory() + "/kk.mp4");//videos.optString("quality480p", "")
 //                    videoview.setPathAndPlay(TestMp4);
@@ -222,19 +238,10 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                SetAdapter(chatbeans);
 
             }
         });
     }
 
-    public void SetAdapter(ArrayList<ChatBean> chatbeans) {
-        if (videoadapter == null) {
-            videoadapter = new VideoMessageAdapter(this, chatbeans);
-            listview.setAdapter(videoadapter);
-        } else {
-            videoadapter.notifyData(chatbeans);
-        }
-    }
 
 }

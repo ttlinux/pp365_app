@@ -109,6 +109,7 @@ public class BaseActivity extends Activity{
         View view=FindView(R.id.backtitle);
         if( view!=null && view instanceof TextView)
         {
+            view.setVisibility(View.VISIBLE);
             ((TextView)view).setText(str);
         }
     }

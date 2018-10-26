@@ -15,9 +15,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,5 +211,54 @@ public class IOUtil {
             }
         }
         return FileMiss;
+    }
+
+    public static String Formate(long numbers) {
+        StringBuilder formatstr = new StringBuilder();
+        BigDecimal biglong = new BigDecimal(numbers);
+        int firstcompare = new BigDecimal(1000).compareTo(biglong);
+        switch (firstcompare) {
+            case 1:
+                formatstr.append(numbers).append("B");
+                return formatstr.toString();
+            case 0:
+                formatstr.append("1K");
+                return formatstr.toString();
+
+        }
+        int secondcompare = new BigDecimal(1000*1000).compareTo(biglong);
+        switch (secondcompare) {
+            case 1:
+                formatstr.append(new DecimalFormat("#0.00").format(0.1*numbers/100)).append("K");
+                return formatstr.toString();
+            case 0:
+                formatstr.append("1M");
+                return formatstr.toString();
+        }
+        int thirdcompare = new BigDecimal(1000*1000*1000).compareTo(biglong);
+        switch (thirdcompare) {
+            case 1:
+                formatstr.append(new DecimalFormat("#0.00").format(0.1*numbers/100/1000)).append("M");
+                return formatstr.toString();
+            case 0:
+                formatstr.append("1G");
+                return formatstr.toString();
+        }
+
+        int fourthcompare = new BigDecimal(1000*1000*1000*1000).compareTo(biglong);
+        switch (fourthcompare) {
+
+            case 0:
+                formatstr.append("1T");
+                return formatstr.toString();
+            case -1:
+                formatstr.append(new DecimalFormat("#0.00").format(0.1*numbers/100/1000/1000)).append("G");
+                return formatstr.toString();
+            case 1:
+                formatstr.append("文件过大已超出手机容量");
+                return formatstr.toString();
+        }
+
+        return null;
     }
 }

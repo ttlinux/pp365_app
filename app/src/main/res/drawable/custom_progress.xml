@@ -4,8 +4,8 @@
         <shape android:shape="rectangle">
             <corners android:radius="5dp" />
             <gradient
-                android:endColor="#fff"
-                android:startColor="@color/gray23" />
+                android:endColor="@color/gray4"
+                android:startColor="@color/gray4" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
@@ -14,8 +14,8 @@
                 <corners android:radius="5dp" />
                 <gradient
                     android:angle="45"
-                    android:endColor="#f90"
-                    android:startColor="#f00" />
+                    android:endColor="@color/gray4"
+                    android:startColor="@color/gray24" />
             </shape>
         </clip>
     </item>

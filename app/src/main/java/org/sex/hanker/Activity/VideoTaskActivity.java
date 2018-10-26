@@ -13,12 +13,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
 import org.sex.hanker.Adapter.VideoTaskAdapter;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
@@ -40,13 +43,15 @@ public class VideoTaskActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_task);
         setBacktitleText(getResources().getString(R.string.downloadManage));
+        setBacktitleFinish();
         Initview();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        localVideoBeans= VideoSQL.getColumnData(this, false);
+        localVideoBeans= VideoSQL.getColumnData(false);
+        LogTools.e("localVideoBeans",new Gson().toJson(localVideoBeans));
         setVideoTaskAdapter(-1);
         RegisterBoardcast();
     }
@@ -122,7 +127,7 @@ public class VideoTaskActivity extends BaseActivity {
                 if(intent.getAction().equalsIgnoreCase(BundleTag.CreateTaskAction))
                 {
 //                    VideoBean videoBean=(VideoBean)intent.getSerializableExtra(BundleTag.CreateTask);
-                    localVideoBeans= VideoSQL.getColumnData(VideoTaskActivity.this, false);
+                    localVideoBeans= VideoSQL.getColumnData(false);
                     setVideoTaskAdapter(-1);
                 }
                 if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))

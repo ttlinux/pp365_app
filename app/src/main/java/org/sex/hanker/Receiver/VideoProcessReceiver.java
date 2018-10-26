@@ -13,11 +13,14 @@ import android.os.Message;
 import android.support.v7.app.NotificationCompat;
 import android.util.SparseArray;
 
+import com.google.gson.Gson;
+
 import org.sex.hanker.Activity.VideoTaskActivity;
 import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
@@ -49,11 +52,13 @@ public class VideoProcessReceiver extends BroadcastReceiver {
             {
                 VideoBean videoBean=(VideoBean)intent.getSerializableExtra(BundleTag.CreateTask);
                 if(videoBean==null)return;
+                LogTools.e("bbbb111",new Gson().toJson(videoBean));
             }
             if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))
             {
                 BroadcastDataBean bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
                 if(bean==null)return;
+                LogTools.e("bbbb222",new Gson().toJson(bean));
                 for (int i = 0; i < listeners.size(); i++) {
                     listeners.get(i).onProcess(bean);
                 }
