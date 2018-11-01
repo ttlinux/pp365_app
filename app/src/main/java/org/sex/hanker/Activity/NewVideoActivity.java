@@ -39,7 +39,6 @@ import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.OrientationSensorListener;
 import org.sex.hanker.Utils.ToastUtil;
-import org.sex.hanker.Utils.VideoDownload.VideoDownloader;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.View.ColorTextview;
 import org.sex.hanker.View.NewVideoView;
@@ -81,7 +80,6 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_videoview);
         Initview();
-
     }
 
     private void Initview() {

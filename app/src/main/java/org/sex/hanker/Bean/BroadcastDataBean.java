@@ -11,6 +11,49 @@ public class BroadcastDataBean implements Serializable {
     private int ID, STATUS, TimeLineImageIype, TimeLineCount;
     private int Persent;
 
+    private long speed,contentlength,currentlength;
+    private int downloadepisode,episodeAmount;
+
+    public long getContentlength() {
+        return contentlength;
+    }
+
+    public void setContentlength(long contentlength) {
+        this.contentlength = contentlength;
+    }
+
+    public long getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(long speed) {
+        this.speed = speed;
+    }
+
+    public int getEpisodeAmount() {
+        return episodeAmount;
+    }
+
+    public void setEpisodeAmount(int episodeAmount) {
+        this.episodeAmount = episodeAmount;
+    }
+
+    public int getDownloadepisode() {
+        return downloadepisode;
+    }
+
+    public void setDownloadepisode(int downloadepisode) {
+        this.downloadepisode = downloadepisode;
+    }
+
+    public long getCurrentlength() {
+        return currentlength;
+    }
+
+    public void setCurrentlength(long currentlength) {
+        this.currentlength = currentlength;
+    }
+
     public String getCOLUMN_URL() {
         return COLUMN_URL;
     }

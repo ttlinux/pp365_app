@@ -236,4 +236,19 @@ public class VideoBean implements Serializable {
         videoBean.setQuality480p(jsonObject.optString("quality480p",""));
         return videoBean;
     }
+
+    public static VideoBean ConvertBean(BroadcastDataBean bean)
+    {
+        VideoBean videoBean=new VideoBean();
+        videoBean.setPhid(bean.getVIDEO_ID());
+        videoBean.setTimelineurl(bean.getTimeLineUrl());
+        videoBean.setTimelineimagetype(bean.getTimeLineImageIype());
+        videoBean.setTimelinecount(bean.getTimeLineCount() + "");
+        videoBean.setVideotype(bean.getSUFFIX());
+        videoBean.setImageUrl(bean.getVIDEO_PHOTO());
+        videoBean.setVideoTitle(bean.getVIDEO_TITLE());
+        videoBean.setQuality480p(bean.getCOLUMN_URL());
+        videoBean.setCountryid(bean.getCOUNTRY());
+        return videoBean;
+    }
 }

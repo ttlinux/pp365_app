@@ -1,6 +1,7 @@
 package org.sex.hanker.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -16,6 +17,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
+import org.sex.hanker.Bean.VideoBean;
+import org.sex.hanker.ProxyURL.IOUtil;
+import org.sex.hanker.Service.DownloadService;
+import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
@@ -60,6 +66,37 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
         holder.title.setText(bean.getVIDEO_TITLE());
         holder.progresstext.setText(bean.getPersent() + "%");
         holder.progress.setProgress(bean.getPersent());
+
+        holder.handlerbtn.setTag(position);
+        holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int m_pos=(int)v.getTag();
+                Intent intent = new Intent(context, DownloadService.class);
+                intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
+                context.startService(intent);
+            }
+        });
+        if(bean.getSTATUS()== VideoSQL.Pause)
+        {
+            holder.speed.setText("");
+            holder.remaindata.setText(context.getString(R.string.videopause));
+            holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+        }
+        else
+        {
+            holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
+            holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
+            if(bean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8"))
+            {
+                holder.remaindata.setText(bean.getDownloadepisode()+"/"+bean.getEpisodeAmount());
+            }
+            else
+            {
+                holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
+            }
+        }
+
     }
 
     @Override
@@ -73,14 +110,17 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView title, progresstext;
+        ImageView image,handlerbtn;
+        TextView title, progresstext,remaindata,speed;
         ProgressBar progress;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            handlerbtn=(ImageView)itemView.findViewById(R.id.handlerbtn);
             image = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
+            remaindata = (TextView) itemView.findViewById(R.id.remaindata);
+            speed = (TextView) itemView.findViewById(R.id.speed);
             progresstext = (TextView) itemView.findViewById(R.id.progresstext);
             progress = (ProgressBar) itemView.findViewById(R.id.progress);
         }

@@ -358,9 +358,11 @@ public class VideoDownloader {
                 localVideoBean.setSTATUS(VideoSQL.NotYetFinish);
                 VideoSQL.updateSingleColumn(context, localVideoBean);
                 Intent intent = new Intent(BundleTag.VideoProcessAction);
-                intent.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
-                intent.putExtra(BundleTag.Speed,bufferlength/time);
-                intent.putExtra(BundleTag.RemainData,famount+"/"+localVideoBean.getM3U8_items().size());
+                BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
+                broadcastDataBean.setSpeed(bufferlength/time);
+                broadcastDataBean.setDownloadepisode(famount);
+                broadcastDataBean.setEpisodeAmount(localVideoBean.getM3U8_items().size());
+                intent.putExtra(BundleTag.Data, broadcastDataBean);
                 context.sendBroadcast(intent);
                 DownloadTs(context, localVideoBean);
             }
@@ -411,15 +413,15 @@ public class VideoDownloader {
                     localVideoBean.setPersent((int) (file.length() * 0.01d / ContentLength * 10000));
                     VideoSQL.updateSingleColumn(context, localVideoBean);
                     Intent intent = new Intent(BundleTag.VideoProcessAction);
-                    intent.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
-                    intent.putExtra(BundleTag.Speed, bufferlength / sumtime);
+                    BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
+                    broadcastDataBean.setSpeed(bufferlength / sumtime);
                     long length=IOUtil.isComplete(localVideoBean.getLocalPath());
-                    long famount=0;
                     if(length!=IOUtil.Complete && length!=IOUtil.FileMiss)
                     {
-                        famount=ContentLength-length;
-                        intent.putExtra(BundleTag.RemainData,IOUtil.Formate(famount)+"/"+IOUtil.Formate(ContentLength));
+                        broadcastDataBean.setCurrentlength(length);
+                        broadcastDataBean.setContentlength(ContentLength);
                     }
+                    intent.putExtra(BundleTag.Data, broadcastDataBean);
                     context.sendBroadcast(intent);
                 }
                 time=ntime;
