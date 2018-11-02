@@ -262,7 +262,7 @@ public class VideoDownloader {
 
     private static void DownloadTs(final Context context, final LocalVideoBean bean) {
 
-        VideoHTTPMethod.ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
+        new VideoHTTPMethod().ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
             @Override
             public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean, int listindex) {
                 super.OnSuccess(contentlength, in, bean, listindex);
@@ -278,7 +278,7 @@ public class VideoDownloader {
     }
 
     private static void DownloadVideo(final Context context, final LocalVideoBean bean) {
-        VideoHTTPMethod.ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
+        new VideoHTTPMethod().ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
             @Override
             public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean) {
                 super.OnSuccess(contentlength, in, bean);
@@ -310,6 +310,8 @@ public class VideoDownloader {
             file.seek(file.length());
             long time=System.currentTimeMillis();
             long bufferlength=0;
+            long speed=0;
+            int famount = CaculateM3U8FinishedAmount(localVideoBean);
             while ((readBytes = in.read(buffer, 0, VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE)) > -1) {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
@@ -318,8 +320,22 @@ public class VideoDownloader {
                 }
                 file.write(buffer, 0, readBytes);
                 bufferlength=bufferlength+readBytes;
+                long ctime=System.currentTimeMillis();
+                if(ctime-time>=1000)
+                {
+                    speed=bufferlength*1000/(ctime-time);
+                    Intent intent = new Intent(BundleTag.VideoProcessAction);
+                    BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
+                    broadcastDataBean.setSpeed(speed);
+                    broadcastDataBean.setDownloadepisode(famount);
+                    broadcastDataBean.setEpisodeAmount(localVideoBean.getM3U8_items().size());
+                    intent.putExtra(BundleTag.Data, broadcastDataBean);
+                    context.sendBroadcast(intent);
+                    time=System.currentTimeMillis();
+                    bufferlength=0;
+                }
             }
-            time=System.currentTimeMillis()-time;
+
             file.close();
             in.close();
             localVideoBean.getM3U8_items().get(listindex).setSTATUS(VideoSQL.Finished);
@@ -333,7 +349,7 @@ public class VideoDownloader {
             //刷新数据库
             VideoSQL.UpdateM3U8Item(context, localVideoBean.getM3U8_items().get(listindex));
 
-            int famount = CaculateM3U8FinishedAmount(localVideoBean);
+             famount = CaculateM3U8FinishedAmount(localVideoBean);
             if (famount == localVideoBean.getM3U8_items().size()) {
                 //m3u8全部下载完成
                 localVideoBean.setPersent(99);
@@ -359,7 +375,7 @@ public class VideoDownloader {
                 VideoSQL.updateSingleColumn(context, localVideoBean);
                 Intent intent = new Intent(BundleTag.VideoProcessAction);
                 BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
-                broadcastDataBean.setSpeed(bufferlength/time);
+                broadcastDataBean.setSpeed(speed);
                 broadcastDataBean.setDownloadepisode(famount);
                 broadcastDataBean.setEpisodeAmount(localVideoBean.getM3U8_items().size());
                 intent.putExtra(BundleTag.Data, broadcastDataBean);
@@ -392,7 +408,6 @@ public class VideoDownloader {
             long time=System.currentTimeMillis();
             long sumtime=0;
             long bufferlength=0;
-            long filelength=file.length();
             while ((readBytes = in.read(buffer, 0, VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE)) > -1) {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
@@ -404,17 +419,14 @@ public class VideoDownloader {
                 long ntime=System.currentTimeMillis();
                 sumtime=sumtime+ntime-time;
                 bufferlength=readBytes+bufferlength;
-                if(sumtime>1000)
+                if(sumtime>=1000)
                 {
-                    filelength=filelength+bufferlength;
-                    sumtime=0;
-                    bufferlength=0;
                     localVideoBean.setSTATUS(VideoSQL.NotYetFinish);
                     localVideoBean.setPersent((int) (file.length() * 0.01d / ContentLength * 10000));
                     VideoSQL.updateSingleColumn(context, localVideoBean);
                     Intent intent = new Intent(BundleTag.VideoProcessAction);
                     BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
-                    broadcastDataBean.setSpeed(bufferlength / sumtime);
+                    broadcastDataBean.setSpeed(bufferlength*1000 / sumtime);
                     long length=IOUtil.isComplete(localVideoBean.getLocalPath());
                     if(length!=IOUtil.Complete && length!=IOUtil.FileMiss)
                     {
@@ -423,6 +435,8 @@ public class VideoDownloader {
                     }
                     intent.putExtra(BundleTag.Data, broadcastDataBean);
                     context.sendBroadcast(intent);
+                    sumtime=0;
+                    bufferlength=0;
                 }
                 time=ntime;
             }

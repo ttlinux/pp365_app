@@ -12,6 +12,7 @@ import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.OnReceiveDataListener;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,17 +66,21 @@ public class VideoHTTPMethod {
                 listener.OnFail("文件已经下载到SD卡，如需重新下载请删除原文件");
             return;
         }
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
+                .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
+                .build();
+
         Request.Builder builder = new Request.Builder();
         builder.addHeader("Cookie", java.util.UUID.randomUUID().toString());
         builder.addHeader("Referer", requesturl);
         builder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
         builder.addHeader("Accept-Encoding", "identity");
-        if (offset > -1)
+        if (offset > 0)
             builder.addHeader("Range", "bytes=" + offset + "-");
         builder.addHeader("Content-type", getSupposablyMime(requesturl));
         builder.url(requesturl);
-        builder.method("GET", null);
+        builder.get();
         Request request = builder.build();
 
         Call call = okHttpClient.newCall(request);

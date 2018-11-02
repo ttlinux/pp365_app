@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.SparseArray;
 import android.widget.ListView;
 
@@ -81,6 +82,11 @@ public class VideoTaskActivity extends BaseActivity {
         recycleview=FindView(R.id.recycleview);
         recycleview.setLayoutManager(new LinearLayoutManager(this));
         recycleview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recycleview.getItemAnimator().setAddDuration(0);
+        recycleview.getItemAnimator().setChangeDuration(0);
+        recycleview.getItemAnimator().setMoveDuration(0);
+        recycleview.getItemAnimator().setRemoveDuration(0);
+        ((SimpleItemAnimator) recycleview.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     @Override

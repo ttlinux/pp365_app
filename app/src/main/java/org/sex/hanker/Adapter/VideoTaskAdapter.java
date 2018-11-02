@@ -68,20 +68,21 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
         holder.progress.setProgress(bean.getPersent());
 
         holder.handlerbtn.setTag(position);
-        holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int m_pos=(int)v.getTag();
-                Intent intent = new Intent(context, DownloadService.class);
-                intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
-                context.startService(intent);
-            }
-        });
+
         if(bean.getSTATUS()== VideoSQL.Pause)
         {
             holder.speed.setText("");
             holder.remaindata.setText(context.getString(R.string.videopause));
             holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+            holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int m_pos = (int) v.getTag();
+                    Intent intent = new Intent(context, DownloadService.class);
+                    intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
+                    context.startService(intent);
+                }
+            });
         }
         else
         {
@@ -95,6 +96,15 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             {
                 holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
             }
+            holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int m_pos=(int)v.getTag();
+                    Intent intent = new Intent(context, DownloadService.class);
+                    intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
+                    context.startService(intent);
+                }
+            });
         }
 
     }
