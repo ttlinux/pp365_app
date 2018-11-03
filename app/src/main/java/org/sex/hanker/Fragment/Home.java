@@ -276,10 +276,10 @@ public class Home extends BaseFragment implements View.OnClickListener{
         switch (v.getId())
         {
             case R.id.register:
-                startActivityForResult(new Intent(getActivity(), RegisterActivity.class), BundleTag.Status);
+                startActivityForResult(new Intent(getActivity(), RegisterActivity.class), BundleTag.RequestCode);
                 break;
             case R.id.login:
-                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.Status);
+                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.RequestCode);
                 break;
         }
     }

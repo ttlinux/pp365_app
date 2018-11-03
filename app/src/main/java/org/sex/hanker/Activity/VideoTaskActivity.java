@@ -57,15 +57,6 @@ public class VideoTaskActivity extends BaseActivity {
         RegisterBoardcast();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(broadcastReceiver!=null)
-        {
-            unregisterReceiver(broadcastReceiver);
-            broadcastReceiver= null;
-        }
-    }
 
     @Override
     protected void onPause() {
@@ -130,22 +121,18 @@ public class VideoTaskActivity extends BaseActivity {
         broadcastReceiver=new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if(intent.getAction().equalsIgnoreCase(BundleTag.CreateTaskAction))
-                {
-//                    VideoBean videoBean=(VideoBean)intent.getSerializableExtra(BundleTag.CreateTask);
-                    localVideoBeans= VideoSQL.getColumnData(false);
-                    setVideoTaskAdapter(-1);
-                }
                 if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))
                 {
-                    BroadcastDataBean bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
+                    BroadcastDataBean bean=null;
+                    bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
+                    if(bean==null)
+                        bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.CreateTask);
                     localVideoBeans.put(bean.getID(), bean);
                     setVideoTaskAdapter( localVideoBeans.indexOfKey(bean.getID()));
                 }
             }
         };
         IntentFilter intentFilter=new IntentFilter();
-        intentFilter.addAction(BundleTag.CreateTaskAction);
         intentFilter.addAction(BundleTag.VideoProcessAction);
         registerReceiver(broadcastReceiver,intentFilter);
     }

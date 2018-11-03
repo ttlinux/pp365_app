@@ -2,6 +2,8 @@ package org.sex.hanker.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -34,6 +36,32 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
     Context context;
     SparseArray<BroadcastDataBean> localVideoBeans;
     ImageLoader imageLoader;
+    Handler handler=new Handler(){
+        @Override
+        public void dispatchMessage(Message msg) {
+            super.dispatchMessage(msg);
+            if(msg.what==111)
+            {
+                VideoBean bean=(VideoBean)msg.obj;
+                if(msg.arg1==0)
+                {
+                    //暂停
+                    Intent intent = new Intent(context, DownloadService.class);
+                    intent.putExtra(BundleTag.ExcuteType,DownloadService.Pause);
+                    intent.putExtra(BundleTag.Data, bean);
+                    context.startService(intent);
+                }
+                else
+                {
+                    //下载
+                    Intent intent = new Intent(context, DownloadService.class);
+                    intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
+                    intent.putExtra(BundleTag.Data, bean);
+                    context.startService(intent);
+                }
+            }
+        }
+    };
 
     public VideoTaskAdapter(Context context, SparseArray<BroadcastDataBean> localVideoBeans) {
         this.context = context;
@@ -77,10 +105,14 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int m_pos = (int) v.getTag();
-                    Intent intent = new Intent(context, DownloadService.class);
-                    intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
-                    context.startService(intent);
+                    handler.removeMessages(111);
+                    int m_pos=(int)v.getTag();
+                    Message message=new Message();
+                    message.obj=VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
+                    message.what=111;
+                    message.arg1=0;
+                    handler.sendMessageDelayed(message,700);
+
                 }
             });
         }
@@ -99,10 +131,13 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    handler.removeMessages(111);
                     int m_pos=(int)v.getTag();
-                    Intent intent = new Intent(context, DownloadService.class);
-                    intent.putExtra(BundleTag.Data, VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos)));
-                    context.startService(intent);
+                    Message message=new Message();
+                    message.obj=VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
+                    message.what=111;
+                    message.arg1=1;
+                    handler.sendMessageDelayed(message, 700);
                 }
             });
         }

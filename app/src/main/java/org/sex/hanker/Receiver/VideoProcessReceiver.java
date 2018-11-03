@@ -32,33 +32,27 @@ import java.util.HashMap;
  */
 public class VideoProcessReceiver extends BroadcastReceiver {
 
-    public interface VideoProcessListener
-    {
+    public interface VideoProcessListener {
         public void onProcess(BroadcastDataBean bean);
     }
-    public static ArrayList<VideoProcessListener> listeners=new ArrayList<>();
 
-    public static void addListeners(VideoProcessListener listener)
-    {
+    public static ArrayList<VideoProcessListener> listeners = new ArrayList<>();
+
+    public static void addListeners(VideoProcessListener listener) {
         listeners.add(listener);
     }
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent!=null)
-        {
-            if(intent.getAction().equalsIgnoreCase(BundleTag.CreateTaskAction))
-            {
-                VideoBean videoBean=(VideoBean)intent.getSerializableExtra(BundleTag.CreateTask);
-                if(videoBean==null)return;
-                LogTools.e("bbbb111",new Gson().toJson(videoBean));
-            }
-            if(intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction))
-            {
-                BroadcastDataBean bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
-                if(bean==null)return;
-                LogTools.e("bbbb222",new Gson().toJson(bean));
+        if (intent != null) {
+            if (intent.getAction().equalsIgnoreCase(BundleTag.VideoProcessAction)) {
+                BroadcastDataBean bean = null;
+                bean = (BroadcastDataBean) intent.getSerializableExtra(BundleTag.CreateTask);
+                if (bean == null)
+                    bean = (BroadcastDataBean) intent.getSerializableExtra(BundleTag.Data);
+                if (bean == null) return;
+                LogTools.e("bbbb222", new Gson().toJson(bean));
                 for (int i = 0; i < listeners.size(); i++) {
                     listeners.get(i).onProcess(bean);
                 }

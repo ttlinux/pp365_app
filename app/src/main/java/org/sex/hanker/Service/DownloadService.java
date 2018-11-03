@@ -27,6 +27,8 @@ import java.io.Serializable;
  */
 public class DownloadService extends Service {
 
+    public static final String Download="Download";
+    public static final String Pause="Pause";
 
     @Nullable
     @Override
@@ -43,28 +45,53 @@ public class DownloadService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogTools.e("DownloadService", "onStartCommand"+ (intent==null?"intent_null":"intent not null"));
         if (intent == null) return super.onStartCommand(intent, START_STICKY, startId);
+        String ExcuteType=intent.getStringExtra(BundleTag.ExcuteType);
+        if(ExcuteType==null)
+            return super.onStartCommand(intent, START_STICKY, startId);
+
         Serializable obj = intent.getSerializableExtra(BundleTag.Data);
         if (obj == null) return super.onStartCommand(intent, START_STICKY, startId);
-        VideoBean bean = (VideoBean) obj;
-        int Code = VideoDownloader.request(bean, this);
-        if (Code == (VideoDownloader.Success | VideoSQL.NewFile)) {
+        if(ExcuteType.equalsIgnoreCase(Download))
+        {
+            VideoBean bean = (VideoBean) obj;
+            int Code = VideoDownloader.request(bean, this);
             Intent cloneintent = new Intent();
-            cloneintent.setAction(BundleTag.CreateTaskAction);
-            cloneintent.putExtra(BundleTag.CreateTask, bean);
-            sendBroadcast(cloneintent);
-            ToastUtil.showMessage(this, "已加入下载队列");
-        } else {
-            switch (Code) {
-                case VideoDownloader.ERROR:
-                    ToastUtil.showMessage(this, "下载出错 -_-");
-                    break;
-                case VideoDownloader.Exits:
-                    ToastUtil.showMessage(this, "文件已下载完成");
-                    break;
-                case VideoDownloader.Full:
-                    ToastUtil.showMessage(this, "下载最大任务数为" + VideoDownloader.MaxCount);
-                    break;
+            cloneintent.setAction(BundleTag.VideoStatusAction);
+            cloneintent.putExtra(BundleTag.Country, bean.getCountryid());
+            cloneintent.putExtra(BundleTag.ID,bean.getPhid());
+
+            if (Code == (VideoDownloader.Success ^ VideoSQL.NewFile) || Code == (VideoDownloader.Success ^ VideoSQL.NotYetFinish)) {
+                switch (Code ^ VideoDownloader.Success)
+                {
+                    case VideoSQL.NewFile:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Success_NewFile);
+                        break;
+                    case VideoSQL.NotYetFinish:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Success_NotYetFinish);
+                        break;
+                }
+            } else {
+                switch (Code) {
+                    case VideoDownloader.ERROR:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_ERROR);
+                        break;
+                    case VideoDownloader.Exist:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_Exits);
+                        break;
+                    case VideoDownloader.InLine:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_InLine);
+                        break;
+                    case VideoDownloader.Full:
+                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_Full);
+                        break;
+                }
             }
+            sendBroadcast(cloneintent);
+        }
+        else if(ExcuteType.equalsIgnoreCase(Pause))
+        {
+            VideoBean bean = (VideoBean) obj;
+            VideoDownloader.CancelTask(bean.getPhid(),bean.getCountryid());
         }
 
         return super.onStartCommand(intent, START_STICKY, startId);

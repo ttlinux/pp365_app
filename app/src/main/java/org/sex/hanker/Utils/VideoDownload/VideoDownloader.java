@@ -52,10 +52,11 @@ public class VideoDownloader {
 
     public static final int Success = 1;
     public static final int NewTask = 2;
-    public static final int MaxCount = 10;
-    public static final int Exits = -1;
+    public static final int MaxCount = BundleTag.MaxCount;
+    public static final int Exist = -1;
     public static final int ERROR = -2;
     public static final int Full = -3;
+    public static final int InLine = -4;
     public static HashMap<String, Future> fhashMap = new HashMap<>();
 
 
@@ -78,11 +79,15 @@ public class VideoDownloader {
         if (socketProcessor.getActiveCount() == MaxCount) {
             return Full;
         }
+        if(fhashMap.get(videoBean.getPhid()+videoBean.getCountryid())!=null)
+        {
+            return InLine;
+        }
 
         int status = 0;
         if (videoBean.getVideotype().toLowerCase().equalsIgnoreCase("m3u8")) {
             final LocalVideoBean Localbean = PrepareForM3U8(context, videoBean);
-            if ((status = Localbean.getSTATUS()) == VideoSQL.Finished) return Exits;
+            if ((status = Localbean.getSTATUS()) == VideoSQL.Finished) return Exist;
             MyRunnable runnable = new MyRunnable() {
                 @Override
                 public void run() {
@@ -91,9 +96,13 @@ public class VideoDownloader {
                 }
             };
             fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), socketProcessor.submit(runnable));
+            if(status==VideoSQL.NewFile)
+            {
+                SendCreateFileMessage(context,Localbean);
+            }
         } else {
             final LocalVideoBean Localbean = PrepareForSingleFileDownload(context, videoBean);
-            if ((status = Localbean.getSTATUS()) == VideoSQL.Finished) return Exits;
+            if ((status = Localbean.getSTATUS()) == VideoSQL.Finished) return Exist;
             MyRunnable runable = new MyRunnable() {
 
                 @Override
@@ -105,8 +114,33 @@ public class VideoDownloader {
                 }
             };
             fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), socketProcessor.submit(runable));
+            if(status==VideoSQL.NewFile)
+            {
+                SendCreateFileMessage(context,Localbean);
+            }
         }
-        return Success | status;
+        return Success ^ status;
+    }
+
+    private static void SendCreateFileMessage(Context context,LocalVideoBean Localbean)
+    {
+        Intent cloneintent = new Intent();
+        cloneintent.setAction(BundleTag.VideoProcessAction);
+        cloneintent.putExtra(BundleTag.CreateTask, BroadcastDataBean.ConverData(Localbean));
+        context.sendBroadcast(cloneintent);
+    }
+
+    public static boolean CancelTask(String VideoId,String Country)
+    {
+        boolean cancel=false;
+        Future future=fhashMap.get(VideoId + Country);
+        if(future!=null)
+        {
+            future.cancel(true);
+            cancel=true;
+        }
+
+        return cancel;
     }
 
     private static LocalVideoBean PrepareForSingleFileDownload(Context context, VideoBean videoBean) {
@@ -316,6 +350,7 @@ public class VideoDownloader {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
                     VideoStatusSave(VideoSQL.Pause, context, localVideoBean);
+                    fhashMap.remove(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY());
                     return;
                 }
                 file.write(buffer, 0, readBytes);
@@ -412,6 +447,7 @@ public class VideoDownloader {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
                     VideoStatusSave(VideoSQL.Pause, context, localVideoBean);
+                    fhashMap.remove(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY());
                     return;
                 }
                 file.write(buffer, 0, readBytes);

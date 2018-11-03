@@ -20,11 +20,19 @@
     <string name="noconnection">无网络连接，请检查网络</string>
     <string name="load_more_text">正在加载...</string>
     <string name="nomoredata">已无更多数据</string>
+
+    <string name="Success_NewFile">已加入下载队列</string>
+    <string name="Success_NotYetFinish">视频正在下载</string>
+    <string name="Failure_Exits">视频已下载完成</string>
+    <string name="Failure_ERROR">下载出错 -_-</string>
+    <string name="Failure_Full">下载最大任务数为%s</string>
+    <string name="Failure_InLine">此视频正在下载中</string>
+
     <string-array name="sexuals">
         <item>直男</item>
         <item>同志</item>
         <item>妖</item>
-        <item>蕾丝(女同)</item>
+        <item>女同</item>
         <item>直女</item>
     </string-array>
     <string-array name="country">

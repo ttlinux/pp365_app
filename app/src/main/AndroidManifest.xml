@@ -71,7 +71,8 @@
             >
             <intent-filter>
                 <action android:name="org.sex.hanker.VideoProcess" />
-                <action android:name="org.sex.hanker.CreateTask" />
+                <action android:name="org.sex.hanker.VideoStatus" />
+
             </intent-filter>
         </receiver>
         <service

@@ -87,7 +87,7 @@ public class Setting extends BaseFragment implements View.OnClickListener{
         {
             case R.id.imagehead:
             case R.id.loginlayout:
-                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.Status);
+                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.RequestCode);
                 break;
         }
         switch ((int)v.getTag())

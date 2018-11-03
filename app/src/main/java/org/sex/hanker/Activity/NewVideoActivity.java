@@ -1,5 +1,6 @@
 package org.sex.hanker.Activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -74,6 +75,8 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     //测试m3u8 http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
     private LinearLayout mainlist;
     private ImageLoader imageLoader;
+    private BroadcastReceiver VideoStatusRecevicer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
         setContentView(R.layout.activity_new_videoview);
         Initview();
     }
+
 
     private void Initview() {
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -116,6 +120,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
                 bean.setQuality480p(TestMp4);
                 bean.setVideotype("MP4");
                 intent.putExtra(BundleTag.Data, bean);
+                intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
                 NewVideoActivity.this.startService(intent);
             }
 
@@ -132,6 +137,13 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     @Override
     protected void onStart() {
         super.onStart();
+        RegisterReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unRegisterReceiver();
     }
 
     private void RequestUrl() {
@@ -148,16 +160,16 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
 
                 if (jsonObject.optString("status").equalsIgnoreCase("000000")) {
                     JSONObject datas = jsonObject.optJSONObject("datas");
-                    bean=VideoBean.AnalynsisData(datas.optJSONObject("videos"));
+                    bean = VideoBean.AnalynsisData(datas.optJSONObject("videos"));
                     bean.setCountryid(Country);
                     videoview.download.setVisibility(View.VISIBLE);
-                    JSONArray similar=datas.optJSONArray("similar");
+                    JSONArray similar = datas.optJSONArray("similar");
                     for (int i = 0; i < similar.length(); i++) {
-                        VideoBean bean=VideoBean.AnalynsisData(similar.optJSONObject(i));
-                        View view=View.inflate(NewVideoActivity.this, R.layout.item_video_relative, null);
-                        ImageView imageView=(ImageView)view.findViewById(R.id.picture);
-                        TextView videotitle=(TextView)view.findViewById(R.id.videotitle);
-                        imageLoader.displayImage(bean.getImageUrl(),imageView);
+                        VideoBean bean = VideoBean.AnalynsisData(similar.optJSONObject(i));
+                        View view = View.inflate(NewVideoActivity.this, R.layout.item_video_relative, null);
+                        ImageView imageView = (ImageView) view.findViewById(R.id.picture);
+                        TextView videotitle = (TextView) view.findViewById(R.id.videotitle);
+                        imageLoader.displayImage(bean.getImageUrl(), imageView);
                         videotitle.setText(bean.getVideoTitle());
                         mainlist.addView(view);
                     }
@@ -241,5 +253,50 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
         });
     }
 
+    private void RegisterReceiver()
+    {
+        VideoStatusRecevicer=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String country=intent.getStringExtra(BundleTag.Country);
+                String id=intent.getStringExtra(BundleTag.ID);
+                int status=intent.getIntExtra(BundleTag.Status,0);
+                if(bean.getCountryid().equalsIgnoreCase(country) && bean.getPhid().equalsIgnoreCase(id))
+                {
+                    switch (status)
+                    {
+                        case BundleTag.Success_NewFile:
+                            ToastUtil.showMessage(NewVideoActivity.this,getString(R.string.Success_NewFile));
+                            break;
+                        case BundleTag.Success_NotYetFinish:
+                            break;
+                        case BundleTag.Failure_ERROR:
+                            ToastUtil.showMessage(NewVideoActivity.this,getString(R.string.Failure_ERROR));
+                            break;
+                        case BundleTag.Failure_Exits:
+                            ToastUtil.showMessage(NewVideoActivity.this,getString(R.string.Failure_Exits));
+                            break;
+                        case BundleTag.Failure_Full:
+                            ToastUtil.showMessage(NewVideoActivity.this,String.format(getString(R.string.Failure_Full),BundleTag.MaxCount+"") );
+                            break;
+                        case BundleTag.Failure_InLine:
+                            ToastUtil.showMessage(NewVideoActivity.this,getString(R.string.Failure_InLine));
+                            break;
+                    }
+                }
+            }
+        };
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction(BundleTag.VideoStatusAction);
+        registerReceiver(VideoStatusRecevicer, intentFilter);
+    }
 
+    private void unRegisterReceiver()
+    {
+        if(VideoStatusRecevicer!=null)
+        {
+            unregisterReceiver(VideoStatusRecevicer);
+            VideoStatusRecevicer=null;
+        }
+    }
 }
