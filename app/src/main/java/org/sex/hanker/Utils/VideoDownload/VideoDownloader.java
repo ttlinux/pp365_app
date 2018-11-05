@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
+import org.sex.hanker.Bean.MyFutrueBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Fragment.Video;
 import org.sex.hanker.ProxyURL.IOUtil;
@@ -57,7 +58,8 @@ public class VideoDownloader {
     public static final int ERROR = -2;
     public static final int Full = -3;
     public static final int InLine = -4;
-    public static HashMap<String, Future> fhashMap = new HashMap<>();
+    public static final int Cancelling=-5;
+    public static HashMap<String, MyFutrueBean> fhashMap = new HashMap<>();
 
 
     private static ThreadPoolExecutor socketProcessor = (ThreadPoolExecutor)
@@ -95,7 +97,7 @@ public class VideoDownloader {
                     DownloadM3U8(context, Localbean);
                 }
             };
-            fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), socketProcessor.submit(runnable));
+            fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), new MyFutrueBean(status,socketProcessor.submit(runnable)));
             if(status==VideoSQL.NewFile)
             {
                 SendCreateFileMessage(context,Localbean);
@@ -113,7 +115,7 @@ public class VideoDownloader {
                     DownloadVideo(context, Localbean);
                 }
             };
-            fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), socketProcessor.submit(runable));
+            fhashMap.put(Localbean.getVIDEO_ID() + Localbean.getCOUNTRY(), new MyFutrueBean(status,socketProcessor.submit(runable)));
             if(status==VideoSQL.NewFile)
             {
                 SendCreateFileMessage(context,Localbean);
@@ -128,20 +130,23 @@ public class VideoDownloader {
         cloneintent.setAction(BundleTag.VideoProcessAction);
         cloneintent.putExtra(BundleTag.CreateTask, BroadcastDataBean.ConverData(Localbean));
         context.sendBroadcast(cloneintent);
+
     }
 
     public static boolean CancelTask(String VideoId,String Country)
     {
         boolean cancel=false;
-        Future future=fhashMap.get(VideoId + Country);
+        MyFutrueBean future=fhashMap.get(VideoId + Country);
         if(future!=null)
         {
-            future.cancel(true);
+            future.setStatus(Cancelling);
+            future.getFuture().cancel(true);
             cancel=true;
         }
-
         return cancel;
     }
+
+
 
     private static LocalVideoBean PrepareForSingleFileDownload(Context context, VideoBean videoBean) {
         LocalVideoBean bean = VideoSQL.getColumnData(context, videoBean.getPhid(), videoBean.getCountryid());

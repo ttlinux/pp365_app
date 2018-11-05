@@ -36,6 +36,7 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
     Context context;
     SparseArray<BroadcastDataBean> localVideoBeans;
     ImageLoader imageLoader;
+    OnHandleItemListener onHandleItemListener;
     Handler handler=new Handler(){
         @Override
         public void dispatchMessage(Message msg) {
@@ -43,25 +44,18 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             if(msg.what==111)
             {
                 VideoBean bean=(VideoBean)msg.obj;
-                if(msg.arg1==0)
-                {
-                    //暂停
-                    Intent intent = new Intent(context, DownloadService.class);
-                    intent.putExtra(BundleTag.ExcuteType,DownloadService.Pause);
-                    intent.putExtra(BundleTag.Data, bean);
-                    context.startService(intent);
-                }
-                else
-                {
-                    //下载
-                    Intent intent = new Intent(context, DownloadService.class);
-                    intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
-                    intent.putExtra(BundleTag.Data, bean);
-                    context.startService(intent);
-                }
+                onHandleItemListener.OnHanlder(msg.arg1,bean);
             }
         }
     };
+
+    public OnHandleItemListener getOnHandleItemListener() {
+        return onHandleItemListener;
+    }
+
+    public void setOnHandleItemListener(OnHandleItemListener onHandleItemListener) {
+        this.onHandleItemListener = onHandleItemListener;
+    }
 
     public VideoTaskAdapter(Context context, SparseArray<BroadcastDataBean> localVideoBeans) {
         this.context = context;
@@ -169,5 +163,10 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             progresstext = (TextView) itemView.findViewById(R.id.progresstext);
             progress = (ProgressBar) itemView.findViewById(R.id.progress);
         }
+    }
+
+    public interface OnHandleItemListener
+    {
+        public void OnHanlder(int type,VideoBean bean);
     }
 }
