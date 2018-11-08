@@ -54,7 +54,7 @@
         <activity android:name="org.sex.hanker.Activity.PicDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.NoteDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.TestActivity" />
-        <activity android:name="org.sex.hanker.Activity.VideoTaskActivity"/>
+        <activity android:name="org.sex.hanker.Activity.VideoTaskActivity" />
         <activity
             android:name="org.sex.hanker.Activity.NewVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -67,20 +67,18 @@
         <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
         <!--</intent-filter>-->
         <!--</receiver>-->
-        <receiver android:name="org.sex.hanker.Receiver.VideoProcessReceiver"
-            >
+        <receiver android:name="org.sex.hanker.Receiver.VideoProcessReceiver">
             <intent-filter>
                 <action android:name="org.sex.hanker.VideoProcess" />
                 <action android:name="org.sex.hanker.VideoStatus" />
 
             </intent-filter>
         </receiver>
-        <service
-            android:name="org.sex.hanker.Service.DownloadService"
+        <service android:name="org.sex.hanker.Service.DownloadService"
 
             ></service>
 
-            <!--android:process=":VideoDownloader"-->
+        <!--android:process=":VideoDownloader"-->
 
         <meta-data
             android:name="org.sex.hanker.Utils.GlideModuleConfig"

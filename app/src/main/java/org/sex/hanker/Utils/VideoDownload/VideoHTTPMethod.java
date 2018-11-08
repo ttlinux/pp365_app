@@ -2,6 +2,8 @@ package org.sex.hanker.Utils.VideoDownload;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -30,6 +32,7 @@ public class VideoHTTPMethod {
     public final static int ConnectTimeout = 15000;
     public final static int ReadTimeout = 15000;
     private static VideoHTTPMethod videoHTTPMethod;
+
     int index = 0;
 
     public static VideoHTTPMethod getInstance() {

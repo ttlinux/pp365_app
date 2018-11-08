@@ -7,15 +7,10 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
@@ -24,32 +19,22 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.sex.hanker.Adapter.VideoMessageAdapter;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.ChatBean;
-import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
-import org.sex.hanker.ProxyURL.IOUtil;
 import org.sex.hanker.Service.DownloadService;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.ChangeOrientationHandler;
-import org.sex.hanker.Utils.ChatMethod;
 import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.OrientationSensorListener;
 import org.sex.hanker.Utils.ToastUtil;
-import org.sex.hanker.Utils.VideoDownload.VideoSQL;
-import org.sex.hanker.View.ColorTextview;
 import org.sex.hanker.View.NewVideoView;
 import org.sex.hanker.mybusiness.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/20.

@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
@@ -27,8 +28,8 @@ import java.io.Serializable;
  */
 public class DownloadService extends Service {
 
-    public static final String Download="Download";
-    public static final String Pause="Pause";
+    public static final String Download = "Download";
+    public static final String Pause = "Pause";
 
     @Nullable
     @Override
@@ -39,59 +40,61 @@ public class DownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+//        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+//        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        manager.createNotificationChannel(channel);
+//        Notification notification = new Notification.Builder(getApplicationContext(), CHANNEL_ID).build();
+//        startForeground(1, notification);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogTools.e("DownloadService", "onStartCommand"+ (intent==null?"intent_null":"intent not null"));
+        LogTools.e("DownloadService", "onStartCommand" + (intent == null ? "intent_null" : "intent not null"));
         if (intent == null) return super.onStartCommand(intent, START_STICKY, startId);
-        String ExcuteType=intent.getStringExtra(BundleTag.ExcuteType);
-        if(ExcuteType==null)
+        String ExcuteType = intent.getStringExtra(BundleTag.ExcuteType);
+        if (ExcuteType == null)
             return super.onStartCommand(intent, START_STICKY, startId);
 
         Serializable obj = intent.getSerializableExtra(BundleTag.Data);
         if (obj == null) return super.onStartCommand(intent, START_STICKY, startId);
-        if(ExcuteType.equalsIgnoreCase(Download))
-        {
+        if (ExcuteType.equalsIgnoreCase(Download)) {
             VideoBean bean = (VideoBean) obj;
             int Code = VideoDownloader.request(bean, this);
             Intent cloneintent = new Intent();
             cloneintent.setAction(BundleTag.VideoStatusAction);
             cloneintent.putExtra(BundleTag.Country, bean.getCountryid());
-            cloneintent.putExtra(BundleTag.ID,bean.getPhid());
+            cloneintent.putExtra(BundleTag.ID, bean.getPhid());
 
             if (Code == (VideoDownloader.Success ^ VideoSQL.NewFile) || Code == (VideoDownloader.Success ^ VideoSQL.NotYetFinish)) {
-                switch (Code ^ VideoDownloader.Success)
-                {
+                switch (Code ^ VideoDownloader.Success) {
                     case VideoSQL.NewFile:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Success_NewFile);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NewFile);
                         break;
                     case VideoSQL.NotYetFinish:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Success_NotYetFinish);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NotYetFinish);
                         break;
                 }
             } else {
                 switch (Code) {
                     case VideoDownloader.ERROR:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_ERROR);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_ERROR);
                         break;
                     case VideoDownloader.Exist:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_Exits);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Exits);
                         break;
                     case VideoDownloader.InLine:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_InLine);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_InLine);
                         break;
                     case VideoDownloader.Full:
-                        cloneintent.putExtra(BundleTag.Status,BundleTag.Failure_Full);
+                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Full);
                         break;
                 }
             }
+
             sendBroadcast(cloneintent);
-        }
-        else if(ExcuteType.equalsIgnoreCase(Pause))
-        {
+        } else if (ExcuteType.equalsIgnoreCase(Pause)) {
             VideoBean bean = (VideoBean) obj;
-            VideoDownloader.CancelTask(bean.getPhid(),bean.getCountryid());
+            VideoDownloader.CancelTask(bean.getPhid(), bean.getCountryid());
         }
 
         return super.onStartCommand(intent, START_STICKY, startId);

@@ -9,6 +9,15 @@ public class MyFutrueBean {
 
     int status;
     Future future;
+    OnCancelListener onCancelListener;
+
+    public OnCancelListener getOnCancelListener() {
+        return onCancelListener;
+    }
+
+    public void setOnCancelListener(OnCancelListener onCancelListener) {
+        this.onCancelListener = onCancelListener;
+    }
 
     public MyFutrueBean(int status,Future future)
     {
@@ -30,5 +39,10 @@ public class MyFutrueBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public interface OnCancelListener
+    {
+        public void OnCancel();
     }
 }

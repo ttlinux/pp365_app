@@ -2,8 +2,11 @@ package org.sex.hanker.Utils.VideoDownload;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 
 import org.sex.hanker.Bean.BroadcastDataBean;
+import org.sex.hanker.Bean.CombineBean;
 import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.MyFutrueBean;
 import org.sex.hanker.Bean.VideoBean;
@@ -59,7 +62,37 @@ public class VideoDownloader {
     public static final int Full = -3;
     public static final int InLine = -4;
     public static final int Cancelling=-5;
+
+    private static final int RetryTimes=5;
+
     public static HashMap<String, MyFutrueBean> fhashMap = new HashMap<>();
+    private static Handler handler=new Handler(){
+        @Override
+        public void dispatchMessage(Message msg) {
+            super.dispatchMessage(msg);
+            switch (msg.what)
+            {
+                case 111:
+                    CombineBean combineBean=(CombineBean)msg.obj;
+                    VideoBean videoBean=(VideoBean)combineBean.getObject1();
+                    Context context=(Context)combineBean.getObject2();
+                    int Code=request(videoBean,context);
+                    if (Code != (VideoDownloader.Success ^ VideoSQL.NewFile) && Code != (VideoDownloader.Success ^ VideoSQL.NotYetFinish))
+                    {
+                        if(combineBean.getTimes()<RetryTimes)
+                        {
+                            combineBean.setTimes(combineBean.getTimes() + 1);
+                            Message message=new Message();
+                            message.obj=combineBean;
+                            message.what=111;
+                            sendMessageDelayed(message,500);
+                        }
+
+                    }
+                    break;
+            }
+        }
+    };
 
 
     private static ThreadPoolExecutor socketProcessor = (ThreadPoolExecutor)
@@ -81,9 +114,18 @@ public class VideoDownloader {
         if (socketProcessor.getActiveCount() == MaxCount) {
             return Full;
         }
-        if(fhashMap.get(videoBean.getPhid()+videoBean.getCountryid())!=null)
+        MyFutrueBean myFutrueBean=fhashMap.get(videoBean.getPhid()+videoBean.getCountryid());
+        if(myFutrueBean!=null)
         {
-            return InLine;
+            if(myFutrueBean.getStatus()==Cancelling)
+            {
+                JoininLineTask(myFutrueBean,videoBean,context);
+            }
+            else
+            {
+                return InLine;
+            }
+
         }
 
         int status = 0;
@@ -146,6 +188,22 @@ public class VideoDownloader {
         return cancel;
     }
 
+    public static void JoininLineTask(final MyFutrueBean bean,final VideoBean videoBean,final Context context)
+    {
+        bean.setOnCancelListener(new MyFutrueBean.OnCancelListener() {
+            @Override
+            public void OnCancel() {
+                CombineBean bean=new CombineBean();
+                bean.setObject1(videoBean);
+                bean.setObject2(context);
+                bean.setTimes(1);
+                Message message=new Message();
+                message.obj=bean;
+                message.what=111;
+                handler.sendMessageDelayed(message,100);
+            }
+        });
+    }
 
 
     private static LocalVideoBean PrepareForSingleFileDownload(Context context, VideoBean videoBean) {
@@ -355,7 +413,6 @@ public class VideoDownloader {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
                     VideoStatusSave(VideoSQL.Pause, context, localVideoBean);
-                    fhashMap.remove(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY());
                     return;
                 }
                 file.write(buffer, 0, readBytes);
@@ -452,7 +509,6 @@ public class VideoDownloader {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
                     VideoStatusSave(VideoSQL.Pause, context, localVideoBean);
-                    fhashMap.remove(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY());
                     return;
                 }
                 file.write(buffer, 0, readBytes);
@@ -572,6 +628,11 @@ public class VideoDownloader {
         Intent intent = new Intent(BundleTag.VideoProcessAction);
         intent.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
         context.sendBroadcast(intent);
+        if(fhashMap.get(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY()).getOnCancelListener()!=null)
+        {
+            fhashMap.get(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY()).getOnCancelListener().OnCancel();
+        }
+        fhashMap.remove(localVideoBean.getVIDEO_ID() + localVideoBean.getCOUNTRY());
     }
 
 }
