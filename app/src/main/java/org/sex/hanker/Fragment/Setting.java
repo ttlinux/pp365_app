@@ -11,8 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.sex.hanker.Activity.LoginActivity;
-import org.sex.hanker.Activity.RegisterActivity;
-import org.sex.hanker.Activity.VideoTaskActivity;
+import org.sex.hanker.Activity.VideoTask.VideoTaskActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.user;

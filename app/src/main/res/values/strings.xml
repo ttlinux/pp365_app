@@ -12,6 +12,7 @@
     <string name="account">账号</string>
     <string name="send">发送</string>
     <string name="videopause">暂停</string>
+    <string name="downloadfail">下载失败</string>
     <string name="downloadManage">下载管理</string>
     <string name="finishwithMerge">文件已下载完成，正在合成视频</string>
     <string name="complelete">文件下载完成</string>

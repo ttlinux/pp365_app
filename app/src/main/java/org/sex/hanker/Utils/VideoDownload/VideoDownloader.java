@@ -153,7 +153,6 @@ public class VideoDownloader {
                 public void run() {
                     // TODO Auto-generated method stub
                     super.run();
-                    Localbean.setSTATUS(VideoSQL.Runing);
                     DownloadVideo(context, Localbean);
                 }
             };

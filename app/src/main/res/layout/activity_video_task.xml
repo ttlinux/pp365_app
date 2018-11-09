@@ -8,11 +8,150 @@
     <include
         layout="@layout/gray_toplayout"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
+
+    <RadioGroup
+        android:id="@+id/radiogroup_main"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/depositrecord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="下载中"
+            android:textColor="@color/btn_black_red"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/line"
+            />
+        <RadioButton
+            android:id="@+id/withdrawrecord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="下载完成"
+            android:textColor="@color/btn_black_red"
+            android:textSize="14sp" />
+    </RadioGroup>
+    <RelativeLayout
+        android:id="@+id/ScrollerParentView"
+        android:layout_width="match_parent"
+        android:layout_height="5dip"
+        android:layout_marginTop="-5dip">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray22"
         >
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/bottomlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dip"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dip"
+                    android:background="@color/white"
+                    />
+                <ImageView
+                    android:layout_width="200dip"
+                    android:layout_height="20dip"
+                    android:background="@color/gray26"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dip"
+                    android:gravity="center"
+                    android:text="撒娇的哭"
+                    android:textColor="@color/gray2"
+                    />
+
+            </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/gray2"
+                    android:textSize="14sp"
+                    android:padding="10dip"
+                    android:gravity="center"
+                    android:text="全 选"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/gray2"
+                    android:textSize="14sp"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="删除(0)"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/gray2"
+                    android:textSize="14sp"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="编 辑"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomlayout"
+        >
+
+
+    </FrameLayout>
+    </RelativeLayout>
 
 </LinearLayout>

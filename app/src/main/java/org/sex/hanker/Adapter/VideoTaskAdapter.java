@@ -91,49 +91,73 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
 
         holder.handlerbtn.setTag(position);
 
-        if(bean.getSTATUS()== VideoSQL.Pause)
+        switch (bean.getSTATUS())
         {
-            holder.speed.setText("");
-            holder.remaindata.setText(context.getString(R.string.videopause));
-            holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
-            holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handler.removeMessages(111);
-                    int m_pos=(int)v.getTag();
-                    Message message=new Message();
-                    message.obj=VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
-                    message.what=111;
-                    message.arg1=0;
-                    handler.sendMessageDelayed(message,700);
-
+            case VideoSQL.Pause:
+                holder.speed.setText("");
+                holder.remaindata.setText(context.getString(R.string.videopause));
+                holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+                holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageView imageview=(ImageView)v;
+                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
+                        handler.removeMessages(111);
+                        int m_pos = (int) v.getTag();
+                        Message message = new Message();
+                        message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
+                        message.what = 111;
+                        message.arg1 = 1;
+                        handler.sendMessageDelayed(message, 700);
+                    }
+                });
+                break;
+            case VideoSQL.ERROR:
+                holder.speed.setText("");
+                holder.remaindata.setText(context.getString(R.string.downloadfail));
+                holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+                holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageView imageview=(ImageView)v;
+                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
+                        handler.removeMessages(111);
+                        int m_pos = (int) v.getTag();
+                        Message message = new Message();
+                        message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
+                        message.what = 111;
+                        message.arg1 = 1;
+                        handler.sendMessageDelayed(message, 700);
+                    }
+                });
+                break;
+            case VideoSQL.NewFile:
+            case VideoSQL.NotYetFinish:
+                holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
+                if(bean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8"))
+                {
+                    holder.remaindata.setText(bean.getDownloadepisode()+"/"+bean.getEpisodeAmount());
                 }
-            });
-        }
-        else
-        {
-            holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
-            holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
-            if(bean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8"))
-            {
-                holder.remaindata.setText(bean.getDownloadepisode()+"/"+bean.getEpisodeAmount());
-            }
-            else
-            {
-                holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
-            }
-            holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handler.removeMessages(111);
-                    int m_pos=(int)v.getTag();
-                    Message message=new Message();
-                    message.obj=VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
-                    message.what=111;
-                    message.arg1=1;
-                    handler.sendMessageDelayed(message, 700);
+                else
+                {
+                    holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
                 }
-            });
+                holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
+                holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       ImageView imageview=(ImageView)v;
+                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+                        handler.removeMessages(111);
+                        int m_pos = (int) v.getTag();
+                        Message message = new Message();
+                        message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
+                        message.what = 111;
+                        message.arg1 = 0;
+                        handler.sendMessageDelayed(message, 700);
+                    }
+                });
+                break;
         }
 
     }

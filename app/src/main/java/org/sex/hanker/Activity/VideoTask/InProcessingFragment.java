@@ -1,25 +1,25 @@
-package org.sex.hanker.Activity;
+package org.sex.hanker.Activity.VideoTask;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.SparseArray;
-import android.widget.ListView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 
 import org.sex.hanker.Adapter.VideoTaskAdapter;
-import org.sex.hanker.BaseParent.BaseActivity;
+import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.BroadcastDataBean;
-import org.sex.hanker.Bean.LocalVideoBean;
 import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Service.DownloadService;
 import org.sex.hanker.Utils.BundleTag;
@@ -28,13 +28,12 @@ import org.sex.hanker.Utils.ToastUtil;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Administrator on 2018/8/30.
+ * Created by Administrator on 2018/11/9.
  */
-public class VideoTaskActivity extends BaseActivity {
+public class InProcessingFragment extends BaseFragment{
 
     RecyclerView recycleview;
     VideoTaskAdapter videoTaskAdapter;
@@ -45,104 +44,44 @@ public class VideoTaskActivity extends BaseActivity {
     HashMap<String,VideoBean> hashMaps=new HashMap<>();
     VideoTaskAdapter.OnHandleItemListener itemlistener;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_task);
-        setBacktitleText(getResources().getString(R.string.downloadManage));
-        setBacktitleFinish();
-        Initview();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        localVideoBeans= VideoSQL.getColumnData(false);
-        LogTools.e("localVideoBeans",new Gson().toJson(localVideoBeans));
-        setVideoTaskAdapter(-1);
-        RegisterBoardcast();
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(broadcastReceiver!=null)
-        {
-            unregisterReceiver(broadcastReceiver);
-            broadcastReceiver=null;
-        }
-    }
-
-    private void Initview()
-    {
-        recycleview=FindView(R.id.recycleview);
-        recycleview.setLayoutManager(new LinearLayoutManager(this));
-        recycleview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        recycleview=new RecyclerView(getActivity());
+        recycleview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         recycleview.getItemAnimator().setAddDuration(0);
         recycleview.getItemAnimator().setChangeDuration(0);
         recycleview.getItemAnimator().setMoveDuration(0);
         recycleview.getItemAnimator().setRemoveDuration(0);
         ((SimpleItemAnimator) recycleview.getItemAnimator()).setSupportsChangeAnimations(false);
+        return recycleview;
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(broadcastReceiver!=null)
-        {
-            unregisterReceiver(broadcastReceiver);
-            broadcastReceiver=null;
-        }
-
-    }
-
-    private void setVideoTaskAdapter(int index)
-    {
-        if(videoTaskAdapter==null)
-        {
-            videoTaskAdapter=new VideoTaskAdapter(this,localVideoBeans);
-            recycleview.setAdapter(videoTaskAdapter);
-            itemlistener=new VideoTaskAdapter.OnHandleItemListener() {
-                @Override
-                public void OnHanlder(int type, VideoBean bean) {
-                    if(type==0)
-                    {
-                        //暂停
-                        Intent intent = new Intent(VideoTaskActivity.this, DownloadService.class);
-                        intent.putExtra(BundleTag.ExcuteType,DownloadService.Pause);
-                        intent.putExtra(BundleTag.Data, bean);
-                        VideoTaskActivity.this.startService(intent);
-                    }
-                    else
-                    {
-                        //下载
-                        Intent intent = new Intent(VideoTaskActivity.this, DownloadService.class);
-                        intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
-                        intent.putExtra(BundleTag.Data, bean);
-                        VideoTaskActivity.this.startService(intent);
-                        hashMaps.put(bean.getPhid()+bean.getCountryid(),bean);
-                    }
-                }
-            };
-            videoTaskAdapter.setOnHandleItemListener(itemlistener);
-        }
-        else
-        {
-            if(index>-1)
-            {
-                videoTaskAdapter.NotifyAdapter(localVideoBeans,index);
-            }
-            else
-            {
-                videoTaskAdapter.NotifyAdapter(localVideoBeans);
-            }
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void OnViewShowOrHide(boolean state) {
+        super.OnViewShowOrHide(state);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        localVideoBeans= VideoSQL.getColumnData(false);
+        LogTools.e("localVideoBeans", new Gson().toJson(localVideoBeans));
+        setVideoTaskAdapter(-1);
+        RegisterBoardcast();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unRegisterReceiver();
     }
 
     public void RegisterBoardcast()
@@ -163,7 +102,7 @@ public class VideoTaskActivity extends BaseActivity {
         };
         IntentFilter intentFilter=new IntentFilter();
         intentFilter.addAction(BundleTag.VideoProcessAction);
-        registerReceiver(broadcastReceiver,intentFilter);
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
     }
 
     private void RegisterReceiver()
@@ -192,7 +131,7 @@ public class VideoTaskActivity extends BaseActivity {
                             itemlistener.OnHanlder(1,vbean);
                             break;
                         case BundleTag.Failure_Full:
-                            ToastUtil.showMessage(VideoTaskActivity.this,String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + "") );
+                            ToastUtil.showMessage(getActivity(), String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + ""));
                             break;
 
 
@@ -202,15 +141,58 @@ public class VideoTaskActivity extends BaseActivity {
         };
         IntentFilter intentFilter=new IntentFilter();
         intentFilter.addAction(BundleTag.VideoStatusAction);
-        registerReceiver(VideoStatusRecevicer, intentFilter);
+        getActivity().registerReceiver(VideoStatusRecevicer, intentFilter);
     }
 
     private void unRegisterReceiver()
     {
         if(VideoStatusRecevicer!=null)
         {
-            unregisterReceiver(VideoStatusRecevicer);
+            getActivity().unregisterReceiver(VideoStatusRecevicer);
             VideoStatusRecevicer=null;
+        }
+    }
+
+    private void setVideoTaskAdapter(int index)
+    {
+        if(videoTaskAdapter==null)
+        {
+            videoTaskAdapter=new VideoTaskAdapter(getActivity(),localVideoBeans);
+            recycleview.setAdapter(videoTaskAdapter);
+            itemlistener=new VideoTaskAdapter.OnHandleItemListener() {
+                @Override
+                public void OnHanlder(int type, VideoBean bean) {
+                    if(type==0)
+                    {
+                        //0 暂停
+                        Intent intent = new Intent(getActivity(), DownloadService.class);
+                        intent.putExtra(BundleTag.ExcuteType,DownloadService.Pause);
+                        intent.putExtra(BundleTag.Data, bean);
+                        getActivity().startService(intent);
+                    }
+                    else
+                    {
+                        //1 下载
+                        Intent intent = new Intent(getActivity(), DownloadService.class);
+                        intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
+                        intent.putExtra(BundleTag.Data, bean);
+                        getActivity().startService(intent);
+                        hashMaps.put(bean.getPhid()+bean.getCountryid(),bean);
+                    }
+                }
+            };
+            videoTaskAdapter.setOnHandleItemListener(itemlistener);
+        }
+        else
+        {
+            if(index>-1)
+            {
+                videoTaskAdapter.NotifyAdapter(localVideoBeans,index);
+            }
+            else
+            {
+                videoTaskAdapter.NotifyAdapter(localVideoBeans);
+            }
         }
     }
 }

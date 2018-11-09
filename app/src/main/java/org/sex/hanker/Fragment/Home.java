@@ -3,8 +3,11 @@ package org.sex.hanker.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.format.Formatter;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,14 +32,17 @@ import org.sex.hanker.Activity.Testcar;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
+import org.sex.hanker.ProxyURL.IOUtil;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.View.MyViewPager;
 import org.sex.hanker.mybusiness.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -67,6 +73,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
         setNeedCallBack(true);
         Init();
     }
+
 
     @Nullable
     @Override
@@ -298,15 +305,15 @@ public class Home extends BaseFragment implements View.OnClickListener{
     public void Mainrequest()
     {
         RequestParams requestParams=new RequestParams();
-        Httputils.PostWithBaseUrl(Httputils.Home,requestParams,new MyJsonHttpResponseHandler(getActivity(),true){
+        Httputils.PostWithBaseUrl(Httputils.Home, requestParams, new MyJsonHttpResponseHandler(getActivity(), true) {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
                 super.onSuccessOfMe(jsonObject);
-                if(!jsonObject.optString("status").equalsIgnoreCase("000000"))return;
-                JSONObject datas=jsonObject.optJSONObject("datas");
+                if (!jsonObject.optString("status").equalsIgnoreCase("000000")) return;
+                JSONObject datas = jsonObject.optJSONObject("datas");
 
                 RelativeLayout testlayout = (RelativeLayout) FindView(R.id.testlayout);
-                JSONArray jsonarr=datas.optJSONArray("banner");
+                JSONArray jsonarr = datas.optJSONArray("banner");
                 viewpager.setAdapter(new MainbannerPagerAdapter(getActivity(), jsonarr));
                 AddButton(testlayout, jsonarr.length());
 
@@ -323,5 +330,20 @@ public class Home extends BaseFragment implements View.OnClickListener{
             }
         });
     }
+
+    /**
+     * 获得SD卡总大小
+     *
+     * @return
+     */
+    private String getSDTotalSize() {
+        File path = Environment.getExternalStorageDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long totalBlocks = stat.getBlockCount();
+        return Formatter.formatFileSize(getActivity(), blockSize * totalBlocks);
+    }
+
+
 
 }

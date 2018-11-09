@@ -1,31 +1,16 @@
 package org.sex.hanker.Receiver;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.NotificationCompat;
-import android.util.SparseArray;
 
 import com.google.gson.Gson;
 
-import org.sex.hanker.Activity.VideoTaskActivity;
 import org.sex.hanker.Bean.BroadcastDataBean;
-import org.sex.hanker.Bean.LocalVideoBean;
-import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.LogTools;
-import org.sex.hanker.Utils.VideoDownload.VideoSQL;
-import org.sex.hanker.mybusiness.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Administrator on 2018/8/2.

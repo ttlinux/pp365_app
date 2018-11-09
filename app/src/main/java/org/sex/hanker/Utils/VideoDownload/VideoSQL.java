@@ -28,7 +28,6 @@ public class VideoSQL extends SQLiteOpenHelper {
     public static final int NewFile = 2;
     public static final int ERROR = -1;
     public static final int Pause = -2;
-    public static final int Runing = -3;
     private static final String LocalVideoDataBase = "LocalVideoDataBase.db";
     private static final String TABLE = "LocalVideo";
     private static final String M3U8ITEM_TABLE = "M3u8ItemTable";
