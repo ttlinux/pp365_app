@@ -12,9 +12,17 @@ import java.util.ArrayList;
  */
 public class LocalVideoBean implements Serializable{
 
-    private String COLUMN_URL,VIDEO_ID,COUNTRY,SUFFIX,LocalPath,VIDEO_TITLE,VIDEO_PHOTO,TimeLineUrl;
+    private String COLUMN_URL,VIDEO_ID,COUNTRY,SUFFIX,LocalPath,VIDEO_TITLE,VIDEO_PHOTO,TimeLineUrl,FileLength;
     private int ID,STATUS,TimeLineImageIype,TimeLineCount;
     private int Persent;
+
+    public String getFileLength() {
+        return FileLength;
+    }
+
+    public void setFileLength(String fileLength) {
+        FileLength = fileLength;
+    }
 
     public int getTimeLineCount() {
         return TimeLineCount;

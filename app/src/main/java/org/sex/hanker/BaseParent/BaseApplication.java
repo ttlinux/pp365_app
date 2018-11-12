@@ -70,6 +70,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public static String packagename;
     public Activity activity;
     public boolean isAppBackstage;
+    SharedPreferences sharedPreferences;
 
     /**
      * 网络类型
@@ -84,6 +85,14 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
 
     public void setUser(user user) {
         this.user = user;
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        if(sharedPreferences==null)
+        {
+            sharedPreferences=getSharedPreferences(BundleTag.XoKong,Activity.MODE_PRIVATE);
+        }
+        return sharedPreferences;
     }
 
     @Override

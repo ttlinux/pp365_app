@@ -21,6 +21,7 @@ public class BundleTag {
     public static final String StatusTag = "StatusTag";
     public static final String ProductId = "pid";
     public static final String Country = "Country";
+    public static final String IsfirstTime = "IsfirstTime";
     public static final String US = "US";
     public static final String ASIA = "ASIA";
     public static final String Postion = "Postion";

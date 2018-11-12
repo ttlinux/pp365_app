@@ -62,6 +62,7 @@ public class VideoDownloader {
     public static final int Full = -3;
     public static final int InLine = -4;
     public static final int Cancelling=-5;
+    public static final int Handling=-6;
 
     private static final int RetryTimes=5;
 
@@ -119,13 +120,18 @@ public class VideoDownloader {
         {
             if(myFutrueBean.getStatus()==Cancelling)
             {
-                JoininLineTask(myFutrueBean,videoBean,context);
+                JoininLineTask(myFutrueBean, videoBean, context);
+                return Success ^ VideoSQL.NotYetFinish;
+            }
+            else if(myFutrueBean.getStatus()==Handling)
+            {
+                //设置取消接口 正在处理中 返回已正常处理的状态
+                return Success ^ VideoSQL.NotYetFinish;
             }
             else
             {
                 return InLine;
             }
-
         }
 
         int status = 0;
@@ -176,19 +182,20 @@ public class VideoDownloader {
 
     public static boolean CancelTask(String VideoId,String Country)
     {
+        LogTools.e("CancelTaskTestEEE", socketProcessor.getActiveCount() + "");
         boolean cancel=false;
-        MyFutrueBean future=fhashMap.get(VideoId + Country);
-        if(future!=null)
+        if(fhashMap.get(VideoId + Country)!=null)
         {
-            future.setStatus(Cancelling);
-            future.getFuture().cancel(true);
+            fhashMap.get(VideoId + Country).setStatus(Cancelling);
             cancel=true;
+            fhashMap.get(VideoId + Country).getFuture().cancel(true);
         }
         return cancel;
     }
 
     public static void JoininLineTask(final MyFutrueBean bean,final VideoBean videoBean,final Context context)
     {
+        fhashMap.get(videoBean.getPhid()+videoBean.getCountryid()).setStatus(Handling);
         bean.setOnCancelListener(new MyFutrueBean.OnCancelListener() {
             @Override
             public void OnCancel() {
@@ -259,6 +266,7 @@ public class VideoDownloader {
             bean.setTimeLineCount(Integer.valueOf(videoBean.getTimelinecount()));
         bean.setTimeLineImageIype(videoBean.getTimelineimagetype());
         bean.setTimeLineUrl(videoBean.getTimelineurl());
+        bean.setFileLength("");
         if (videoBean.getVideotype().toLowerCase().equalsIgnoreCase("m3u8")) {
             bean.setLocalPath(RootPath + "/" + BundleTag.XoKong + "/" + System.currentTimeMillis() + "/" + videoBean.getVideoTitle() + ".ts" + "." + BundleTag.Dsuffix);
         } else {
@@ -539,15 +547,23 @@ public class VideoDownloader {
             file.close();
             in.close();
 
-            localVideoBean.setSTATUS(VideoSQL.Finished);
-            localVideoBean.setPersent(100);
             File m_file = new File(localVideoBean.getLocalPath());
-            localVideoBean.setLocalPath(IOUtil.removeSuffix(localVideoBean.getLocalPath()));
-            m_file.renameTo(new File(localVideoBean.getLocalPath()));
-            VideoSQL.updateSingleColumn(context, localVideoBean);
-            Intent intent = new Intent(BundleTag.VideoProcessAction);
-            intent.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
-            context.sendBroadcast(intent);
+            if(m_file.length()==ContentLength)
+            {
+                localVideoBean.setSTATUS(VideoSQL.Finished);
+                localVideoBean.setPersent(100);
+                localVideoBean.setLocalPath(IOUtil.removeSuffix(localVideoBean.getLocalPath()));
+                m_file.renameTo(new File(localVideoBean.getLocalPath()));
+                VideoSQL.updateSingleColumn(context, localVideoBean);
+                Intent intent = new Intent(BundleTag.VideoProcessAction);
+                intent.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
+                context.sendBroadcast(intent);
+            }
+            else
+            {
+                ToastUtil.showMessage(context,"文件下载出错，完整性出错");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
             localVideoBean.setSTATUS(VideoSQL.ERROR);

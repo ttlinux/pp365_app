@@ -76,12 +76,14 @@ public class InProcessingFragment extends BaseFragment{
         LogTools.e("localVideoBeans", new Gson().toJson(localVideoBeans));
         setVideoTaskAdapter(-1);
         RegisterBoardcast();
+        RegisterReceiver();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         unRegisterReceiver();
+        unRegisterBoardcast();
     }
 
     public void RegisterBoardcast()
@@ -95,8 +97,17 @@ public class InProcessingFragment extends BaseFragment{
                     bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.Data);
                     if(bean==null)
                         bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.CreateTask);
-                    localVideoBeans.put(bean.getID(), bean);
-                    setVideoTaskAdapter( localVideoBeans.indexOfKey(bean.getID()));
+
+                    if(bean.getSTATUS()!=VideoSQL.Finished)
+                    {
+                        localVideoBeans.put(bean.getID(), bean);
+                        setVideoTaskAdapter( localVideoBeans.indexOfKey(bean.getID()));
+                    }
+                    else
+                    {
+                        localVideoBeans.remove(bean.getID());
+                        setVideoTaskAdapter(-1);
+                    }
                 }
             }
         };
@@ -124,13 +135,17 @@ public class InProcessingFragment extends BaseFragment{
                         case BundleTag.Success_NewFile:
                         case BundleTag.Success_NotYetFinish:
                         case BundleTag.Failure_InLine:
-                            hashMaps.remove(sb.toString());
                             break;
                         case BundleTag.Failure_ERROR:
+                            //不可能出现这个值 放着看的
+                            ToastUtil.showMessage(getActivity(), getString(R.string.Failure_ERROR));
+                            break;
                         case BundleTag.Failure_Exits:
-                            itemlistener.OnHanlder(1,vbean);
+                            //基本不可能出现
+                            ToastUtil.showMessage(getActivity(), getString(R.string.unknowerrorExits));
                             break;
                         case BundleTag.Failure_Full:
+                            //有一点点可能出现
                             ToastUtil.showMessage(getActivity(), String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + ""));
                             break;
 
@@ -152,6 +167,14 @@ public class InProcessingFragment extends BaseFragment{
             VideoStatusRecevicer=null;
         }
     }
+    private void unRegisterBoardcast()
+    {
+        if(broadcastReceiver!=null)
+        {
+            getActivity().unregisterReceiver(broadcastReceiver);
+            broadcastReceiver=null;
+        }
+    }
 
     private void setVideoTaskAdapter(int index)
     {
@@ -162,6 +185,7 @@ public class InProcessingFragment extends BaseFragment{
             itemlistener=new VideoTaskAdapter.OnHandleItemListener() {
                 @Override
                 public void OnHanlder(int type, VideoBean bean) {
+                    LogTools.e("MMMMMM",type+"  ");
                     if(type==0)
                     {
                         //0 暂停

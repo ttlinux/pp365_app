@@ -21,6 +21,11 @@
     <string name="noconnection">无网络连接，请检查网络</string>
     <string name="load_more_text">正在加载...</string>
     <string name="nomoredata">已无更多数据</string>
+    <string name="selectall">全 选</string>
+    <string name="delete">删除</string>
+    <string name="edit">编 辑</string>
+    <string name="spaceshowdetail" formatted="false">可用%s/总共%s</string>
+    <string name="unknowerrorExits"> 未知错误->已存在文件</string>
 
     <string name="Success_NewFile">已加入下载队列</string>
     <string name="Success_NotYetFinish">视频正在下载</string>

@@ -73,6 +73,11 @@ public class IOUtil {
 
     public static String getSuffixName(String name)
     {
+        int index=name.lastIndexOf(".");
+        if(index<0)
+        {
+            return "";
+        }
         return name.substring(name.lastIndexOf(".") + 1);
     }
 

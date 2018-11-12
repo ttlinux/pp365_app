@@ -1,5 +1,6 @@
 package org.sex.hanker.mybusiness;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.BaseParent.BaseFragmentActivity;
 import org.sex.hanker.Fragment.Home;
@@ -22,10 +24,13 @@ import org.sex.hanker.Fragment.Note;
 import org.sex.hanker.Fragment.Picture;
 import org.sex.hanker.Fragment.Setting;
 import org.sex.hanker.Fragment.Video;
+import org.sex.hanker.ProxyURL.IOUtil;
+import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.Permission;
 import org.sex.hanker.Utils.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,6 +42,7 @@ public class MainActivity extends BaseFragmentActivity implements RadioGroup.OnC
     FragmentTransaction fragmentTransaction;
     ArrayList<BaseFragment> fragments=new ArrayList<BaseFragment>();
     RadioGroup bottomview;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +78,31 @@ public class MainActivity extends BaseFragmentActivity implements RadioGroup.OnC
         bottomview=(RadioGroup)findViewById(R.id.bottomview);
         bottomview.setOnCheckedChangeListener(this);
         ((RadioButton)bottomview.getChildAt(0)).performClick();
+    }
+
+    public void IsFirsttimeOpen()
+    {
+        sharedPreferences=((BaseApplication)getApplication()).getSharedPreferences();
+        boolean IsfirstTime=sharedPreferences.getBoolean(BundleTag.IsfirstTime,true);
+        if(IsfirstTime)
+        {
+            //清理后缀为XK后缀的文件，免得出错
+            File videopath=new File(BundleTag.VideoCachePath);
+            if(videopath!=null && videopath.exists() && videopath.isDirectory())
+            {
+                for (int i = 0; i <videopath.listFiles().length ; i++) {
+                    File file=videopath.listFiles()[i];
+                    if(IOUtil.getSuffixName(file.getName()).equalsIgnoreCase(BundleTag.Dsuffix))
+                    {
+                        file.delete();
+                    }
+                }
+            }
+        }
+        else
+        {
+            sharedPreferences.edit().putBoolean(BundleTag.IsfirstTime, false).commit();
+        }
     }
 
     @Override

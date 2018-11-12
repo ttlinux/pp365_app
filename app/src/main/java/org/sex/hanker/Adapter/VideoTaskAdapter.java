@@ -23,6 +23,7 @@ import org.sex.hanker.Bean.VideoBean;
 import org.sex.hanker.ProxyURL.IOUtil;
 import org.sex.hanker.Service.DownloadService;
 import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.OnMultiClickListener;
 import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.mybusiness.R;
 
@@ -84,6 +85,7 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         BroadcastDataBean bean = localVideoBeans.valueAt(position);
+
         imageLoader.displayImage(bean.getVIDEO_PHOTO(), holder.image);
         holder.title.setText(bean.getVIDEO_TITLE());
         holder.progresstext.setText(bean.getPersent() + "%");
@@ -100,15 +102,18 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                 holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ImageView imageview=(ImageView)v;
-                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
                         handler.removeMessages(111);
                         int m_pos = (int) v.getTag();
+                        BroadcastDataBean m_bean = localVideoBeans.valueAt(m_pos);
+                        m_bean.setSTATUS(VideoSQL.NotYetFinish);
+                        localVideoBeans.put(m_bean.getID(), m_bean);
+                        notifyItemChanged(m_pos);
+
                         Message message = new Message();
                         message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
                         message.what = 111;
                         message.arg1 = 1;
-                        handler.sendMessageDelayed(message, 700);
+                        handler.sendMessage(message);
                     }
                 });
                 break;
@@ -116,18 +121,21 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                 holder.speed.setText("");
                 holder.remaindata.setText(context.getString(R.string.downloadfail));
                 holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
-                holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+
+                holder.handlerbtn.setOnClickListener(new OnMultiClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        ImageView imageview=(ImageView)v;
-                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
+                    public void onMultiClick(View v) {
                         handler.removeMessages(111);
                         int m_pos = (int) v.getTag();
+                        BroadcastDataBean m_bean = localVideoBeans.valueAt(m_pos);
+                        m_bean.setSTATUS(VideoSQL.NotYetFinish);
+                        localVideoBeans.put(m_bean.getID(), m_bean);
+                        notifyItemChanged(m_pos);
                         Message message = new Message();
                         message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
                         message.what = 111;
                         message.arg1 = 1;
-                        handler.sendMessageDelayed(message, 700);
+                        handler.sendMessage(message);
                     }
                 });
                 break;
@@ -143,18 +151,20 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                     holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
                 }
                 holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
-                holder.handlerbtn.setOnClickListener(new View.OnClickListener() {
+                holder.handlerbtn.setOnClickListener(new OnMultiClickListener() {
                     @Override
-                    public void onClick(View v) {
-                       ImageView imageview=(ImageView)v;
-                        imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.downloadmovie));
+                    public void onMultiClick(View v) {
                         handler.removeMessages(111);
                         int m_pos = (int) v.getTag();
+                        BroadcastDataBean m_bean = localVideoBeans.valueAt(m_pos);
+                        m_bean.setSTATUS(VideoSQL.Pause);
+                        localVideoBeans.put(m_bean.getID(), m_bean);
+                        notifyItemChanged(m_pos);
                         Message message = new Message();
                         message.obj = VideoBean.ConvertBean(localVideoBeans.valueAt(m_pos));
                         message.what = 111;
                         message.arg1 = 0;
-                        handler.sendMessageDelayed(message, 700);
+                        handler.sendMessage(message);
                     }
                 });
                 break;

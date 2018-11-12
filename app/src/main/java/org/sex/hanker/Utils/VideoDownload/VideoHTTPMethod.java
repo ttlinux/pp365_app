@@ -45,6 +45,7 @@ public class VideoHTTPMethod {
         String requesturl = localVideoBean.getCOLUMN_URL();
         final boolean isM3U8 = localVideoBean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8");
         long offset = 0;
+        long filelength=0;
 
         if (isM3U8) {
             if (localVideoBean.getM3U8_items() == null || localVideoBean.getM3U8_items().size() == 0) {
@@ -62,7 +63,15 @@ public class VideoHTTPMethod {
             offset = IOUtil.isComplete(m3U8_item.getLocalPath());
         } else {
             offset = IOUtil.isComplete(localVideoBean.getLocalPath());
-
+            try
+            {
+                if(localVideoBean.getFileLength()!=null && localVideoBean.getFileLength().length()>0)
+                filelength=Long.valueOf(localVideoBean.getFileLength());
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
         }
         if (offset == IOUtil.Complete) {
             if (listener != null)
@@ -81,31 +90,61 @@ public class VideoHTTPMethod {
         builder.addHeader("Accept-Encoding", "identity");
         if (offset > 0)
             builder.addHeader("Range", "bytes=" + offset + "-");
+
         builder.addHeader("Content-type", getSupposablyMime(requesturl));
         builder.url(requesturl);
         builder.get();
         Request request = builder.build();
 
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            //请求失败执行的方法
-            @Override
-            public void onFailure(Call call, IOException e) {
-                if (listener != null)
-                    listener.OnFail(call.request().url().toString()+" "+call.toString());
-            }
-
-            //请求成功执行的方法
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
+        try {
+            Response response= okHttpClient.newCall(request).execute();
+            if(response.isSuccessful())
+            {
+                if(filelength==0)
+                {
+                    filelength=response.body().contentLength();
+                    localVideoBean.setFileLength(String.valueOf(filelength));
+                    VideoSQL.updateSingleColumn(context,localVideoBean);
+                }
                 if (isM3U8) {
-                    listener.OnSuccess(response.body().contentLength(), response.body().byteStream(), localVideoBean, index);
+                    listener.OnSuccess(filelength, response.body().byteStream(), localVideoBean, index);
                 } else {
-                    listener.OnSuccess(response.body().contentLength(), response.body().byteStream(), localVideoBean);
+                    listener.OnSuccess(filelength, response.body().byteStream(), localVideoBean);
                 }
             }
-        });
+            else
+            {
+                if (listener != null)
+                    listener.OnFail(requesturl+" 下载失败");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            //请求失败执行的方法
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                if (listener != null)
+//                    listener.OnFail(call.request().url().toString()+" "+call.toString());
+//            }
+//
+//            //请求成功执行的方法
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//
+//                while (!Thread.currentThread().isInterrupted())
+//                {
+//                    LogTools.e("CancelTaskTest1111","NNNNNN");
+//                    if (isM3U8) {
+//                        listener.OnSuccess(response.body().contentLength(), response.body().byteStream(), localVideoBean, index);
+//                    } else {
+//                        listener.OnSuccess(response.body().contentLength(), response.body().byteStream(), localVideoBean);
+//                    }
+//                }
+//                LogTools.e("CancelTaskTest","YYYYY");
+//            }
+//        });
     }
 
     public static String getSupposablyMime(String url) {

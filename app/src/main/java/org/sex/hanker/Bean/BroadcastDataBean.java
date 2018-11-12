@@ -7,12 +7,20 @@ import java.io.Serializable;
  */
 public class BroadcastDataBean implements Serializable {
 
-    private String COLUMN_URL, VIDEO_ID, COUNTRY, SUFFIX, LocalPath, VIDEO_TITLE, VIDEO_PHOTO, TimeLineUrl;
+    private String COLUMN_URL, VIDEO_ID, COUNTRY, SUFFIX, LocalPath, VIDEO_TITLE, VIDEO_PHOTO, TimeLineUrl,FileLength;
     private int ID, STATUS, TimeLineImageIype, TimeLineCount;
     private int Persent;
 
     private long speed,contentlength,currentlength;
     private int downloadepisode,episodeAmount;
+
+    public String getFileLength() {
+        return FileLength;
+    }
+
+    public void setFileLength(String fileLength) {
+        FileLength = fileLength;
+    }
 
     public long getContentlength() {
         return contentlength;

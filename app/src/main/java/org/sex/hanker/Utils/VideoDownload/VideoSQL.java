@@ -48,6 +48,7 @@ public class VideoSQL extends SQLiteOpenHelper {
     private static final String TimeLineUrl="TimeLineUrl";
     private static final String TimeLineImageType="TimeLineImageIype";
     private static final String TimeLineCount="TimeLineCount";
+    private static final String FileLength="FileLength";
 
     public static VideoSQL videoSQL;
     public static SQLiteDatabase sqLiteDatabase;
@@ -66,7 +67,8 @@ public class VideoSQL extends SQLiteOpenHelper {
                     VIDEO_PHOTO + " TEXT ," +
                     TimeLineUrl + " TEXT ," +
                     TimeLineImageType + " INTEGER ," +
-                    TimeLineCount + " INTEGER " +
+                    TimeLineCount + " INTEGER ," +
+                    FileLength+ " TEXT "+
                     ") ;";
 
     private static final String CREATE_M3U8_ITEM_TABLE = "CREATE TABLE IF NOT EXISTS " + M3U8ITEM_TABLE +
@@ -135,6 +137,7 @@ public class VideoSQL extends SQLiteOpenHelper {
                 bean.setTimeLineUrl(cursor.getString(cursor.getColumnIndex(TimeLineUrl)));
                 bean.setTimeLineCount(cursor.getInt(cursor.getColumnIndex(TimeLineCount)));
                 bean.setTimeLineImageIype(cursor.getInt(cursor.getColumnIndex(TimeLineImageType)));
+                bean.setFileLength(cursor.getString(cursor.getColumnIndex(FileLength)));
                 beans.put(bean.getID(),bean);
             }
         }
@@ -166,6 +169,7 @@ public class VideoSQL extends SQLiteOpenHelper {
             bean.setTimeLineUrl(cursor.getString(cursor.getColumnIndex(TimeLineUrl)));
             bean.setTimeLineCount(cursor.getInt(cursor.getColumnIndex(TimeLineCount)));
             bean.setTimeLineImageIype(cursor.getInt(cursor.getColumnIndex(TimeLineImageType)));
+            bean.setFileLength(cursor.getString(cursor.getColumnIndex(FileLength)));
             cursor.close();
             return bean;
         }
@@ -185,6 +189,7 @@ public class VideoSQL extends SQLiteOpenHelper {
             bean.setSUFFIX(cursor.getString(cursor.getColumnIndex(SUFFIX)));
             bean.setVIDEO_ID(cursor.getString(cursor.getColumnIndex(VIDEO_ID)));
             bean.setPersent(cursor.getInt(cursor.getColumnIndex(Persent)));
+            bean.setFileLength(cursor.getString(cursor.getColumnIndex(FileLength)));
             localVideoBeans.add(bean);
         }
         cursor.close();
@@ -192,22 +197,23 @@ public class VideoSQL extends SQLiteOpenHelper {
     }
 
     public synchronized static void insertData(Context context, LocalVideoBean bean) {
-        String SQL = "INSERT OR IGNORE INTO " + TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) " +
-                "VALUES ('%s','%s','%s',%d,'%s','%s',%d,'%s','%s','%s',%d,%d)";
+        String SQL = "INSERT OR IGNORE INTO " + TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) " +
+                "VALUES ('%s','%s','%s',%d,'%s','%s',%d,'%s','%s','%s',%d,%d,'%s')";
         SQL = String.format(SQL, COLUMN_URL, COUNTRY, LocalPath, STATUS,
                 SUFFIX, VIDEO_ID,Persent,VIDEO_TITLE,
-                VIDEO_PHOTO,TimeLineUrl,TimeLineImageType,TimeLineCount,
+                VIDEO_PHOTO,TimeLineUrl,TimeLineImageType,TimeLineCount,FileLength,
                 bean.getCOLUMN_URL(), bean.getCOUNTRY(), bean.getLocalPath(), bean.getSTATUS(),
                 bean.getSUFFIX(), bean.getVIDEO_ID(), bean.getPersent(),bean.getVIDEO_TITLE(),
-                bean.getVIDEO_PHOTO(),bean.getTimeLineUrl(),bean.getTimeLineImageIype(),bean.getTimeLineCount());
+                bean.getVIDEO_PHOTO(),bean.getTimeLineUrl(),bean.getTimeLineImageIype(),bean.getTimeLineCount(),bean.getFileLength());
         sqLiteDatabase.execSQL(SQL);
     }
 
     public synchronized static void updateSingleColumn(Context context, LocalVideoBean bean) {
-        String sqlstr = "UPDATE %s set %s=%d,%s='%s',%s=%d,%s='%s',%s='%s',%s='%s',%s=%d,%s=%d WHERE %s='%s' and %s='%s'";
+        String sqlstr = "UPDATE %s set %s=%d,%s='%s',%s=%d,%s='%s',%s='%s',%s='%s',%s=%d,%s=%d,%s='%s' WHERE %s='%s' and %s='%s'";
         sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, STATUS, bean.getSTATUS(), LocalPath, bean.getLocalPath(),
                 Persent, bean.getPersent(), COLUMN_URL, bean.getCOLUMN_URL(), VIDEO_PHOTO, bean.getVIDEO_PHOTO(),
                 TimeLineUrl, bean.getTimeLineUrl(), TimeLineImageType, bean.getTimeLineImageIype(), TimeLineCount, bean.getTimeLineCount(),
+                FileLength,bean.getFileLength(),
                 VIDEO_ID, bean.getVIDEO_ID(), COUNTRY, bean.getCOUNTRY()));
     }
 
