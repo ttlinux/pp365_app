@@ -119,6 +119,8 @@ public class VideoHTTPMethod {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            if (listener != null)
+                listener.OnFail(requesturl+" 下载失败");
         }
 //        Call call = okHttpClient.newCall(request);
 //        call.enqueue(new Callback() {

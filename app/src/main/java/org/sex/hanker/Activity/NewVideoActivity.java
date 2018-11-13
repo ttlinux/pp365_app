@@ -102,8 +102,8 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
             @Override
             public void OnDownload() {
                 Intent intent = new Intent(NewVideoActivity.this, DownloadService.class);
-                bean.setQuality480p(TestMp4);
-                bean.setVideotype("MP4");
+                bean.setQuality480p(Testm3u8);
+                bean.setVideotype("M3U8");
                 intent.putExtra(BundleTag.Data, bean);
                 intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
                 NewVideoActivity.this.startService(intent);

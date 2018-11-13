@@ -33,6 +33,7 @@ import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.ProxyURL.IOUtil;
+import org.sex.hanker.Service.TestService;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
 import org.sex.hanker.Utils.LogTools;
@@ -89,6 +90,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
 
     private void Init() {
         //////banner
+//        getActivity().startService(new Intent(getActivity(), TestService.class));
         mImageDownLoader = ((BaseApplication) getActivity().getApplication())
                 .getImageLoader();
         register=(TextView)FindView(R.id.register);

@@ -93,6 +93,21 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
 
         holder.handlerbtn.setTag(position);
 
+        if(!bean.isCanOperate())
+        {
+            holder.handlerbtn.setVisibility(View.INVISIBLE);
+            if(bean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8"))
+            {
+                holder.remaindata.setText(bean.getStatusTitle());
+                holder.speed.setText("");
+            }
+        }
+        else
+        {
+            holder.handlerbtn.setVisibility(View.VISIBLE);
+        }
+
+
         switch (bean.getSTATUS())
         {
             case VideoSQL.Pause:
@@ -141,14 +156,20 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                 break;
             case VideoSQL.NewFile:
             case VideoSQL.NotYetFinish:
-                holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
+
                 if(bean.getSUFFIX().toLowerCase().equalsIgnoreCase("m3u8"))
                 {
-                    holder.remaindata.setText(bean.getDownloadepisode()+"/"+bean.getEpisodeAmount());
+                    if(bean.isCanOperate())
+                    {
+                        holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
+                        holder.remaindata.setText(bean.getDownloadepisode()+"/"+bean.getEpisodeAmount());
+                    }
+
                 }
                 else
                 {
-                    holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength())+"/"+IOUtil.Formate(bean.getContentlength()));
+                    holder.speed.setText(IOUtil.Formate(bean.getSpeed()));
+                    holder.remaindata.setText(IOUtil.Formate(bean.getCurrentlength()) + "/" + IOUtil.Formate(bean.getContentlength()));
                 }
                 holder.handlerbtn.setImageDrawable(context.getResources().getDrawable(R.drawable.pause));
                 holder.handlerbtn.setOnClickListener(new OnMultiClickListener() {
@@ -158,6 +179,7 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                         int m_pos = (int) v.getTag();
                         BroadcastDataBean m_bean = localVideoBeans.valueAt(m_pos);
                         m_bean.setSTATUS(VideoSQL.Pause);
+                        m_bean.setSpeed(0);
                         localVideoBeans.put(m_bean.getID(), m_bean);
                         notifyItemChanged(m_pos);
                         Message message = new Message();

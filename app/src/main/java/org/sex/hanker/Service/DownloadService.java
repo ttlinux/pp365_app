@@ -65,30 +65,25 @@ public class DownloadService extends Service {
             cloneintent.putExtra(BundleTag.Country, bean.getCountryid());
             cloneintent.putExtra(BundleTag.ID, bean.getPhid());
 
-            if (Code == (VideoDownloader.Success ^ VideoSQL.NewFile) || Code == (VideoDownloader.Success ^ VideoSQL.NotYetFinish)) {
-                switch (Code ^ VideoDownloader.Success) {
-                    case VideoSQL.NewFile:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NewFile);
-                        break;
-                    case VideoSQL.NotYetFinish:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NotYetFinish);
-                        break;
-                }
-            } else {
-                switch (Code) {
-                    case VideoDownloader.ERROR:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_ERROR);
-                        break;
-                    case VideoDownloader.Exist:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Exits);
-                        break;
-                    case VideoDownloader.InLine:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_InLine);
-                        break;
-                    case VideoDownloader.Full:
-                        cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Full);
-                        break;
-                }
+            switch (Code) {
+                case VideoSQL.NewFile:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NewFile);
+                    break;
+                case VideoSQL.NotYetFinish:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Success_NotYetFinish);
+                    break;
+                case VideoSQL.ERROR:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_ERROR);
+                    break;
+                case VideoSQL.Finished:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Exits);
+                    break;
+                case VideoDownloader.InLine:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_InLine);
+                    break;
+                case VideoDownloader.Full:
+                    cloneintent.putExtra(BundleTag.Status, BundleTag.Failure_Full);
+                    break;
             }
 
             sendBroadcast(cloneintent);
@@ -98,5 +93,23 @@ public class DownloadService extends Service {
         }
 
         return super.onStartCommand(intent, START_STICKY, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogTools.e("DownloadService", "onDestroy");
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        LogTools.e("DownloadService", "onLowMemory");
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        LogTools.e("DownloadService", "onTrimMemory");
     }
 }

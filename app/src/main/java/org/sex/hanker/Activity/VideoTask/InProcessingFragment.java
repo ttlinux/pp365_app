@@ -185,7 +185,6 @@ public class InProcessingFragment extends BaseFragment{
             itemlistener=new VideoTaskAdapter.OnHandleItemListener() {
                 @Override
                 public void OnHanlder(int type, VideoBean bean) {
-                    LogTools.e("MMMMMM",type+"  ");
                     if(type==0)
                     {
                         //0 暂停

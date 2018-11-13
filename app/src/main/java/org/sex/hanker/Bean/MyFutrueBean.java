@@ -7,7 +7,7 @@ import java.util.concurrent.Future;
  */
 public class MyFutrueBean {
 
-    int status;
+    int status=0;
     Future future;
     OnCancelListener onCancelListener;
 

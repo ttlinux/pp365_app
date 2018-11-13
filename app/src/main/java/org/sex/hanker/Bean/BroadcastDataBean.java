@@ -10,6 +10,24 @@ public class BroadcastDataBean implements Serializable {
     private String COLUMN_URL, VIDEO_ID, COUNTRY, SUFFIX, LocalPath, VIDEO_TITLE, VIDEO_PHOTO, TimeLineUrl,FileLength;
     private int ID, STATUS, TimeLineImageIype, TimeLineCount;
     private int Persent;
+    private boolean canOperate=true;
+    private String StatusTitle;
+
+    public String getStatusTitle() {
+        return StatusTitle;
+    }
+
+    public void setStatusTitle(String statusTitle) {
+        StatusTitle = statusTitle;
+    }
+
+    public boolean isCanOperate() {
+        return canOperate;
+    }
+
+    public void setCanOperate(boolean canOperate) {
+        this.canOperate = canOperate;
+    }
 
     private long speed,contentlength,currentlength;
     private int downloadepisode,episodeAmount;

@@ -75,9 +75,11 @@
             </intent-filter>
         </receiver>
         <service android:name="org.sex.hanker.Service.DownloadService"
-
+            android:process=":VideoDownloader"
             ></service>
-
+        <service android:name="org.sex.hanker.Service.TestService"
+                android:process=":TestDownloader"
+            ></service>
         <!--android:process=":VideoDownloader"-->
 
         <meta-data
