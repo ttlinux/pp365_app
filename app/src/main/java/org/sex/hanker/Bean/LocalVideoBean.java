@@ -3,6 +3,7 @@ package org.sex.hanker.Bean;
 import org.sex.hanker.ProxyURL.IOUtil;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.VideoDownload.RequestM3U8Data;
+import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -140,8 +141,17 @@ public class LocalVideoBean implements Serializable{
 
     public static class M3U8_ITEM
     {
-        private int ID,STATUS,FILE_INDEX,Parent_ID;
+        private int ID,STATUS,FILE_INDEX,Parent_ID,RetryTimes;
         String M3U8_URL,TS_URL,LocalPath,SUFFIX;
+
+
+        public int getRetryTimes() {
+            return RetryTimes;
+        }
+
+        public void setRetryTimes(int retryTimes) {
+            RetryTimes = retryTimes;
+        }
 
         public int getID() {
             return ID;
@@ -207,7 +217,7 @@ public class LocalVideoBean implements Serializable{
             this.TS_URL = TS_URL;
         }
 
-        public static ArrayList<M3U8_ITEM> swip(ArrayList<RequestM3U8Data.M3U8URLbean> beans,int parentid,String Localrootpath)
+        public static ArrayList<M3U8_ITEM> swap(ArrayList<RequestM3U8Data.M3U8URLbean> beans,int parentid,String Localrootpath)
         {
             ArrayList<M3U8_ITEM> m3u8items=new ArrayList<>();
             int index=0;
@@ -218,11 +228,12 @@ public class LocalVideoBean implements Serializable{
                     M3U8_ITEM mi=new M3U8_ITEM();
                     mi.setSUFFIX(IOUtil.getSuffixName(url));
                     mi.setTS_URL(url);
-                    mi.setSTATUS(0);
+                    mi.setSTATUS(VideoSQL.Inqueue);
                     mi.setParent_ID(parentid);
                     mi.setM3U8_URL(mbean.getMainM3u8Url());
                     mi.setFILE_INDEX(index++);
                     mi.setLocalPath(Localrootpath + "/" + System.nanoTime() + "." + mi.getSUFFIX() + "." + BundleTag.Dsuffix);
+                    mi.setRetryTimes(0);
                     m3u8items.add(mi);
                 }
             }

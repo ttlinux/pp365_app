@@ -26,7 +26,7 @@
     <string name="edit">编 辑</string>
     <string name="spaceshowdetail" formatted="false">可用%s/总共%s</string>
     <string name="unknowerrorExits"> 未知错误->已存在文件</string>
-    <string name="fetchm3u8list"> 正在下载文件下载列表</string>
+    <string name="fetchm3u8list"> 正在下载文件列表</string>
     <string name="filelistauth">文件完整性校验</string>
 
     <string name="Success_NewFile">已加入下载队列</string>

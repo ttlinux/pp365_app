@@ -28,6 +28,8 @@ public class VideoSQL extends SQLiteOpenHelper {
     public static final int NewFile = 2;
     public static final int ERROR = -1;
     public static final int Pause = -2;
+    public static final int Inqueue = -3;
+    public static final int Retrying = -4;
     private static final String LocalVideoDataBase = "LocalVideoDataBase.db";
     private static final String TABLE = "LocalVideo";
     private static final String M3U8ITEM_TABLE = "M3u8ItemTable";
@@ -49,6 +51,7 @@ public class VideoSQL extends SQLiteOpenHelper {
     private static final String TimeLineImageType="TimeLineImageIype";
     private static final String TimeLineCount="TimeLineCount";
     private static final String FileLength="FileLength";
+    private static final String RetryTimes="RetryTimes";
 
     public static VideoSQL videoSQL;
     public static SQLiteDatabase sqLiteDatabase;
@@ -79,7 +82,8 @@ public class VideoSQL extends SQLiteOpenHelper {
             STATUS + " INTEGER," +
             FILE_INDEX + " INTEGER," +
             Parent_ID + " INTEGER," +
-            LocalPath + " TEXT NOT NULL" +
+            LocalPath + " TEXT NOT NULL," +
+            RetryTimes +" INTEGER "+
             ") ;";
 
     public VideoSQL(Context context) {
@@ -231,6 +235,14 @@ public class VideoSQL extends SQLiteOpenHelper {
         }
     }
 
+    public synchronized static boolean isAllM3U8ItemFail(LocalVideoBean bean)
+    {
+        String SQL = "select %s from %s where %s = %d and %s = %d";
+        SQL=String.format(SQL,COLUMN_ID,M3U8ITEM_TABLE,Parent_ID,bean.getID(),STATUS,VideoSQL.Finished);
+        Cursor cursor = sqLiteDatabase.rawQuery(SQL, null);
+        return cursor.getCount()==0;
+    }
+
     public synchronized static LocalVideoBean getColumnData_M3U8(Context context, String phid, String country) {
         LocalVideoBean bean = getColumnData(context, phid, country);
         if (bean != null) {
@@ -248,6 +260,7 @@ public class VideoSQL extends SQLiteOpenHelper {
                 m3u8.setSTATUS(cursor.getInt(cursor.getColumnIndex(STATUS)));
                 m3u8.setTS_URL(cursor.getString(cursor.getColumnIndex(TS_URL)));
                 m3u8.setSUFFIX(cursor.getString(cursor.getColumnIndex(SUFFIX)));
+                m3u8.setRetryTimes(cursor.getInt(cursor.getColumnIndex(RetryTimes)));
                 m3U8_items.add(m3u8);
             }
             bean.setM3U8_items(m3U8_items);
@@ -257,9 +270,10 @@ public class VideoSQL extends SQLiteOpenHelper {
     }
 
     public synchronized static void UpdateM3U8Item(Context context, LocalVideoBean.M3U8_ITEM m3U8_item) {
-        String SQLSTR = "UPDATE %s set %s=%d,%s=%d,%s='%s',%s='%s',%s='%s',%s='%s' WHERE %s='%s'";
+        String SQLSTR = "UPDATE %s set %s=%d,%s=%d,%s='%s',%s='%s',%s='%s',%s='%s',%s=%d WHERE %s='%s'";
         SQLSTR = String.format(SQLSTR, M3U8ITEM_TABLE, STATUS, m3U8_item.getSTATUS(), FILE_INDEX, m3U8_item.getFILE_INDEX(), M3U8_URL, m3U8_item.getM3U8_URL(),
-                TS_URL, m3U8_item.getTS_URL(), LocalPath, m3U8_item.getLocalPath(), SUFFIX, m3U8_item.getSUFFIX(), Parent_ID, m3U8_item.getParent_ID());
+                TS_URL, m3U8_item.getTS_URL(), LocalPath, m3U8_item.getLocalPath(), SUFFIX, m3U8_item.getSUFFIX(), Parent_ID, m3U8_item.getParent_ID(),
+                RetryTimes,m3U8_item.getRetryTimes());
         sqLiteDatabase.execSQL(SQLSTR);
     }
 
@@ -267,12 +281,12 @@ public class VideoSQL extends SQLiteOpenHelper {
         sqLiteDatabase.beginTransaction();
         for (int i = 0; i < m3U8_items.size(); i++) {
             LocalVideoBean.M3U8_ITEM mi = m3U8_items.get(i);
-            String SQLSTR = "INSERT OR IGNORE INTO " + M3U8ITEM_TABLE + " (%s,%s,%s,%s,%s,%s,%s) " +
-                    "VALUES ('%s','%s','%s',%d,%d,%d,'%s')";
+            String SQLSTR = "INSERT OR IGNORE INTO " + M3U8ITEM_TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s) " +
+                    "VALUES ('%s','%s','%s',%d,%d,%d,'%s',%d)";
 
-            SQLSTR = String.format(SQLSTR, M3U8_URL, TS_URL, SUFFIX, STATUS, FILE_INDEX, Parent_ID, LocalPath, mi.getM3U8_URL(), mi.getTS_URL(), mi.getSUFFIX(), mi.getSTATUS()
+            SQLSTR = String.format(SQLSTR, M3U8_URL, TS_URL, SUFFIX, STATUS, FILE_INDEX, Parent_ID, LocalPath,RetryTimes, mi.getM3U8_URL(), mi.getTS_URL(), mi.getSUFFIX(), mi.getSTATUS()
                     , mi.getFILE_INDEX(),
-                    mi.getParent_ID(), mi.getLocalPath());
+                    mi.getParent_ID(), mi.getLocalPath(),mi.getRetryTimes());
             sqLiteDatabase.execSQL(SQLSTR);
         }
         sqLiteDatabase.endTransaction();

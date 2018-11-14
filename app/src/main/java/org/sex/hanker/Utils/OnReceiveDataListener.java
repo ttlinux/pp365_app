@@ -12,4 +12,5 @@ public class OnReceiveDataListener {
     public void  OnSuccess(long contentlenght,InputStream in,LocalVideoBean bean){};
     public void  OnSuccess(long contentlenght,InputStream in,LocalVideoBean bean,int M3U8InListIndex){};
     public void OnFail(String fail){};
+    public void OnFail(String fail,LocalVideoBean bean,int M3U8InListIndex){};
 }

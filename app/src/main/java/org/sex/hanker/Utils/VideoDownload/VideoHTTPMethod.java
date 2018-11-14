@@ -32,6 +32,7 @@ public class VideoHTTPMethod {
     public final static int ConnectTimeout = 15000;
     public final static int ReadTimeout = 15000;
     private static VideoHTTPMethod videoHTTPMethod;
+    private static final int RetryTimes=5;
 
     int index = 0;
 
@@ -55,7 +56,8 @@ public class VideoHTTPMethod {
                 return;
             }
 
-            while (localVideoBean.getM3U8_items().get(index).getSTATUS() == VideoSQL.Finished) {
+            int status=localVideoBean.getM3U8_items().get(index).getSTATUS();
+            while (status == VideoSQL.Finished || status==VideoSQL.ERROR) {
                 index++;
             }
             LocalVideoBean.M3U8_ITEM m3U8_item = localVideoBean.getM3U8_items().get(index);
@@ -78,6 +80,8 @@ public class VideoHTTPMethod {
                 listener.OnFail("文件已经下载到SD卡，如需重新下载请删除原文件");
             return;
         }
+
+
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
@@ -115,12 +119,31 @@ public class VideoHTTPMethod {
             else
             {
                 if (listener != null)
-                    listener.OnFail(requesturl+" 下载失败");
+                {
+                    if(isM3U8)
+                    {
+                        listener.OnFail(requesturl+" response fail",localVideoBean,index);
+                    }
+                    else
+                    {
+                        listener.OnFail(requesturl+" response fail");
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
             if (listener != null)
-                listener.OnFail(requesturl+" 下载失败");
+            {
+                if(isM3U8)
+                {
+                    listener.OnFail(requesturl+" 链接失效",localVideoBean,index);
+                }
+                else
+                {
+                    listener.OnFail(requesturl+" 链接失效");
+                }
+            }
+
         }
 //        Call call = okHttpClient.newCall(request);
 //        call.enqueue(new Callback() {

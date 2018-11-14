@@ -100,6 +100,7 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
             {
                 holder.remaindata.setText(bean.getStatusTitle());
                 holder.speed.setText("");
+                return;
             }
         }
         else

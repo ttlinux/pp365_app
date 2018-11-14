@@ -59,7 +59,7 @@ public class VideoDownloader {
     public static final int InLine = -4;
     private static final int Cancelling=-5;
     private static final int Handling=-6;
-
+    private static final int M3U8RetryTimes=5;
     private static final int RetryTimes=5;
 
     public static HashMap<String, MyFutrueBean> fhashMap = new HashMap<>();
@@ -84,7 +84,6 @@ public class VideoDownloader {
                             message.what=111;
                             sendMessageDelayed(message,500);
                         }
-
                     }
                     break;
             }
@@ -290,30 +289,30 @@ public class VideoDownloader {
                         bean.setM3U8_items(null);
                     }
                     break;
-//                case VideoSQL.ERROR:
-//                    VideoSQL.delateSingleColumn(bean);
-//                    bean = MakeNewLocalVideoBean(videoBean);
-//                    VideoSQL.insertData(context, bean);
-//                    VideoSQL.DeleteM3U8Item(context, bean.getID());
-//                    bean.setM3U8_items(null);
-//                    break;
-                case VideoSQL.NotYetFinish:
-                    if (status == IOUtil.Complete) {
-                        //可能出现下载完了但是数据库没有同步的情况 刷新数据库
-                        bean.setSTATUS(VideoSQL.Finished);
-                        bean.setPersent(100);
-                        bean.setLocalPath(IOUtil.removeSuffix(bean.getLocalPath()));
-                        VideoSQL.updateSingleColumn(context, bean);
-                        return bean;
-                    }
-                    if (status == IOUtil.FileMiss) {
-                        //可能出现文件被删除了的情况 刷新数据库
-                        bean = MakeNewLocalVideoBean(videoBean);
-                        VideoSQL.updateSingleColumn(context, bean);
-                        VideoSQL.DeleteM3U8Item(context, bean.getID());
-                        bean.setM3U8_items(null);
-                    }
+                case VideoSQL.ERROR:
+                    VideoSQL.delateSingleColumn(bean);
+                    bean = MakeNewLocalVideoBean(videoBean);
+                    VideoSQL.insertData(context, bean);
+                    VideoSQL.DeleteM3U8Item(context, bean.getID());
+                    bean.setM3U8_items(null);
                     break;
+//                case VideoSQL.NotYetFinish:
+//                    if (status == IOUtil.Complete) {
+//                        //可能出现下载完了但是数据库没有同步的情况 刷新数据库
+//                        bean.setSTATUS(VideoSQL.Finished);
+//                        bean.setPersent(100);
+//                        bean.setLocalPath(IOUtil.removeSuffix(bean.getLocalPath()));
+//                        VideoSQL.updateSingleColumn(context, bean);
+//                        return bean;
+//                    }
+//                    if (status == IOUtil.FileMiss) {
+//                        //可能出现文件被删除了的情况 刷新数据库
+//                        bean = MakeNewLocalVideoBean(videoBean);
+//                        VideoSQL.updateSingleColumn(context, bean);
+//                        VideoSQL.DeleteM3U8Item(context, bean.getID());
+//                        bean.setM3U8_items(null);
+//                    }
+//                    break;
             }
         } else {
             bean = MakeNewLocalVideoBean(videoBean);
@@ -339,11 +338,17 @@ public class VideoDownloader {
             context.sendBroadcast(intent);
             //下载全部的ts文件地址
             ArrayList<RequestM3U8Data.M3U8URLbean> m3U8URLbeans = RequestM3U8Data.getInstance().Excute(bean.getCOLUMN_URL());
+            if(m3U8URLbeans.size()==0)
+            {
+                //请求m3u8地址失败
+                VideoStatusSave(VideoSQL.ERROR, context, bean);
+                return;
+            }
             File parentfile = new File(new File(bean.getLocalPath()).getParent());
             if (parentfile == null || !parentfile.exists()) {
                 parentfile.mkdirs();
             }
-            ArrayList<LocalVideoBean.M3U8_ITEM> m3U8_items = LocalVideoBean.M3U8_ITEM.swip(m3U8URLbeans, bean.getID(), parentfile.getPath());
+            ArrayList<LocalVideoBean.M3U8_ITEM> m3U8_items = LocalVideoBean.M3U8_ITEM.swap(m3U8URLbeans, bean.getID(), parentfile.getPath());
             bean.setM3U8_items(m3U8_items);
             VideoSQL.InsertM3U8Item_Range(context, m3U8_items);
         } else {
@@ -384,37 +389,52 @@ public class VideoDownloader {
             }
 
             @Override
-            public void OnFail(String fail) {
-                super.OnFail(fail);
-                VideoStatusSave(VideoSQL.ERROR, context, bean);
-            }
-        });
-    }
+            public void OnFail(String fail, LocalVideoBean bean, int M3U8InListIndex) {
+                super.OnFail(fail, bean, M3U8InListIndex);
 
-    private static void DownloadVideo(final Context context, final LocalVideoBean bean) {
-        new VideoHTTPMethod().ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
-            @Override
-            public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean) {
-                super.OnSuccess(contentlength, in, bean);
-                if(contentlength<0)
+                int retrytimes=bean.getM3U8_items().get(M3U8InListIndex).getRetryTimes();
+                if(retrytimes<RetryTimes)
                 {
-                    //未知情况
-                    LogTools.e("ERROR","0000000000");
-                    VideoStatusSave(VideoSQL.ERROR, context, bean);
+                    bean.getM3U8_items().get(M3U8InListIndex).setRetryTimes(retrytimes+1);
+                    bean.getM3U8_items().get(M3U8InListIndex).setSTATUS(VideoSQL.Retrying);
+                    VideoSQL.UpdateM3U8Item(context, bean.getM3U8_items().get(M3U8InListIndex));
+                    DownloadTs(context,bean);
                 }
                 else
                 {
-                    HandlerVideoData(context, contentlength, in, bean);
-                }
+                    if(M3U8InListIndex==bean.getM3U8_items().size()-1)
+                    {
+                        if(VideoSQL.isAllM3U8ItemFail(bean))
+                        {
+                            //全部M3U8 item都出错了
+                            bean.getM3U8_items().get(M3U8InListIndex).setSTATUS(VideoSQL.ERROR);
+                            VideoSQL.UpdateM3U8Item(context, bean.getM3U8_items().get(M3U8InListIndex));
+                            VideoStatusSave(VideoSQL.ERROR,context,bean);
+                        }
+                        else
+                        {
+                            //部分错误 执行合成电影
+                            int state=Filemerge(context,bean);
+                            if(state!=1)
+                            {
+                                VideoStatusSave(VideoSQL.ERROR,context,bean);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //单个m3u8 item下载出错
+                        bean.getM3U8_items().get(M3U8InListIndex).setSTATUS(VideoSQL.ERROR);
+                        VideoSQL.UpdateM3U8Item(context, bean.getM3U8_items().get(M3U8InListIndex));
+                        DownloadTs(context, bean);
+                    }
 
-            }
-            @Override
-            public void OnFail(String fail) {
-                super.OnFail(fail);
-                VideoStatusSave(VideoSQL.ERROR, context, bean);
+                }
             }
         });
     }
+
+
 
 
     private static void HandlerTsData(Context context, long ContentLength, InputStream in, LocalVideoBean localVideoBean, int listindex) {
@@ -427,6 +447,10 @@ public class VideoDownloader {
             long bufferlength=0;
             long speed=0;
             int famount = CaculateM3U8FinishedAmount(localVideoBean);
+
+            localVideoBean.setSTATUS(VideoSQL.NotYetFinish);
+            localVideoBean.getM3U8_items().get(listindex).setSTATUS(VideoSQL.NotYetFinish);
+            VideoSQL.updateSingleColumn(context, localVideoBean);
             while ((readBytes = in.read(buffer, 0, VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE)) > -1) {
                 if (Thread.currentThread().isInterrupted()) {
                     //点击后暂停走这里
@@ -445,6 +469,7 @@ public class VideoDownloader {
                     {
                         Intent intent = new Intent(BundleTag.VideoProcessAction);
                         BroadcastDataBean broadcastDataBean=BroadcastDataBean.ConverData(localVideoBean);
+
                         broadcastDataBean.setSpeed(speed);
                         broadcastDataBean.setDownloadepisode(famount);
                         broadcastDataBean.setEpisodeAmount(localVideoBean.getM3U8_items().size());
@@ -469,6 +494,7 @@ public class VideoDownloader {
             m_file.renameTo(new File(itempath));
 
             //刷新数据库
+            localVideoBean.getM3U8_items().get(listindex).setSTATUS(VideoSQL.Finished);
             VideoSQL.UpdateM3U8Item(context, localVideoBean.getM3U8_items().get(listindex));
 
              famount = CaculateM3U8FinishedAmount(localVideoBean);
@@ -493,6 +519,10 @@ public class VideoDownloader {
                     brobean2.setStatusTitle(context.getResources().getString(R.string.complelete));
                     intent2.putExtra(BundleTag.Data, BroadcastDataBean.ConverData(localVideoBean));
                     context.sendBroadcast(intent2);
+                }
+                else
+                {
+                    VideoStatusSave(VideoSQL.ERROR,context,localVideoBean);
                 }
 
             } else {
@@ -529,6 +559,31 @@ public class VideoDownloader {
             //网络断开或者其他情况
             VideoStatusSave(VideoSQL.ERROR,context,localVideoBean);
         }
+    }
+
+
+    private static void DownloadVideo(final Context context, final LocalVideoBean bean) {
+        new VideoHTTPMethod().ProcessHttpConnectForVideo(context, bean, new OnReceiveDataListener() {
+            @Override
+            public void OnSuccess(long contentlength, InputStream in, LocalVideoBean bean) {
+                super.OnSuccess(contentlength, in, bean);
+                if(contentlength<0)
+                {
+                    //未知情况
+                    VideoStatusSave(VideoSQL.ERROR, context, bean);
+                }
+                else
+                {
+                    HandlerVideoData(context, contentlength, in, bean);
+                }
+
+            }
+            @Override
+            public void OnFail(String fail) {
+                super.OnFail(fail);
+                VideoStatusSave(VideoSQL.ERROR, context, bean);
+            }
+        });
     }
 
     private static void HandlerVideoData(Context context, long ContentLength, InputStream in, LocalVideoBean localVideoBean) {
@@ -617,9 +672,9 @@ public class VideoDownloader {
     private static int CaculateM3U8FinishedAmount(LocalVideoBean localVideoBean) {
         int amount = 0;
         for (int i = 0; i < localVideoBean.getM3U8_items().size(); i++) {
-            if (localVideoBean.getM3U8_items().get(i).getSTATUS() == VideoSQL.NotYetFinish) {
-                break;
-            } else {
+            int state=localVideoBean.getM3U8_items().get(i).getSTATUS();
+            if (state == VideoSQL.Finished && state==VideoSQL.ERROR) {
+                //错误的状态 也算是完成了
                 amount++;
             }
         }
@@ -634,10 +689,16 @@ public class VideoDownloader {
                 File file = new File(m3u8item.getLocalPath());
                 if (file == null || !file.exists()) {
                     ToastUtil.showMessage(context, "合并文件过程中出现文件缺失");
+
                     return -1;
                 }
-            } else {
-                ToastUtil.showMessage(context, "文件检验：有未完成的ts文件");
+            } else if(m3u8item.getSTATUS() == VideoSQL.ERROR)
+            {
+                //什么也不做
+            }
+            else {
+//                ToastUtil.showMessage(context, "文件检验：有未完成的ts文件");
+
                 return -2;
             }
         }
@@ -646,15 +707,18 @@ public class VideoDownloader {
             RandomAccessFile rfile = new RandomAccessFile(localVideoBean.getLocalPath(), "rw");
             for (int i = 0; i < localVideoBean.getM3U8_items().size(); i++) {
                 LocalVideoBean.M3U8_ITEM m3u8item = localVideoBean.getM3U8_items().get(i);
-                File file = new File(m3u8item.getLocalPath());
-                FileInputStream input = new FileInputStream(m3u8item.getLocalPath());
-                byte[] buffer = new byte[VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE];
-                int readBytes;
-                while ((readBytes = input.read(buffer, 0, VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE)) > -1) {
-                    rfile.write(buffer, 0, readBytes);
+                if(m3u8item.getSTATUS()==VideoSQL.Finished)
+                {
+                    File file = new File(m3u8item.getLocalPath());
+                    FileInputStream input = new FileInputStream(m3u8item.getLocalPath());
+                    byte[] buffer = new byte[VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE];
+                    int readBytes;
+                    while ((readBytes = input.read(buffer, 0, VideoHTTPMethod.Video_DEFAULT_BUFFER_SIZE)) > -1) {
+                        rfile.write(buffer, 0, readBytes);
+                    }
+                    input.close();
+                    file.delete();
                 }
-                input.close();
-                file.delete();
             }
 
         } catch (FileNotFoundException e) {
