@@ -191,6 +191,10 @@ public class VideoTaskAdapter extends RecyclerView.Adapter<VideoTaskAdapter.View
                     }
                 });
                 break;
+            case VideoSQL.LodingList:
+                holder.remaindata.setText(context.getResources().getString(R.string.fetchm3u8list));
+                holder.speed.setText("");
+                break;
         }
 
     }

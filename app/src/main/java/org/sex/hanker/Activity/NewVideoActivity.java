@@ -52,7 +52,7 @@ public class NewVideoActivity extends BaseActivity implements NewVideoView.OnLoc
     private final int pageAmount = 20;
     private VideoBean bean;
     ArrayList<ChatBean> chatbeans = new ArrayList<ChatBean>();
-    private static final String Testm3u8 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
+    private static final String Testm3u8 = "https://cdn.812zy.com/20180829/HLK9P3dK/index.m3u8";
     //http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8
     //http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8
     private static final String TestMp4 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";

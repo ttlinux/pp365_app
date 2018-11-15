@@ -59,10 +59,12 @@ public class VideoHTTPMethod {
             int status=localVideoBean.getM3U8_items().get(index).getSTATUS();
             while (status == VideoSQL.Finished || status==VideoSQL.ERROR) {
                 index++;
+                status=localVideoBean.getM3U8_items().get(index).getSTATUS();
             }
             LocalVideoBean.M3U8_ITEM m3U8_item = localVideoBean.getM3U8_items().get(index);
             requesturl = m3U8_item.getTS_URL();
             offset = IOUtil.isComplete(m3U8_item.getLocalPath());
+            LogTools.e("ERRRRRR","正在下载"+requesturl);
         } else {
             offset = IOUtil.isComplete(localVideoBean.getLocalPath());
             try
@@ -88,14 +90,13 @@ public class VideoHTTPMethod {
                 .build();
 
         Request.Builder builder = new Request.Builder();
-        builder.addHeader("Cookie", java.util.UUID.randomUUID().toString());
-        builder.addHeader("Referer", requesturl);
-        builder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-        builder.addHeader("Accept-Encoding", "identity");
+//        builder.addHeader("Cookie", java.util.UUID.randomUUID().toString());
+//        builder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
+//        builder.addHeader("Accept-Encoding", "identity");
         if (offset > 0)
             builder.addHeader("Range", "bytes=" + offset + "-");
 
-        builder.addHeader("Content-type", getSupposablyMime(requesturl));
+//        builder.addHeader("Content-type", getSupposablyMime(requesturl));
         builder.url(requesturl);
         builder.get();
         Request request = builder.build();

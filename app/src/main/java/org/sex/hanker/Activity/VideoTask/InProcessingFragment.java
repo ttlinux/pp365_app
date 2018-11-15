@@ -137,19 +137,14 @@ public class InProcessingFragment extends BaseFragment{
                         case BundleTag.Failure_InLine:
                             break;
                         case BundleTag.Failure_ERROR:
-                            //不可能出现这个值 放着看的
                             ToastUtil.showMessage(getActivity(), getString(R.string.Failure_ERROR));
                             break;
                         case BundleTag.Failure_Exits:
-                            //基本不可能出现
                             ToastUtil.showMessage(getActivity(), getString(R.string.unknowerrorExits));
                             break;
                         case BundleTag.Failure_Full:
-                            //有一点点可能出现
                             ToastUtil.showMessage(getActivity(), String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + ""));
                             break;
-
-
                     }
                 }
             }

@@ -30,6 +30,7 @@ public class VideoSQL extends SQLiteOpenHelper {
     public static final int Pause = -2;
     public static final int Inqueue = -3;
     public static final int Retrying = -4;
+    public static final int LodingList = -5;
     private static final String LocalVideoDataBase = "LocalVideoDataBase.db";
     private static final String TABLE = "LocalVideo";
     private static final String M3U8ITEM_TABLE = "M3u8ItemTable";
