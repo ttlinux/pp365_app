@@ -48,11 +48,11 @@ public class VideoSQL extends SQLiteOpenHelper {
     private static final String FILE_INDEX = "FILE_INDEX";
     private static final String Parent_ID = "Parent_ID";
     private static final String VIDEO_PHOTO = "VIDEO_PHOTO";
-    private static final String TimeLineUrl="TimeLineUrl";
-    private static final String TimeLineImageType="TimeLineImageIype";
-    private static final String TimeLineCount="TimeLineCount";
-    private static final String FileLength="FileLength";
-    private static final String RetryTimes="RetryTimes";
+    private static final String TimeLineUrl = "TimeLineUrl";
+    private static final String TimeLineImageType = "TimeLineImageIype";
+    private static final String TimeLineCount = "TimeLineCount";
+    private static final String FileLength = "FileLength";
+    private static final String RetryTimes = "RetryTimes";
 
     public static VideoSQL videoSQL;
     public static SQLiteDatabase sqLiteDatabase;
@@ -72,7 +72,7 @@ public class VideoSQL extends SQLiteOpenHelper {
                     TimeLineUrl + " TEXT ," +
                     TimeLineImageType + " INTEGER ," +
                     TimeLineCount + " INTEGER ," +
-                    FileLength+ " TEXT "+
+                    FileLength + " TEXT " +
                     ") ;";
 
     private static final String CREATE_M3U8_ITEM_TABLE = "CREATE TABLE IF NOT EXISTS " + M3U8ITEM_TABLE +
@@ -84,7 +84,7 @@ public class VideoSQL extends SQLiteOpenHelper {
             FILE_INDEX + " INTEGER," +
             Parent_ID + " INTEGER," +
             LocalPath + " TEXT NOT NULL," +
-            RetryTimes +" INTEGER "+
+            RetryTimes + " INTEGER " +
             ") ;";
 
     public VideoSQL(Context context) {
@@ -107,20 +107,16 @@ public class VideoSQL extends SQLiteOpenHelper {
 
     }
 
-    public synchronized static SparseArray<BroadcastDataBean> getColumnData(boolean isDone)
-    {
-        SparseArray<BroadcastDataBean> beans=new SparseArray<>();
-        StringBuilder sb=new StringBuilder();
+    public synchronized static SparseArray<BroadcastDataBean> getColumnData(boolean isDone) {
+        SparseArray<BroadcastDataBean> beans = new SparseArray<>();
+        StringBuilder sb = new StringBuilder();
         sb.append("select * from ");
         sb.append(TABLE);
         sb.append(" where ");
         sb.append(STATUS);
-        if(isDone)
-        {
+        if (isDone) {
             sb.append(" = ");
-        }
-        else
-        {
+        } else {
             sb.append(" != ");
         }
         sb.append(Finished);
@@ -143,7 +139,7 @@ public class VideoSQL extends SQLiteOpenHelper {
                 bean.setTimeLineCount(cursor.getInt(cursor.getColumnIndex(TimeLineCount)));
                 bean.setTimeLineImageIype(cursor.getInt(cursor.getColumnIndex(TimeLineImageType)));
                 bean.setFileLength(cursor.getString(cursor.getColumnIndex(FileLength)));
-                beans.put(bean.getID(),bean);
+                beans.put(bean.getID(), bean);
             }
         }
         cursor.close();
@@ -205,11 +201,11 @@ public class VideoSQL extends SQLiteOpenHelper {
         String SQL = "INSERT OR IGNORE INTO " + TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) " +
                 "VALUES ('%s','%s','%s',%d,'%s','%s',%d,'%s','%s','%s',%d,%d,'%s')";
         SQL = String.format(SQL, COLUMN_URL, COUNTRY, LocalPath, STATUS,
-                SUFFIX, VIDEO_ID,Persent,VIDEO_TITLE,
-                VIDEO_PHOTO,TimeLineUrl,TimeLineImageType,TimeLineCount,FileLength,
+                SUFFIX, VIDEO_ID, Persent, VIDEO_TITLE,
+                VIDEO_PHOTO, TimeLineUrl, TimeLineImageType, TimeLineCount, FileLength,
                 bean.getCOLUMN_URL(), bean.getCOUNTRY(), bean.getLocalPath(), bean.getSTATUS(),
-                bean.getSUFFIX(), bean.getVIDEO_ID(), bean.getPersent(),bean.getVIDEO_TITLE(),
-                bean.getVIDEO_PHOTO(),bean.getTimeLineUrl(),bean.getTimeLineImageIype(),bean.getTimeLineCount(),bean.getFileLength());
+                bean.getSUFFIX(), bean.getVIDEO_ID(), bean.getPersent(), bean.getVIDEO_TITLE(),
+                bean.getVIDEO_PHOTO(), bean.getTimeLineUrl(), bean.getTimeLineImageIype(), bean.getTimeLineCount(), bean.getFileLength());
         sqLiteDatabase.execSQL(SQL);
     }
 
@@ -218,11 +214,11 @@ public class VideoSQL extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, STATUS, bean.getSTATUS(), LocalPath, bean.getLocalPath(),
                 Persent, bean.getPersent(), COLUMN_URL, bean.getCOLUMN_URL(), VIDEO_PHOTO, bean.getVIDEO_PHOTO(),
                 TimeLineUrl, bean.getTimeLineUrl(), TimeLineImageType, bean.getTimeLineImageIype(), TimeLineCount, bean.getTimeLineCount(),
-                FileLength,bean.getFileLength(),
+                FileLength, bean.getFileLength(),
                 VIDEO_ID, bean.getVIDEO_ID(), COUNTRY, bean.getCOUNTRY()));
     }
 
-    public synchronized static void delateSingleColumn( LocalVideoBean bean) {
+    public synchronized static void delateSingleColumn(LocalVideoBean bean) {
         String sqlstr = "DELETE from %s where %s='%s'";
         sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, VIDEO_ID, bean.getVIDEO_ID()));
     }
@@ -236,12 +232,11 @@ public class VideoSQL extends SQLiteOpenHelper {
         }
     }
 
-    public synchronized static boolean isAllM3U8ItemFail(LocalVideoBean bean)
-    {
+    public synchronized static boolean isAllM3U8ItemFail(LocalVideoBean bean) {
         String SQL = "select %s from %s where %s = %d and %s = %d";
-        SQL=String.format(SQL,COLUMN_ID,M3U8ITEM_TABLE,Parent_ID,bean.getID(),STATUS,VideoSQL.Finished);
+        SQL = String.format(SQL, COLUMN_ID, M3U8ITEM_TABLE, Parent_ID, bean.getID(), STATUS, VideoSQL.Finished);
         Cursor cursor = sqLiteDatabase.rawQuery(SQL, null);
-        return cursor.getCount()==0;
+        return cursor.getCount() == 0;
     }
 
     public synchronized static LocalVideoBean getColumnData_M3U8(Context context, String phid, String country) {
@@ -273,24 +268,33 @@ public class VideoSQL extends SQLiteOpenHelper {
     public synchronized static void UpdateM3U8Item(Context context, LocalVideoBean.M3U8_ITEM m3U8_item) {
         String SQLSTR = "UPDATE %s set %s=%d,%s=%d,%s='%s',%s='%s',%s='%s',%s='%s',%s=%d WHERE %s='%s'";
         SQLSTR = String.format(SQLSTR, M3U8ITEM_TABLE, STATUS, m3U8_item.getSTATUS(), FILE_INDEX, m3U8_item.getFILE_INDEX(), M3U8_URL, m3U8_item.getM3U8_URL(),
-                TS_URL, m3U8_item.getTS_URL(), LocalPath, m3U8_item.getLocalPath(), SUFFIX, m3U8_item.getSUFFIX(), Parent_ID, m3U8_item.getParent_ID(),
-                RetryTimes,m3U8_item.getRetryTimes());
+                TS_URL, m3U8_item.getTS_URL(), LocalPath, m3U8_item.getLocalPath(), SUFFIX, m3U8_item.getSUFFIX(),
+                RetryTimes, m3U8_item.getRetryTimes(),COLUMN_ID,m3U8_item.getID());
         sqLiteDatabase.execSQL(SQLSTR);
     }
 
     public synchronized static void InsertM3U8Item_Range(Context context, ArrayList<LocalVideoBean.M3U8_ITEM> m3U8_items) {
         sqLiteDatabase.beginTransaction();
-        for (int i = 0; i < m3U8_items.size(); i++) {
-            LocalVideoBean.M3U8_ITEM mi = m3U8_items.get(i);
-            String SQLSTR = "INSERT OR IGNORE INTO " + M3U8ITEM_TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s) " +
-                    "VALUES ('%s','%s','%s',%d,%d,%d,'%s',%d)";
+        try {
+            for (int i = 0; i < m3U8_items.size(); i++) {
+                LocalVideoBean.M3U8_ITEM mi = m3U8_items.get(i);
+                String SQLSTR = "INSERT OR IGNORE INTO " + M3U8ITEM_TABLE + " (%s,%s,%s,%s,%s,%s,%s,%s) " +
+                        "VALUES ('%s','%s','%s',%d,%d,%d,'%s',%d)";
 
-            SQLSTR = String.format(SQLSTR, M3U8_URL, TS_URL, SUFFIX, STATUS, FILE_INDEX, Parent_ID, LocalPath,RetryTimes, mi.getM3U8_URL(), mi.getTS_URL(), mi.getSUFFIX(), mi.getSTATUS()
-                    , mi.getFILE_INDEX(),
-                    mi.getParent_ID(), mi.getLocalPath(),mi.getRetryTimes());
-            sqLiteDatabase.execSQL(SQLSTR);
+                SQLSTR = String.format(SQLSTR, M3U8_URL, TS_URL, SUFFIX, STATUS, FILE_INDEX, Parent_ID, LocalPath, RetryTimes,
+                        mi.getM3U8_URL(), mi.getTS_URL(), mi.getSUFFIX(), mi.getSTATUS()
+                        , mi.getFILE_INDEX(),
+                        mi.getParent_ID(), mi.getLocalPath(), mi.getRetryTimes());
+                sqLiteDatabase.execSQL(SQLSTR);
+            }
+            sqLiteDatabase.setTransactionSuccessful();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            LogTools.e("ERRRRR", "事务操作失败 "+ex.toString());
+        } finally {
+            sqLiteDatabase.endTransaction();
         }
-        sqLiteDatabase.endTransaction();
+
     }
 
 
@@ -300,20 +304,16 @@ public class VideoSQL extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sqlstr);
     }
 
-    public static void InitSQL(BaseApplication baseApplication)
-    {
+    public static void InitSQL(BaseApplication baseApplication) {
         videoSQL = new VideoSQL(baseApplication);
         sqLiteDatabase = videoSQL.getWritableDatabase();
     }
 
-    public static void Close()
-    {
-        if(videoSQL!=null)
-        {
+    public static void Close() {
+        if (videoSQL != null) {
             videoSQL.close();
         }
-        if(sqLiteDatabase!=null)
-        {
+        if (sqLiteDatabase != null) {
             sqLiteDatabase.close();
         }
     }

@@ -87,6 +87,8 @@ public class VideoHTTPMethod {
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
+                .writeTimeout(ReadTimeout,TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(false)
                 .build();
 
         Request.Builder builder = new Request.Builder();

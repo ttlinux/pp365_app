@@ -49,7 +49,7 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogTools.e("DownloadService", "onStartCommand" + (intent == null ? "intent_null" : "intent not null"));
+
         if (intent == null) return super.onStartCommand(intent, START_STICKY, startId);
         String ExcuteType = intent.getStringExtra(BundleTag.ExcuteType);
         if (ExcuteType == null)
@@ -57,9 +57,12 @@ public class DownloadService extends Service {
 
         Serializable obj = intent.getSerializableExtra(BundleTag.Data);
         if (obj == null) return super.onStartCommand(intent, START_STICKY, startId);
+
+        LogTools.e("DownloadService", "onStartCommand  " + ExcuteType);
         if (ExcuteType.equalsIgnoreCase(Download)) {
             VideoBean bean = (VideoBean) obj;
             int Code = VideoDownloader.request(bean, this);
+            LogTools.e("DownloadService", "onStartCommand  " + Code);
             Intent cloneintent = new Intent();
             cloneintent.setAction(BundleTag.VideoStatusAction);
             cloneintent.putExtra(BundleTag.Country, bean.getCountryid());
@@ -110,6 +113,8 @@ public class DownloadService extends Service {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+        //服务被干掉会调用这个
         LogTools.e("DownloadService", "onTrimMemory");
+
     }
 }

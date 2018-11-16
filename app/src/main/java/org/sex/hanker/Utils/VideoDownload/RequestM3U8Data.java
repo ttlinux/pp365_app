@@ -66,6 +66,7 @@ public class RequestM3U8Data {
 
     public ArrayList<M3U8URLbean> Excute(String Downloadurl) {
         LogTools.e("RequestM3U8Data", "获取" + Downloadurl + "的所有ts地址");
+        m3u8bean.clear();
         this.Downloadurl = Downloadurl;
         boolean status = false;
         while (!status && Error_Test < 3) {
@@ -147,6 +148,7 @@ public class RequestM3U8Data {
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(false)
                 .build();
 
         Request.Builder builder = new Request.Builder();
