@@ -2,6 +2,7 @@ package org.sex.hanker.Utils.VideoDownload;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -84,7 +85,7 @@ public class VideoHTTPMethod {
         }
 
 
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
                 .writeTimeout(ReadTimeout,TimeUnit.MILLISECONDS)
@@ -95,6 +96,7 @@ public class VideoHTTPMethod {
 //        builder.addHeader("Cookie", java.util.UUID.randomUUID().toString());
 //        builder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
 //        builder.addHeader("Accept-Encoding", "identity");
+            builder.addHeader("Connection", "close");
         if (offset > 0)
             builder.addHeader("Range", "bytes=" + offset + "-");
 

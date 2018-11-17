@@ -1,5 +1,6 @@
 package org.sex.hanker.Utils.VideoDownload;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -145,13 +146,14 @@ public class RequestM3U8Data {
 
     private Playlist SyncGetM3U8_HTTP(String requesturl) {
         Print("请求地址" + requesturl);
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(ConnectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
                 .retryOnConnectionFailure(false)
                 .build();
 
         Request.Builder builder = new Request.Builder();
+        builder.addHeader("Connection", "close");
 //        builder.addHeader("Cookie", java.util.UUID.randomUUID().toString());
 //        try {
 //            String host=new URL(requesturl).getHost();

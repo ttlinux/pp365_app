@@ -76,13 +76,11 @@ public class InProcessingFragment extends BaseFragment{
         LogTools.e("localVideoBeans", new Gson().toJson(localVideoBeans));
         setVideoTaskAdapter(-1);
         RegisterBoardcast();
-        RegisterReceiver();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        unRegisterReceiver();
         unRegisterBoardcast();
     }
 
@@ -98,6 +96,7 @@ public class InProcessingFragment extends BaseFragment{
                     if(bean==null)
                         bean=(BroadcastDataBean)intent.getSerializableExtra(BundleTag.CreateTask);
 
+                    if(hashMaps.get(bean.getVIDEO_ID()+bean.getCOUNTRY())!=null)return;
                     if(bean.getSTATUS()!=VideoSQL.Finished)
                     {
                         localVideoBeans.put(bean.getID(), bean);
@@ -116,52 +115,52 @@ public class InProcessingFragment extends BaseFragment{
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    private void RegisterReceiver()
-    {
-        VideoStatusRecevicer=new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String country=intent.getStringExtra(BundleTag.Country);
-                String id=intent.getStringExtra(BundleTag.ID);
-                int status=intent.getIntExtra(BundleTag.Status, 0);
-
-                StringBuilder sb=new StringBuilder();
-                sb.append(id).append(country);
-                VideoBean vbean=hashMaps.get(sb.toString());
-                if(vbean!=null)
-                {
-                    switch (status)
-                    {
-                        case BundleTag.Success_NewFile:
-                        case BundleTag.Success_NotYetFinish:
-                        case BundleTag.Failure_InLine:
-                            break;
-                        case BundleTag.Failure_ERROR:
-                            ToastUtil.showMessage(getActivity(), getString(R.string.Failure_ERROR));
-                            break;
-                        case BundleTag.Failure_Exits:
-                            ToastUtil.showMessage(getActivity(), getString(R.string.unknowerrorExits));
-                            break;
-                        case BundleTag.Failure_Full:
-                            ToastUtil.showMessage(getActivity(), String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + ""));
-                            break;
-                    }
-                }
-            }
-        };
-        IntentFilter intentFilter=new IntentFilter();
-        intentFilter.addAction(BundleTag.VideoStatusAction);
-        getActivity().registerReceiver(VideoStatusRecevicer, intentFilter);
-    }
-
-    private void unRegisterReceiver()
-    {
-        if(VideoStatusRecevicer!=null)
-        {
-            getActivity().unregisterReceiver(VideoStatusRecevicer);
-            VideoStatusRecevicer=null;
-        }
-    }
+//    private void RegisterReceiver()
+//    {
+//        VideoStatusRecevicer=new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                String country=intent.getStringExtra(BundleTag.Country);
+//                String id=intent.getStringExtra(BundleTag.ID);
+//                int status=intent.getIntExtra(BundleTag.Status, 0);
+//
+//                StringBuilder sb=new StringBuilder();
+//                sb.append(id).append(country);
+//                VideoBean vbean=hashMaps.get(sb.toString());
+//                if(vbean!=null)
+//                {
+//                    switch (status)
+//                    {
+//                        case BundleTag.Success_NewFile:
+//                        case BundleTag.Success_NotYetFinish:
+//                        case BundleTag.Failure_InLine:
+//                            break;
+//                        case BundleTag.Failure_ERROR:
+//                            ToastUtil.showMessage(getActivity(), getString(R.string.Failure_ERROR));
+//                            break;
+//                        case BundleTag.Failure_Exits:
+//                            ToastUtil.showMessage(getActivity(), getString(R.string.unknowerrorExits));
+//                            break;
+//                        case BundleTag.Failure_Full:
+//                            ToastUtil.showMessage(getActivity(), String.format(getString(R.string.Failure_Full), BundleTag.MaxCount + ""));
+//                            break;
+//                    }
+//                }
+//            }
+//        };
+//        IntentFilter intentFilter=new IntentFilter();
+//        intentFilter.addAction(BundleTag.VideoStatusAction);
+//        getActivity().registerReceiver(VideoStatusRecevicer, intentFilter);
+//    }
+//
+//    private void unRegisterReceiver()
+//    {
+//        if(VideoStatusRecevicer!=null)
+//        {
+//            getActivity().unregisterReceiver(VideoStatusRecevicer);
+//            VideoStatusRecevicer=null;
+//        }
+//    }
     private void unRegisterBoardcast()
     {
         if(broadcastReceiver!=null)
@@ -187,6 +186,8 @@ public class InProcessingFragment extends BaseFragment{
                         intent.putExtra(BundleTag.ExcuteType,DownloadService.Pause);
                         intent.putExtra(BundleTag.Data, bean);
                         getActivity().startService(intent);
+                        hashMaps.put(bean.getPhid() + bean.getCountryid(), bean);
+
                     }
                     else
                     {
@@ -195,7 +196,7 @@ public class InProcessingFragment extends BaseFragment{
                         intent.putExtra(BundleTag.ExcuteType,DownloadService.Download);
                         intent.putExtra(BundleTag.Data, bean);
                         getActivity().startService(intent);
-                        hashMaps.put(bean.getPhid()+bean.getCountryid(),bean);
+                        hashMaps.remove(bean.getPhid() + bean.getCountryid());
                     }
                 }
             };

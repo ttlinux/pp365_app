@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.SparseArray;
 
+import com.google.gson.Gson;
+
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.BroadcastDataBean;
 import org.sex.hanker.Bean.LocalVideoBean;
@@ -218,6 +220,12 @@ public class VideoSQL extends SQLiteOpenHelper {
                 VIDEO_ID, bean.getVIDEO_ID(), COUNTRY, bean.getCOUNTRY()));
     }
 
+    public synchronized static void updateSingleColumnStatus(int status, String id,String Country) {
+        String sqlstr = "UPDATE %s set %s=%d WHERE %s='%s' and %s='%s'";
+        sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, STATUS, status,
+                VIDEO_ID, id, COUNTRY, Country));
+    }
+
     public synchronized static void delateSingleColumn(LocalVideoBean bean) {
         String sqlstr = "DELETE from %s where %s='%s'";
         sqLiteDatabase.execSQL(String.format(sqlstr, TABLE, VIDEO_ID, bean.getVIDEO_ID()));
@@ -266,10 +274,10 @@ public class VideoSQL extends SQLiteOpenHelper {
     }
 
     public synchronized static void UpdateM3U8Item(Context context, LocalVideoBean.M3U8_ITEM m3U8_item) {
-        String SQLSTR = "UPDATE %s set %s=%d,%s=%d,%s='%s',%s='%s',%s='%s',%s='%s',%s=%d WHERE %s='%s'";
-        SQLSTR = String.format(SQLSTR, M3U8ITEM_TABLE, STATUS, m3U8_item.getSTATUS(), FILE_INDEX, m3U8_item.getFILE_INDEX(), M3U8_URL, m3U8_item.getM3U8_URL(),
+        String SQLSTR = "UPDATE %s set %s=%d,%s='%s',%s='%s',%s='%s',%s='%s',%s=%d WHERE %s=%d";
+        SQLSTR = String.format(SQLSTR, M3U8ITEM_TABLE, STATUS, m3U8_item.getSTATUS(), M3U8_URL, m3U8_item.getM3U8_URL(),
                 TS_URL, m3U8_item.getTS_URL(), LocalPath, m3U8_item.getLocalPath(), SUFFIX, m3U8_item.getSUFFIX(),
-                RetryTimes, m3U8_item.getRetryTimes(),COLUMN_ID,m3U8_item.getID());
+                RetryTimes, m3U8_item.getRetryTimes(),FILE_INDEX,m3U8_item.getFILE_INDEX());
         sqLiteDatabase.execSQL(SQLSTR);
     }
 
