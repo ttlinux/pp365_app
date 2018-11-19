@@ -105,9 +105,11 @@ public class VideoHTTPMethod {
         builder.get();
         Request request = builder.build();
 
+        Response response=null;
         try {
-            Response response= okHttpClient.newCall(request).execute();
-            if(response.isSuccessful())
+             response= okHttpClient.newCall(request).execute();
+
+            if(response.code()==200 || response.code()==206)
             {
                 if(filelength==0)
                 {
@@ -149,6 +151,10 @@ public class VideoHTTPMethod {
                 }
             }
 
+        }
+        finally {
+
+            response.close();
         }
 //        Call call = okHttpClient.newCall(request);
 //        call.enqueue(new Callback() {
