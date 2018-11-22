@@ -28,13 +28,16 @@
     <string name="unknowerrorExits"> 未知错误->已存在文件</string>
     <string name="fetchm3u8list"> 正在下载文件列表</string>
     <string name="filelistauth">文件完整性校验</string>
+    <string name="switchonscreenlock">启用屏幕锁</string>
+    <string name="editscreenlock">修改屏幕锁图案</string>
+    <string name="switchoffscreenlock">关闭屏幕锁</string>
 
     <string name="Success_NewFile">已加入下载队列</string>
     <string name="Success_NotYetFinish">视频正在下载</string>
     <string name="Failure_Exits">视频已下载完成</string>
     <string name="Failure_ERROR">下载出错 -_-</string>
-    <string name="Failure_Full">下载最大任务数为%s</string>
-    <string name="Failure_InLine">此视频正在下载中</string>
+    <string name="Failure_Full" formatted="false">下载最大任务数为%s</string>
+    <string name="Failure_InLine" >此视频正在下载中</string>
 
     <string-array name="sexuals">
         <item>直男</item>

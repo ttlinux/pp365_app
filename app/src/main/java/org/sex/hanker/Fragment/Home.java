@@ -45,18 +45,30 @@ import org.sex.hanker.mybusiness.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
+import okhttp3.Call;
+import okhttp3.ConnectionSpec;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 /**
  * Created by Administrator on 2017/11/3.
  */
-public class Home extends BaseFragment implements View.OnClickListener{
+public class Home extends BaseFragment implements View.OnClickListener {
 
     private static Home home;
     MyViewPager viewpager;
     ArrayList<ImageView> imageviews = new ArrayList<ImageView>();
     LinearLayout linearLayout;
-    TextView register,login;
-    LinearLayout videomain,notemain,imagmain;
+    TextView register, login;
+    LinearLayout videomain, notemain, imagmain;
     HorizontalScrollView scorll;
     private ImageLoader mImageDownLoader;
 
@@ -88,18 +100,19 @@ public class Home extends BaseFragment implements View.OnClickListener{
 
     }
 
+
     private void Init() {
         //////banner
 //        getActivity().startService(new Intent(getActivity(), TestService.class));
         mImageDownLoader = ((BaseApplication) getActivity().getApplication())
                 .getImageLoader();
-        register=(TextView)FindView(R.id.register);
-        login=(TextView)FindView(R.id.login);
+        register = (TextView) FindView(R.id.register);
+        login = (TextView) FindView(R.id.login);
         register.setVisibility(View.VISIBLE);
         login.setVisibility(View.VISIBLE);
         register.setOnClickListener(this);
         login.setOnClickListener(this);
-        linearLayout=(LinearLayout)FindView(R.id.mainll);
+        linearLayout = (LinearLayout) FindView(R.id.mainll);
         viewpager = (MyViewPager) FindView(R.id.viewpager);
         viewpager.setOffscreenPageLimit(2);
         viewpager.setOnMeasureListener(new MyViewPager.onMeasureListener() {
@@ -115,13 +128,13 @@ public class Home extends BaseFragment implements View.OnClickListener{
         //////video
         videomain = new LinearLayout(getActivity());
         videomain.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
+        LinearLayout.LayoutParams mainv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mainv.setMargins(0, ScreenUtils.getDIP2PX(getActivity(), 10), 0, 0);
         videomain.setLayoutParams(mainv);
 
         TextView textView = new TextView(getActivity());
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(),40));
+        LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(), 40));
 
         textView.setLayoutParams(ll);
         textView.setText("最新视频");
@@ -145,13 +158,13 @@ public class Home extends BaseFragment implements View.OnClickListener{
         //////note
         notemain = new LinearLayout(getActivity());
         notemain.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams note_mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        note_mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
+        LinearLayout.LayoutParams note_mainv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        note_mainv.setMargins(0, ScreenUtils.getDIP2PX(getActivity(), 10), 0, 0);
         notemain.setLayoutParams(note_mainv);
 
         TextView notetitle = new TextView(getActivity());
         notetitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        LinearLayout.LayoutParams notetitle_ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(),40));
+        LinearLayout.LayoutParams notetitle_ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(), 40));
 
         notetitle.setLayoutParams(notetitle_ll);
         notetitle.setText("最新辣文");
@@ -165,15 +178,15 @@ public class Home extends BaseFragment implements View.OnClickListener{
         //////note
 
         //////image
-         imagmain = new LinearLayout(getActivity());
+        imagmain = new LinearLayout(getActivity());
         imagmain.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams image_mainv= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        image_mainv.setMargins(0,ScreenUtils.getDIP2PX(getActivity(),10),0,0);
+        LinearLayout.LayoutParams image_mainv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        image_mainv.setMargins(0, ScreenUtils.getDIP2PX(getActivity(), 10), 0, 0);
         imagmain.setLayoutParams(image_mainv);
 
         TextView imagtitle = new TextView(getActivity());
         imagtitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        LinearLayout.LayoutParams imagtitle_ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(),40));
+        LinearLayout.LayoutParams imagtitle_ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getDIP2PX(getActivity(), 40));
 
         imagtitle.setLayoutParams(imagtitle_ll);
         imagtitle.setText("最新艳图");
@@ -183,7 +196,7 @@ public class Home extends BaseFragment implements View.OnClickListener{
         imagtitle.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icon_backindicator), null);
         imagmain.addView(imagtitle);
 
-         scorll=new HorizontalScrollView(getActivity());
+        scorll = new HorizontalScrollView(getActivity());
         scorll.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         imagmain.addView(scorll);
         linearLayout.addView(imagmain);
@@ -214,28 +227,27 @@ public class Home extends BaseFragment implements View.OnClickListener{
         relayout.addView(linearLayout);
     }
 
-    private void AddVideoItem(JSONArray jsonArray)
-    {
-        for (int i = 0; i < jsonArray.length()/3; i++) {
-            LinearLayout view=(LinearLayout)View.inflate(getActivity(),R.layout.model1_horizontal_video,null);
-            for (int j = 0; j <3 ; j++) {
-                final JSONObject jsob= jsonArray.optJSONObject(i*3+j);
-                LinearLayout linlayout=(LinearLayout)view.getChildAt(j);
-                linlayout.setTag(i*3+j);
-                ImageView imageview=(ImageView)linlayout.getChildAt(0);
-                LinearLayout.LayoutParams ll= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ScreenUtils.getScreenWH(getActivity())[0]/3+10);
-                ll.weight=1;
+    private void AddVideoItem(JSONArray jsonArray) {
+        for (int i = 0; i < jsonArray.length() / 3; i++) {
+            LinearLayout view = (LinearLayout) View.inflate(getActivity(), R.layout.model1_horizontal_video, null);
+            for (int j = 0; j < 3; j++) {
+                final JSONObject jsob = jsonArray.optJSONObject(i * 3 + j);
+                LinearLayout linlayout = (LinearLayout) view.getChildAt(j);
+                linlayout.setTag(i * 3 + j);
+                ImageView imageview = (ImageView) linlayout.getChildAt(0);
+                LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getScreenWH(getActivity())[0] / 3 + 10);
+                ll.weight = 1;
                 imageview.setLayoutParams(ll);
                 imageview.setScaleType(ImageView.ScaleType.FIT_XY);
-                TextView title=(TextView)linlayout.getChildAt(1);
+                TextView title = (TextView) linlayout.getChildAt(1);
                 title.setText(jsob.optString("title"));
                 imageview.setImageDrawable(new ColorDrawable(0x783748));
                 linlayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), NewVideoActivity.class);
-                        intent.putExtra(BundleTag.ProductId,jsob.optString("modelid",""));
-                        intent.putExtra(BundleTag.Country,jsob.optString("arg",""));
+                        intent.putExtra(BundleTag.ProductId, jsob.optString("modelid", ""));
+                        intent.putExtra(BundleTag.Country, jsob.optString("arg", ""));
                         startActivity(intent);
                     }
                 });
@@ -245,45 +257,43 @@ public class Home extends BaseFragment implements View.OnClickListener{
         }
     }
 
-    private void AddPictureItem(JSONArray jsonarr)
-    {
-        LinearLayout  videomain = new LinearLayout(getActivity());
+    private void AddPictureItem(JSONArray jsonarr) {
+        LinearLayout videomain = new LinearLayout(getActivity());
         videomain.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams mainv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mainv.topMargin=ScreenUtils.getDIP2PX(getActivity(),10);
+        mainv.topMargin = ScreenUtils.getDIP2PX(getActivity(), 10);
         videomain.setLayoutParams(mainv);
 
         for (int i = 0; i < jsonarr.length(); i++) {
-            RelativeLayout llview=(RelativeLayout)View.inflate(getActivity(),R.layout.model3_galley_picture,null);
-            ImageView image=(ImageView)llview.getChildAt(0);
-                TextView title=(TextView)llview.getChildAt(1);
+            RelativeLayout llview = (RelativeLayout) View.inflate(getActivity(), R.layout.model3_galley_picture, null);
+            ImageView image = (ImageView) llview.getChildAt(0);
+            TextView title = (TextView) llview.getChildAt(1);
             title.setVisibility(View.GONE);
             image.setScaleType(ImageView.ScaleType.FIT_XY);
-            mImageDownLoader.displayImage(jsonarr.optJSONObject(i).optString("pictureurl"),image);
+            mImageDownLoader.displayImage(jsonarr.optJSONObject(i).optString("pictureurl"), image);
             videomain.addView(llview);
         }
         scorll.addView(videomain);
     }
-    private void AddNoteitem(JSONArray jsonarr)
-    {
+
+    private void AddNoteitem(JSONArray jsonarr) {
         for (int i = 0; i < jsonarr.length(); i++) {
-            JSONObject json= jsonarr.optJSONObject(i);
-            LinearLayout view=(LinearLayout)View.inflate(getActivity(), R.layout.model2_vertical_note, null);
-            TextView text1=(TextView)view.findViewById(R.id.title);
-            TextView text2=(TextView)view.findViewById(R.id.content);
+            JSONObject json = jsonarr.optJSONObject(i);
+            LinearLayout view = (LinearLayout) View.inflate(getActivity(), R.layout.model2_vertical_note, null);
+            TextView text1 = (TextView) view.findViewById(R.id.title);
+            TextView text2 = (TextView) view.findViewById(R.id.content);
             text1.setText(json.optString("title"));
             text2.setText(Html.fromHtml(json.optString("content")));
-            LinearLayout.LayoutParams ll=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setMargins(0, 1, 0, 0);
-            notemain.addView(view,ll);
+            notemain.addView(view, ll);
         }
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.register:
                 startActivityForResult(new Intent(getActivity(), RegisterActivity.class), BundleTag.RequestCode);
                 break;
@@ -297,16 +307,14 @@ public class Home extends BaseFragment implements View.OnClickListener{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        LogTools.e("sadsadsad",requestCode+" "+resultCode);
-        if(resultCode==BundleTag.LoginSuccess)
-        {
+        if (resultCode == BundleTag.LoginSuccess) {
             register.setVisibility(View.GONE);
             login.setVisibility(View.GONE);
         }
     }
 
-    public void Mainrequest()
-    {
-        RequestParams requestParams=new RequestParams();
+    public void Mainrequest() {
+        RequestParams requestParams = new RequestParams();
         Httputils.PostWithBaseUrl(Httputils.Home, requestParams, new MyJsonHttpResponseHandler(getActivity(), true) {
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
@@ -345,7 +353,6 @@ public class Home extends BaseFragment implements View.OnClickListener{
         long totalBlocks = stat.getBlockCount();
         return Formatter.formatFileSize(getActivity(), blockSize * totalBlocks);
     }
-
 
 
 }

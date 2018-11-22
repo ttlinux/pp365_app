@@ -153,7 +153,7 @@ public class VideoHTTPMethod {
 
         }
         finally {
-
+            response.body().close();
             response.close();
         }
 //        Call call = okHttpClient.newCall(request);
