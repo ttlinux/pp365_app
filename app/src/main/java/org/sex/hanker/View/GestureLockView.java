@@ -11,11 +11,12 @@ import org.sex.hanker.Utils.LogTools;
 
 public class GestureLockView extends View
 {
+
 	private static final String TAG = "GestureLockView";
 	/**
 	 * GestureLockView的三种状态
 	 */
-	enum Mode
+	public static enum Mode
 	{
 		STATUS_NO_FINGER, STATUS_FINGER_ON, STATUS_FINGER_UP;
 	}

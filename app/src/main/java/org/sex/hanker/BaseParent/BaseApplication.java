@@ -70,7 +70,17 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public static String packagename;
     public Activity activity;
     public boolean isAppBackstage;
+    public int ScreenLockOpenStatus;
     SharedPreferences sharedPreferences;
+
+
+    public int isScreenLockOpenStatus() {
+        return ScreenLockOpenStatus;
+    }
+
+    public void setScreenLockOpenStatus(int screenLockOpenStatus) {
+        ScreenLockOpenStatus = screenLockOpenStatus;
+    }
 
     /**
      * 网络类型
@@ -122,6 +132,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
 //        JPushInterface.setLatestNotificationNumber(this, 3);
         setActivityCallBack();
         VideoSQL.InitSQL(this);
+        ScreenLockOpenStatus=getSharedPreferences().getInt(BundleTag.ScreenLockStatus,-1);
     }
 
 

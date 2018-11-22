@@ -28,35 +28,18 @@ import org.json.JSONObject;
 import org.sex.hanker.Activity.LoginActivity;
 import org.sex.hanker.Activity.NewVideoActivity;
 import org.sex.hanker.Activity.RegisterActivity;
-import org.sex.hanker.Activity.Testcar;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
-import org.sex.hanker.ProxyURL.IOUtil;
-import org.sex.hanker.Service.TestService;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
-import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
-import org.sex.hanker.Utils.VideoDownload.VideoSQL;
 import org.sex.hanker.View.MyViewPager;
 import org.sex.hanker.mybusiness.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.ConnectionSpec;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.TlsVersion;
 
 /**
  * Created by Administrator on 2017/11/3.

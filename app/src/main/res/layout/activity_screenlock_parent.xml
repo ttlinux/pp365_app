@@ -9,6 +9,12 @@
     <include
         layout="@layout/gray_toplayout"></include>
 
+    <LinearLayout
+        android:id="@+id/mainll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -16,15 +22,16 @@
         android:layout_marginTop="20dip"
         />
     <TextView
+        android:id="@+id/start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/right_icon"
         android:paddingRight="10dip"
         android:text="@string/switchonscreenlock"
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:paddingLeft="10dip"
         android:textColor="@color/gray"
+        android:drawableRight="@drawable/right_icon"
         />
     <ImageView
         android:layout_width="match_parent"
@@ -32,15 +39,16 @@
         android:background="@color/line"
         />
     <TextView
+        android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/right_icon"
         android:paddingRight="10dip"
         android:text="@string/editscreenlock"
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:paddingLeft="10dip"
         android:textColor="@color/gray"
+        android:drawableRight="@drawable/right_icon"
         />
     <ImageView
         android:layout_width="match_parent"
@@ -48,19 +56,77 @@
         android:background="@color/line"
         />
     <TextView
+        android:id="@+id/off"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/right_icon"
         android:paddingRight="10dip"
         android:text="@string/switchoffscreenlock"
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:paddingLeft="10dip"
         android:textColor="@color/gray"
+        android:drawableRight="@drawable/right_icon"
         />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"
         />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dip"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black2"
+            android:text="@string/setting"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dip"
+            android:layout_marginBottom="10dip"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            />
+        <TextView
+            android:id="@+id/showonpresshome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:text="@string/showonpresshome"
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:textColor="@color/gray"
+            android:drawableRight="@drawable/right_icon"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:text="@string/autohandup"
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:textColor="@color/gray"
+            android:drawableRight="@drawable/right_icon"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            />
+
+    </LinearLayout>
 </LinearLayout>

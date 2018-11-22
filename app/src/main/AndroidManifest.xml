@@ -48,13 +48,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.sex.hanker.Activity.Testcar" />
         <activity android:name="org.sex.hanker.Activity.LoginActivity" />
         <activity android:name="org.sex.hanker.Activity.RegisterActivity" />
         <activity android:name="org.sex.hanker.Activity.PicDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.NoteDetailActivity" />
         <activity android:name="org.sex.hanker.Activity.TestActivity" />
         <activity android:name="org.sex.hanker.Activity.VideoTask.VideoTaskActivity" />
+        <activity android:name="org.sex.hanker.User.ScreenLockParentActivity" />
+        <activity android:name="org.sex.hanker.User.ScreenLockActivity" />
         <activity
             android:name="org.sex.hanker.Activity.NewVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />

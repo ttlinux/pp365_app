@@ -24,6 +24,8 @@ public class BundleTag {
     public static final String IsfirstTime = "IsfirstTime";
     public static final String US = "US";
     public static final String ASIA = "ASIA";
+    public static final String ScreenLockPassword = "ScreenLockPassword";
+    public static final String ScreenLockStatus = "ScreenLockStatus";
     public static final String Postion = "Postion";
     public static final String Data = "Data";
     public static final String ExcuteType = "ExcuteType";

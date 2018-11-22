@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.mybusiness.R;
-
+import org.sex.hanker.View.GestureLockView.Mode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,11 +79,11 @@ public class GestureLockViewGroup extends RelativeLayout {
     /**
      * GestureLockView手指触摸的状态下内圆和外圆的颜色
      */
-    private int mFingerOnColor[] = {0xFFffcc6a,0xffff7701};
+    private int mFingerOnColor[] = {0xFFffcc6a, 0xffff7701};
     /**
      * GestureLockView手指抬起的状态下内圆和外圆的颜色
      */
-    private int mFingerUpColor[] = {0xFFffcc6a,0xffff7701};
+    private int mFingerUpColor[] = {0xFFffcc6a, 0xffff7701};
 
     /**
      * 宽度
@@ -115,9 +115,9 @@ public class GestureLockViewGroup extends RelativeLayout {
     /**
      * 回调接口
      */
-    private int record=-1;
+    private int record = -1;
 
-    int minsize,maxsize;
+    int minsize, maxsize;
     onLimitListener onLimitListener;
 
     private OnGestureLockViewListener mOnGestureLockViewListener;
@@ -174,11 +174,12 @@ public class GestureLockViewGroup extends RelativeLayout {
         // mPaint.setColor(Color.parseColor("#aaffffff"));
         mPath = new Path();
     }
-    public void setViewColor(int color)
-    {
+
+    public void setViewColor(int color) {
         mPaint.setColor(color);
         invalidate();
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -187,8 +188,8 @@ public class GestureLockViewGroup extends RelativeLayout {
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
 
         LogTools.e(TAG + " mWidth", mWidth + "");
-        LogTools.e(TAG+" mHeight", mHeight + "");
-        if(mWidth==0 || mHeight==0 )return;
+        LogTools.e(TAG + " mHeight", mHeight + "");
+        if (mWidth == 0 || mHeight == 0) return;
         mHeight = mWidth = mWidth < mHeight ? mWidth : mHeight;
 
         // setMeasuredDimension(mWidth, mHeight);
@@ -242,8 +243,8 @@ public class GestureLockViewGroup extends RelativeLayout {
 
                 lockerParams.setMargins(leftMagin, topMargin, rightMargin,
                         bottomMargin);
-                mGestureLockViews[i].setMode(GestureLockView.Mode.STATUS_NO_FINGER);
-                final GestureLockView glv=mGestureLockViews[i];
+                mGestureLockViews[i].setMode(Mode.STATUS_NO_FINGER);
+                final GestureLockView glv = mGestureLockViews[i];
                 this.post(new Runnable() {
                     @Override
                     public void run() {
@@ -256,9 +257,7 @@ public class GestureLockViewGroup extends RelativeLayout {
             Log.e(TAG, "mWidth = " + mWidth + " ,  mGestureViewWidth = "
                     + mGestureLockViewWidth + " , mMarginBetweenLockView = "
                     + mMarginBetweenLockView);
-        }
-        else
-        {
+        } else {
 //            for (int i = 0; i < mGestureLockViews.length; i++) {
 //                mGestureLockViews[i].postInvalidate();
 //            }
@@ -271,7 +270,7 @@ public class GestureLockViewGroup extends RelativeLayout {
         int x = (int) event.getX();
         int y = (int) event.getY();
         if (mOnGestureLockViewListener != null) {
-                mOnGestureLockViewListener.onTouchEvent(event);
+            mOnGestureLockViewListener.onTouchEvent(event);
         }
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -286,49 +285,46 @@ public class GestureLockViewGroup extends RelativeLayout {
 
                 if (child != null) {
                     int cId = child.getId();
-                    if(record<0 || record!=cId)
-                    {
-                        child.setMode(GestureLockView.Mode.STATUS_FINGER_ON);
+                    if (record < 0 || record != cId) {
+                        child.setMode(Mode.STATUS_FINGER_ON);
                         LogTools.e("geeeee111", new Gson().toJson(mChoose));
-                            if (mChoose.size() == 0)// 当前添加为第一个
-                            {
+                        if (mChoose.size() == 0)// 当前添加为第一个
+                        {
 //                                LogTools.e("geeeee","negative");
-                                mLastPathX = child.getLeft() / 2 + child.getRight() / 2;
-                                mLastPathY = child.getTop() / 2 + child.getBottom() / 2;
-                                mPath.moveTo(mLastPathX, mLastPathY);
-                            } else
-                            // 非第一个，将两者使用线连上
-                            {
+                            mLastPathX = child.getLeft() / 2 + child.getRight() / 2;
+                            mLastPathY = child.getTop() / 2 + child.getBottom() / 2;
+                            mPath.moveTo(mLastPathX, mLastPathY);
+                        } else
+                        // 非第一个，将两者使用线连上
+                        {
 //                                LogTools.e("geeeee","qqqq");
 //                                LogTools.e("geee00",mLastPathX+"  "+mLastPathY);
-                                Point point1=new Point(mLastPathX,mLastPathY);
+                            Point point1 = new Point(mLastPathX, mLastPathY);
 
-                                int mLastPathX_temp = child.getLeft() / 2 + child.getRight() / 2;
-                                int mLastPathY_temp = child.getTop() / 2 + child.getBottom() / 2;
-                                Point point2=new Point(mLastPathX_temp,mLastPathY_temp);
+                            int mLastPathX_temp = child.getLeft() / 2 + child.getRight() / 2;
+                            int mLastPathY_temp = child.getTop() / 2 + child.getBottom() / 2;
+                            Point point2 = new Point(mLastPathX_temp, mLastPathY_temp);
 //                                LogTools.e("geee",FigureDistance(point1,point2)+"  "+(getHeight()/3));
 //                                LogTools.e("geee11",new Gson().toJson(point1)+"   "+new Gson().toJson(point2));
 //                                LogTools.e("geee222",FigureCentralPoint(point1,point2)+"");
-                                if(FigureDistance(point1,point2)>getHeight()/3)
-                                {
-                                    Point point=FigureCentralPoint(point1,point2);
-                                    GestureLockView m_child = getChildIdByPos(point.x, point.y);
-                                    if(m_child!=null)
-                                    {
+                            if (FigureDistance(point1, point2) > getHeight() / 3) {
+                                Point point = FigureCentralPoint(point1, point2);
+                                GestureLockView m_child = getChildIdByPos(point.x, point.y);
+                                if (m_child != null) {
 //                                        mChoose.add(m_child.getId());
-                                        mr_Choose.add(m_child.getId());
-                                        m_child.setMode(GestureLockView.Mode.STATUS_FINGER_ON);
-                                        if (mOnGestureLockViewListener != null)
-                                            mOnGestureLockViewListener.onBlockSelected(m_child.getId());
-                                    }
+                                    mr_Choose.add(m_child.getId());
+                                    m_child.setMode(Mode.STATUS_FINGER_ON);
+                                    if (mOnGestureLockViewListener != null)
+                                        mOnGestureLockViewListener.onBlockSelected(m_child.getId());
                                 }
-                                mLastPathX=mLastPathX_temp;
-                                mLastPathY=mLastPathY_temp;
-                                mPath.lineTo(mLastPathX, mLastPathY);
                             }
+                            mLastPathX = mLastPathX_temp;
+                            mLastPathY = mLastPathY_temp;
+                            mPath.lineTo(mLastPathX, mLastPathY);
+                        }
                         mChoose.add(cId);
                         mr_Choose.add(cId);
-                            record=cId;
+                        record = cId;
                         if (mOnGestureLockViewListener != null)
                             mOnGestureLockViewListener.onBlockSelected(cId);
                         // 设置指引线的起点
@@ -344,10 +340,9 @@ public class GestureLockViewGroup extends RelativeLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 //画完后的线样式和图形路径
-                if(mr_Choose.size()>maxsize || mr_Choose.size()<minsize)
-                {
+                if (mr_Choose.size() > maxsize || mr_Choose.size() < minsize) {
                     reset();
-                    if(onLimitListener!=null)onLimitListener.onLimit();
+                    if (onLimitListener != null) onLimitListener.onLimit();
                     return true;
                 }
                 if (isFrist) {
@@ -400,23 +395,22 @@ public class GestureLockViewGroup extends RelativeLayout {
         return true;
     }
 
-    public double FigureDistance(Point point1,Point point2)
-    {
+    public double FigureDistance(Point point1, Point point2) {
         double _x = Math.abs(point1.x - point2.x);
         double _y = Math.abs(point1.y - point2.y);
-        return Math.sqrt(_x*_x+_y*_y);
+        return Math.sqrt(_x * _x + _y * _y);
     }
-    public Point FigureCentralPoint(Point point1,Point point2)
-    {
-        Point point=new Point();
-        point.set((point1.x+point2.x)/2,(point1.y+point2.y)/2);
+
+    public Point FigureCentralPoint(Point point1, Point point2) {
+        Point point = new Point();
+        point.set((point1.x + point2.x) / 2, (point1.y + point2.y) / 2);
         return point;
     }
 
     private void changeItemMode() {
         for (GestureLockView gestureLockView : mGestureLockViews) {
             if (mChoose.contains(gestureLockView.getId())) {
-                gestureLockView.setMode(GestureLockView.Mode.STATUS_FINGER_UP);
+                gestureLockView.setMode(Mode.STATUS_FINGER_UP);
             }
         }
     }
@@ -425,15 +419,13 @@ public class GestureLockViewGroup extends RelativeLayout {
     /**
      * 少于limitsize 就重置 不算
      */
-    public void setLimitListener(int minsize,int maxsize,onLimitListener onLimitListener)
-    {
-        this.minsize=minsize;
-        this.maxsize=maxsize;
-        this.onLimitListener=onLimitListener;
+    public void setLimitListener(int minsize, int maxsize, onLimitListener onLimitListener) {
+        this.minsize = minsize;
+        this.maxsize = maxsize;
+        this.onLimitListener = onLimitListener;
     }
 
-    public interface onLimitListener
-    {
+    public interface onLimitListener {
         public void onLimit();
     }
 
@@ -444,9 +436,9 @@ public class GestureLockViewGroup extends RelativeLayout {
         mChoose.clear();
         mr_Choose.clear();
         mPath.reset();
-        record=-1;
+        record = -1;
         for (GestureLockView gestureLockView : mGestureLockViews) {
-            gestureLockView.setMode(GestureLockView.Mode.STATUS_NO_FINGER);
+            gestureLockView.setMode(Mode.STATUS_NO_FINGER);
 //            gestureLockView.setArrowDegree(-1);
         }
     }
@@ -455,9 +447,9 @@ public class GestureLockViewGroup extends RelativeLayout {
         mChoose.clear();
         mr_Choose.clear();
         mPath.reset();
-        record=-1;
+        record = -1;
         for (GestureLockView gestureLockView : mGestureLockViews) {
-            gestureLockView.setMode(GestureLockView.Mode.STATUS_NO_FINGER);
+            gestureLockView.setMode(Mode.STATUS_NO_FINGER);
 //            gestureLockView.setArrowDegree(-1);
         }
         invalidate();
@@ -543,10 +535,12 @@ public class GestureLockViewGroup extends RelativeLayout {
     public void setIsFrist(boolean isFrist) {
         this.isFrist = isFrist;
     }
+
     //是否修改手势密码
     public void setIsEditpassword(boolean isEditpassword) {
         this.isEditpassword = isEditpassword;
     }
+
     /**
      * 设置最大实验次数
      *
@@ -560,7 +554,7 @@ public class GestureLockViewGroup extends RelativeLayout {
     public void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
         //绘制GestureLockView间的连线
-        LogTools.e(TAG,"dispatchDraw");
+        LogTools.e(TAG, "dispatchDraw");
         if (mPath != null) {
             canvas.drawPath(mPath, mPaint);
         }
@@ -580,12 +574,14 @@ public class GestureLockViewGroup extends RelativeLayout {
          * @param position
          */
         public void onBlockSelected(int cId);
+
         /**
          * 单独选中元素的Id
          *
          * @param position
          */
         public void oncheck(int oncheck);
+
         /**
          * 是否匹配
          *

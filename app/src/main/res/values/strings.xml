@@ -31,6 +31,16 @@
     <string name="switchonscreenlock">启用屏幕锁</string>
     <string name="editscreenlock">修改屏幕锁图案</string>
     <string name="switchoffscreenlock">关闭屏幕锁</string>
+    <string name="showonpresshome">当点击Home键后返回APP需要验证</string>
+    <string name="autohandup">自动挂起时间</string>
+    <string name="screenlocktips2">屏幕锁已经关闭</string>
+    <string name="screenlocktips">请连接4-9个点的密码</string>
+    <string name="screenlocktips3">请再次连接和上次一样的图案</string>
+    <string name="screenlocktips4">与上一次的图案不一致,请再次绘制</string>
+    <string name="screenlocktips5">屏幕锁设置成功</string>
+    <string name="screenlocktips6">请输入原密码图案</string>
+    <string name="screenlocktips8">请设置与原密码不一样的新密码图案</string>
+    <string name="screenlocktips7">绘制原密码错误,请再试一次</string>
 
     <string name="Success_NewFile">已加入下载队列</string>
     <string name="Success_NotYetFinish">视频正在下载</string>
