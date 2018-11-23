@@ -2,130 +2,228 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    >
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/gray_toplayout"></include>
+    <include layout="@layout/gray_toplayout"></include>
+
+    <LinearLayout
+        android:id="@+id/tipslayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:text="*"
+            android:textColor="@color/red2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:text="@string/screenlocktips9"
+            android:textColor="@color/red2"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/mainll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"
-        android:layout_marginTop="20dip"
-        />
-    <TextView
-        android:id="@+id/start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dip"
-        android:text="@string/switchonscreenlock"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:textColor="@color/gray"
-        android:drawableRight="@drawable/right_icon"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"
-        />
-    <TextView
-        android:id="@+id/edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dip"
-        android:text="@string/editscreenlock"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:textColor="@color/gray"
-        android:drawableRight="@drawable/right_icon"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"
-        />
-    <TextView
-        android:id="@+id/off"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dip"
-        android:text="@string/switchoffscreenlock"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:textColor="@color/gray"
-        android:drawableRight="@drawable/right_icon"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"
-        />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20dip"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/right_icon"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:text="@string/switchonscreenlock"
+            android:textColor="@color/gray" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/right_icon"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:text="@string/editscreenlock"
+            android:textColor="@color/gray" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/right_icon"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:text="@string/switchoffscreenlock"
+            android:textColor="@color/gray" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/settinglayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dip"
-        >
+        android:layout_marginTop="50dip"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black2"
-            android:text="@string/setting"
-            android:textSize="16sp"
-            android:layout_marginLeft="10dip"
             android:layout_marginBottom="10dip"
-            />
+            android:layout_marginLeft="10dip"
+            android:text="@string/setting"
+            android:textColor="@color/black2"
+            android:textSize="17sp" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"
-            />
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/showonpresshome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="10dip"
+                android:text="@string/showonpresshome"
+                android:textColor="@color/gray" />
+
+            <org.sex.hanker.View.SwitchView
+                android:id="@+id/switch_onhome"
+                android:layout_width="60dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="10dip"
+                android:text="@string/authonOPeningAPP"
+                android:textColor="@color/gray" />
+
+            <org.sex.hanker.View.SwitchView
+                android:id="@+id/switch_onexit"
+                android:layout_width="60dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+        <RelativeLayout
+            android:id="@+id/hanguptimelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="10dip"
+                android:text="@string/autohandup"
+                android:textColor="@color/gray" />
+
+
+
+            <ImageView
+                android:id="@+id/tempicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/right_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip"
+                />
+            <TextView
+                android:id="@+id/hanguptime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dip"
+                android:paddingLeft="10dip"
+                android:paddingTop="10dip"
+                android:textColor="@color/gray"
+                android:layout_alignRight="@id/tempicon"
+                android:layout_marginRight="15dip"
+                />
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
         <TextView
-            android:id="@+id/showonpresshome"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="10dip"
-            android:text="@string/showonpresshome"
-            android:paddingTop="10dip"
-            android:paddingBottom="10dip"
-            android:paddingLeft="10dip"
-            android:textColor="@color/gray"
-            android:drawableRight="@drawable/right_icon"
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dip"
-            android:text="@string/autohandup"
-            android:paddingTop="10dip"
-            android:paddingBottom="10dip"
-            android:paddingLeft="10dip"
-            android:textColor="@color/gray"
-            android:drawableRight="@drawable/right_icon"
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="10dip"
+            android:textSize="13sp"
+            android:textColor="@color/red2"
+            android:text="@string/screenlocktips10"
             />
 
     </LinearLayout>

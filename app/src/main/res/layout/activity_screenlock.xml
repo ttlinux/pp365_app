@@ -14,13 +14,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="25dip"
         android:layout_marginBottom="10dip"
         android:gravity="center"
         android:layout_gravity="center"
         android:textColor="@color/gray"
         />
-    <com.lottery.biying.view.GestureLockViewGroup
+    <org.sex.hanker.View.GestureLockViewGroup
         android:id="@+id/id_gestureLockViewGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

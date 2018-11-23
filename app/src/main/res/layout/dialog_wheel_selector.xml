@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dip"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/btn_rectangle_background"
+        android:padding="1dip"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray24"
+        android:textColor="@color/white"
+        android:text="@string/autohandup"
+        android:padding="10dip"
+        android:gravity="center"
+        android:textSize="14sp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/tempid"
+            android:layout_width="70dip"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/black2"
+            android:text="@string/time_minute"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            />
+    <kankan.wheel.widget.WheelView
+        android:id="@+id/wheel"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/tempid"
+        android:background="@color/white"
+        />
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray24"
+        />
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:textColor="@color/gray24"
+        android:textSize="14sp"
+        android:text="@string/confirm"
+        android:gravity="center"
+        android:background="@color/white"
+        />
+</LinearLayout>
+</LinearLayout>

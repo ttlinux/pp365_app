@@ -3,10 +3,12 @@ package org.sex.hanker.BaseParent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import org.sex.hanker.Activity.NewVideoActivity;
 import org.sex.hanker.mybusiness.R;
 
 /**
@@ -26,6 +28,9 @@ public class BaseActivity extends Activity{
     boolean isneedback=true;
 
     boolean isFront;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,5 +126,18 @@ public class BaseActivity extends Activity{
     public <T> T FindView(int id)
     {
         return (T)findViewById(id);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(this instanceof NewVideoActivity)
+        {
+            return super.dispatchTouchEvent(ev);
+        }
+        else
+        {
+
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

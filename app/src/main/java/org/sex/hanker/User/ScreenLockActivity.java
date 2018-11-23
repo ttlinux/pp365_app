@@ -61,7 +61,7 @@ public class ScreenLockActivity extends BaseActivity {
                 tips.setText(getResources().getString(R.string.screenlocktips6));
                 break;
         }
-
+        setActivityTitle(getIntent().getStringExtra(BundleTag.Title));
         initGesture();
     }
 
@@ -100,7 +100,7 @@ public class ScreenLockActivity extends BaseActivity {
 
                     @Override
                     public void onUnmatchedExceedBoundary() {
-                        finish();
+
                     }
 
                     @Override
@@ -116,7 +116,9 @@ public class ScreenLockActivity extends BaseActivity {
                                         sharedPreferences.edit().putString(BundleTag.ScreenLockPassword,passd).putInt(BundleTag.ScreenLockStatus, Status.On.getIndex()).commit();
                                         ((BaseApplication)getApplication()).setScreenLockOpenStatus(Status.On.getIndex());
                                         ToastUtil.showMessage(ScreenLockActivity.this, getResources().getString(R.string.screenlocktips5));
+                                        setResult(BundleTag.ResultCode);
                                         finish();
+
                                     }
                                     else
                                     {
@@ -135,6 +137,14 @@ public class ScreenLockActivity extends BaseActivity {
                             case 3:
                                 if(isVerify)
                                 {
+                                    if(originalpassword.equalsIgnoreCase(pass.toString()))
+                                    {
+                                        mGestureLockViewGroup.resetAndRefresh();
+                                        pass.delete(0, pass.length());
+                                        tips.setText(getResources().getString(R.string.screenlocktips8));
+                                        ToastUtil.showMessage(ScreenLockActivity.this, getResources().getString(R.string.screenlocktips8));
+                                        return;
+                                    }
                                     if(passd!=null)
                                     {
                                         if(passd.equalsIgnoreCase(pass.toString()))
@@ -142,13 +152,15 @@ public class ScreenLockActivity extends BaseActivity {
                                             sharedPreferences.edit().putString(BundleTag.ScreenLockPassword,passd).putInt(BundleTag.ScreenLockStatus, Status.On.getIndex()).commit();
                                             ((BaseApplication)getApplication()).setScreenLockOpenStatus(Status.On.getIndex());
                                             ToastUtil.showMessage(ScreenLockActivity.this, getResources().getString(R.string.screenlocktips5));
+                                            setResult(BundleTag.ResultCode);
                                             finish();
+
                                         }
                                         else
                                         {
                                             passd=null;
                                             mGestureLockViewGroup.resetAndRefresh();
-                                            tips.setText(getResources().getString(R.string.screenlocktips));
+                                            tips.setText(getResources().getString(R.string.screenlocktips8));
                                             ToastUtil.showMessage(ScreenLockActivity.this, getResources().getString(R.string.screenlocktips4));
                                         }
                                         return;
@@ -156,7 +168,7 @@ public class ScreenLockActivity extends BaseActivity {
                                     passd = pass.toString();
                                     mGestureLockViewGroup.resetAndRefresh();
                                     pass.delete(0, pass.length());
-                                    tips.setText(getResources().getString(R.string.screenlocktips8));
+                                    tips.setText(getResources().getString(R.string.screenlocktips3));
                                 }
                                 else
                                 {

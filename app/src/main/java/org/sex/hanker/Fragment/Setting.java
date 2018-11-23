@@ -15,6 +15,7 @@ import org.sex.hanker.Activity.VideoTask.VideoTaskActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Bean.user;
+import org.sex.hanker.User.ScreenLockParentActivity;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.ClearCache;
 import org.sex.hanker.View.MyRelativeLayout;
@@ -68,7 +69,7 @@ public class Setting extends BaseFragment implements View.OnClickListener{
         loginlayout.setOnClickListener(this);
         imagehead.setOnClickListener(this);
         list_item=(LinearLayout)FindView(R.id.list_item);
-        String titles[]={"屏幕锁","收藏夹","下载管理","缓存清除"};
+        String titles[]=getResources().getStringArray(R.array.settingmenu);
         for (int i = 0; i < titles.length; i++) {
             MyRelativeLayout Item_view=(MyRelativeLayout)View.inflate(getActivity(),R.layout.item_fragment_setting,null);
             TextView textview=(TextView)Item_view.findViewById(R.id.title);
@@ -82,27 +83,40 @@ public class Setting extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
+        if(v.getTag()!=null)
         {
-            case R.id.imagehead:
-            case R.id.loginlayout:
-                startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.RequestCode);
-                break;
+            Intent intent;
+            TextView textView=(TextView)v;
+            switch ((int)v.getTag())
+            {
+                case 1000:
+                    intent=new Intent(getActivity(), ScreenLockParentActivity.class);
+                    intent.putExtra(BundleTag.Title,textView.getText().toString());
+                    startActivity(intent);
+                    break;
+                case 1001:
+                    break;
+                case 1002:
+                    startActivity(new Intent(getActivity(), VideoTaskActivity.class));
+                    break;
+                case 1003:
+                    ClearCache.Clear(ClearCache.Picture,getActivity());
+                    ClearCache.Clear(ClearCache.DownloadMovie,getActivity());
+                    break;
+            }
         }
-        switch ((int)v.getTag())
+        else
         {
-            case 1000:
-                break;
-            case 1001:
-                break;
-            case 1002:
-                startActivity(new Intent(getActivity(), VideoTaskActivity.class));
-                break;
-            case 1003:
-                ClearCache.Clear(ClearCache.Picture,getActivity());
-                ClearCache.Clear(ClearCache.DownloadMovie,getActivity());
-                break;
+            switch (v.getId())
+            {
+                case R.id.imagehead:
+                case R.id.loginlayout:
+                    startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.RequestCode);
+                    break;
+            }
         }
+
+
     }
 
     @Override
