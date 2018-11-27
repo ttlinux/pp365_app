@@ -31,6 +31,9 @@
     <string name="switchonscreenlock">启用屏幕锁</string>
     <string name="editscreenlock">修改屏幕锁图案</string>
     <string name="switchoffscreenlock">关闭屏幕锁</string>
+    <string name="plsconnectpoint">请解锁屏幕锁</string>
+    <string name="forgetpassword">忘记密码</string>
+    <string name="unlockbypassword">账户密码解锁</string>
     <string name="showonpresshome">当点击Home键后返回APP需要验证</string>
     <string name="autohandup">自动挂起</string>
     <string name="confirm">确定</string>

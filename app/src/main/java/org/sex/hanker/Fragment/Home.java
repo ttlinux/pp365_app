@@ -33,6 +33,7 @@ import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.View.MyViewPager;
@@ -40,6 +41,11 @@ import org.sex.hanker.mybusiness.R;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import ph.com.globe.connect.ApiException;
+import ph.com.globe.connect.Authentication;
+import ph.com.globe.connect.HttpRequestException;
+import ph.com.globe.connect.HttpResponseException;
 
 /**
  * Created by Administrator on 2017/11/3.
@@ -85,6 +91,7 @@ public class Home extends BaseFragment implements View.OnClickListener {
 
 
     private void Init() {
+
         //////banner
 //        getActivity().startService(new Intent(getActivity(), TestService.class));
         mImageDownLoader = ((BaseApplication) getActivity().getApplication())

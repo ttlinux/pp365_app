@@ -3,6 +3,8 @@ package org.sex.hanker.BaseParent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -29,7 +31,19 @@ public class BaseActivity extends Activity{
 
     boolean isFront;
 
+    private Handler handler=new Handler(){
 
+        @Override
+        public void dispatchMessage(Message msg) {
+            super.dispatchMessage(msg);
+            switch (msg.what)
+            {
+                case 110:
+
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +95,7 @@ public class BaseActivity extends Activity{
     protected void onPause() {
         super.onPause();
         isFront=false;
+
     }
 
     @Override
