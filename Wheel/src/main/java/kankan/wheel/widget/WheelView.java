@@ -87,7 +87,7 @@ public class WheelView extends View {
 	private WheelScroller scroller;
     private boolean isScrollingPerformed; 
     private int scrollingOffset;
-   private boolean isMoreWheelbackgound;
+   private boolean isMoreWheelbackgound,noitemline=true;
 	// Cyclic
 	boolean isCyclic = false;
 	
@@ -154,6 +154,11 @@ public class WheelView extends View {
 	public WheelView(Context context) {
 		super(context);
 		initData(context);
+	}
+
+	public void setNoitemline() {
+		this.noitemline = true;
+		postInvalidate();
 	}
 
 	public void SetNoBackgound()
@@ -515,6 +520,8 @@ public class WheelView extends View {
 		}
        if(!isMoreWheelbackgound)
 		setBackground(context.getResources().getDrawable(R.drawable.test34));
+		else
+		   setBackgroundColor(0xFFFFFFFF);
 
 		if(!IsShowdefaultBackground)return;
 		setBackgroundResource(R.drawable.wheel_bg);
@@ -700,6 +707,7 @@ public class WheelView extends View {
 	 */
 	private void drawCenterRect(Canvas canvas) {
 //		if(!IsShowdefaultBackground)return;
+		if(noitemline)return;
 		int center = getHeight() / 2;
 		int offset = (int) (getItemHeight() / 2 * 1.2);
 
@@ -708,6 +716,7 @@ public class WheelView extends View {
 		paint.setStrokeWidth(1);//笔宽5像素
 		paint.setColor(0x70333333);//设置为红笔
 		paint.setAntiAlias(true);//锯齿不显示
+
 		canvas.drawLine(0, center - offset, getWidth(), center - offset , paint);
 		canvas.drawLine(0, center + offset, getWidth(), center + offset, paint);
 //		centerDrawable.setBounds(0, center - offset, getWidth(), center + offset);
