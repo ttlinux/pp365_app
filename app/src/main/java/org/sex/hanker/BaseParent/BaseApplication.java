@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
+import com.mob.MobSDK;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -133,6 +134,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
         setActivityCallBack();
         VideoSQL.InitSQL(this);
         ScreenLockOpenStatus=getSharedPreferences().getInt(BundleTag.ScreenLockStatus,-1);
+        MobSDK.init(this);
     }
 
 

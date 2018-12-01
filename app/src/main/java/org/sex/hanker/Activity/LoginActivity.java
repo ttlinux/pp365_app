@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Bean.user;
+import org.sex.hanker.User.*;
 import org.sex.hanker.Utils.AES;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
@@ -53,7 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId())
         {
             case R.id.registered:
-                startActivity(new Intent(this,RegisterActivity.class));
+                startActivity(new Intent(this, org.sex.hanker.User.RegisterActivity.class));
                 break;
             case R.id.comit:
                 Login(name.getText().toString(),password.getText().toString());

@@ -55,8 +55,8 @@ public class Httputils {
     public static String picture="/interface/picture";
     public static String picturedetail="/interface/picturedetail";
     //注册登陆
-    public static String login="/userlogin";
-    public static String register="/register";
+    public static String login="/interface/userlogin";
+    public static String register="/interface/register";
 
     //聊天记录
     public static String MessageRecord="/interface/MessageRecord";

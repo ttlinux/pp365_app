@@ -58,12 +58,13 @@
     <string name="Failure_InLine" >此视频正在下载中</string>
 
     <string-array name="sexuals">
-        <item>直男</item>
+        <item>男</item>
+        <item>女</item>
         <item>同志</item>
-        <item>妖</item>
         <item>女同</item>
-        <item>直女</item>
+        <item>妖</item>
     </string-array>
+
     <string-array name="country">
         <item>欧美</item>
         <item>亚洲</item>

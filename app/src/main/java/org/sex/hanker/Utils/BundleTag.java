@@ -39,6 +39,9 @@ public class BundleTag {
     public static final int Complete = 666;
     public static final String NoteRecord = "NoteRecord";
     public static final String PageRecord = "PageRecord";
+    public static final String password = "password";
+    public static final String userName = "userName";
+
     public static final String PicSavePath = "/PP365/Picture/";
     public static final String VideoCachePath = Environment.getExternalStorageDirectory().getPath() + "/Xokong/";
 

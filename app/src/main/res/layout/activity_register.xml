@@ -1,459 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/app_toplayout"></include>
+    android:background="@color/gray25"
+    >
 
-    <ScrollView
+    <include
+        layout="@layout/app_toplayout"/>
+
+    <EditText
+        android:id="@+id/phonenumber"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dip"
-        android:scrollbars="none"
-        android:fillViewport="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:background="@null"
+        android:textSize="15sp"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
+        android:singleLine="true"
+        android:maxLength="12"
+        android:hint="手机号"
+        android:textColorHint="@color/gray27"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray27"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="10dip"
         >
-        <LinearLayout
+        <TextView
+            android:id="@+id/getauth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/green3"
+            android:text="获取验证码"
+            android:layout_alignParentRight="true"
+            android:padding="8dip"
+            />
+        <EditText
+            android:id="@+id/verifycode"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/getauth"
+            android:background="@null"
+            android:textSize="15sp"
+            android:paddingTop="8dip"
+            android:paddingBottom="8dip"
+            android:singleLine="true"
+            android:maxLength="12"
+            android:hint="验证码"
+            android:textColorHint="@color/gray27"
+            />
 
-            <LinearLayout
-                android:id="@+id/temp3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="10dip"
-                android:orientation="vertical"
-                >
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/mainview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <RelativeLayout
-                    android:id="@+id/accountlayout"
-                    android:layout_width="fill_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="5dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="*"
-                        android:textColor="@color/red"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@null"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
-                        android:text="账        号"
-                        android:drawablePadding="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/radioButton" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray27"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:background="@null"
+        android:textSize="15sp"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
+        android:singleLine="true"
+        android:maxLength="12"
+        android:hint="密码"
+        android:textColorHint="@color/gray27"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray27"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        />
 
-                    <EditText
-                        android:id="@+id/name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:textColorHint="@color/gray4"
-                        android:maxLength="12"
-                        android:inputType="textAutoComplete"
-                        android:singleLine="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:background="@null"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="13sp"
-                        android:hint="4-12位数字/字母"
-                        android:layout_alignBaseline="@+id/radioButton"
-                        android:layout_alignBottom="@+id/radioButton"
-                        android:layout_toEndOf="@+id/radioButton" />
-
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/topbagcolor"/>
-                <RelativeLayout
-                    android:id="@+id/passwlayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="*"
-                        android:textColor="@color/red"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:button="@null"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
-                        android:text="密        码"
-                        android:drawablePadding="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/radioButton2" />
-
-                    <EditText
-                        android:id="@+id/password"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:textColorHint="@color/gray4"
-                        android:maxLength="12"
-                        android:inputType="textAutoComplete"
-                        android:password="true"
-                        android:singleLine="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:background="@null"
-                        android:textSize="13sp"
-                        android:hint="6-12位数字/字母"
-                        android:layout_alignBaseline="@+id/radioButton2"
-                        android:layout_alignBottom="@+id/radioButton2"
-                        android:layout_toEndOf="@+id/radioButton2" />
-
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/topbagcolor"/>
-                <RelativeLayout
-                    android:id="@+id/codelayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="*"
-                        android:textColor="@color/red"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:button="@null"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
-                        android:text="确认密码"
-                        android:drawablePadding="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/radioButton3" />
-
-
-
-                    <EditText
-                        android:id="@+id/repeatpwd"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:textColorHint="@color/gray4"
-                        android:hint="再次确认密码"
-                        android:maxLength="12"
-                        android:inputType="textAutoComplete"
-                        android:password="true"
-                        android:singleLine="true"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:background="@null"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/radioButton3"
-                        android:layout_alignBaseline="@+id/radioButton3"
-                        android:layout_alignBottom="@+id/radioButton3"
-                         />
-
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/topbagcolor"/>
-                    <RelativeLayout
-                        android:id="@+id/introducelayout"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_centerVertical="true"
-                            android:text="*"
-                            android:textColor="@color/red"
-                            />
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="10dp"
-                            android:text="性        别"
-                            android:drawablePadding="5dp"
-                            android:layout_marginLeft="20dp"
-                            android:id="@+id/radioButton4" />
-
-
-
-                        <TextView
-                            android:id="@+id/sexual"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textAutoComplete"
-                            android:singleLine="true"
-                            android:padding="2dip"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center_vertical"
-                            android:background="@null"
-                            android:hint="请选择性别"
-                            android:textColorHint="@color/gray4"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/radioButton4"
-                            android:layout_alignBaseline="@+id/radioButton4"
-                            android:layout_alignBottom="@+id/radioButton4"
-                             />
-
-                    </RelativeLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/topbagcolor"/>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:layout_marginLeft="10dip"
-                    >
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@null"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
-                        android:text="以下为选填项"
-                        android:textColor="@color/red"
-                        android:drawablePadding="5dp"
-                         />
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/radiu_gray_rangle"
-                    >
-                    <RelativeLayout
-                        android:id="@+id/namelayout"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="5dp"
-                        >
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="10dp"
-                            android:text="手机号码"
-                            android:drawablePadding="5dp"
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/radioButton5" />
-
-
-
-                        <EditText
-                            android:id="@+id/phone"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:textColorHint="@color/gray4"
-                            android:hint="请输入手机号码"
-                            android:inputType="textAutoComplete"
-                            android:singleLine="true"
-                            android:layout_marginLeft="10dp"
-                            android:gravity="center_vertical"
-                            android:background="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/radioButton5"
-                            android:layout_alignBaseline="@+id/radioButton5"
-                            android:layout_alignBottom="@+id/radioButton5"
-                            />
-                    </RelativeLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/topbagcolor"/>
-                    <RelativeLayout
-                        android:id="@+id/phonelayout"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="5dp"
-
-                        >
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="10dp"
-                            android:text="微        信"
-                            android:drawablePadding="5dp"
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/radioButton6" />
-
-
-
-                        <EditText
-                            android:id="@+id/wechat"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:textColorHint="@color/gray4"
-                            android:hint="请输入微信账号"
-                            android:inputType="phone"
-                            android:singleLine="true"
-                            android:layout_marginLeft="10dp"
-                            android:gravity="center_vertical"
-                            android:background="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/radioButton6"
-                            android:layout_alignBaseline="@+id/radioButton6"
-                            android:layout_alignBottom="@+id/radioButton6"
-                            />
-                    </RelativeLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/topbagcolor"/>
-                    <RelativeLayout
-                        android:id="@+id/qqlayout"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="5dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/red"
-                            />
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="10dp"
-                            android:text="Q Q 号 码"
-                            android:drawablePadding="5dp"
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/radioButton7" />
-
-
-
-                        <EditText
-                            android:id="@+id/qqedit"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="请输入QQ号码"
-                            android:textColorHint="@color/gray4"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:layout_marginLeft="10dp"
-                            android:gravity="center_vertical"
-                            android:background="@null"
-                            android:textSize="13sp"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/radioButton7"
-                            android:layout_alignBaseline="@+id/radioButton7"
-                            android:layout_alignBottom="@+id/radioButton7"
-                            />
-                    </RelativeLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/topbagcolor"/>
-
-                </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/state"
-                    android:button="@null"
-                    android:drawableLeft="@drawable/checkbox_backgroud"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_toRightOf="@id/title"
-                    android:text="资料显示在个人资料中"
-                    android:textColor="@color/usertopbagcolor"
-                    android:drawablePadding="5dip"
-                    android:checked="true"
-                    />
-
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="立即注册"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/comit"
-                    android:background="@drawable/radius_imageview"
-                    android:layout_gravity="center_horizontal" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/comit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/radius_imageview"
+        android:padding="10dp"
+        android:text="注册"
+        android:textColor="@color/white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/gray23"
+        android:text="注册代表你同意"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/green3"
+            android:text="《创吧使用协议》"
+            />
+    </LinearLayout>
 </LinearLayout>
