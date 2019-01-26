@@ -1,1477 +1,1826 @@
-﻿[{
-	"id": "251",
-	"countryname_cn": "安道尔",
-	"countryname_en": "Andorra",
-	"areacode": "376",
-	"countryshortcode": "AD"
-}, {
-	"id": "252",
-	"countryname_cn": "阿拉伯联合酋长国",
-	"countryname_en": "United Arab Emirates",
-	"areacode": "971",
-	"countryshortcode": "AE"
-}, {
-	"id": "253",
-	"countryname_cn": "阿富汗",
-	"countryname_en": "Afghanistan",
-	"areacode": "93",
-	"countryshortcode": "AF"
-}, {
-	"id": "254",
-	"countryname_cn": "安提瓜和巴布达",
-	"countryname_en": "Antigua & Barbuda",
-	"areacode": "1",
-	"countryshortcode": "AG"
-}, {
-	"id": "255",
-	"countryname_cn": "安圭拉",
-	"countryname_en": "Anguilla",
-	"areacode": "1",
-	"countryshortcode": "AI"
-}, {
-	"id": "256",
-	"countryname_cn": "阿尔巴尼亚",
-	"countryname_en": "Albania",
-	"areacode": "355",
-	"countryshortcode": "AL"
-}, {
-	"id": "257",
-	"countryname_cn": "安哥拉",
-	"countryname_en": "Angola",
-	"areacode": "244",
-	"countryshortcode": "AO"
-}, {
-	"id": "258",
-	"countryname_cn": "阿根廷",
-	"countryname_en": "Argentina",
-	"areacode": "54",
-	"countryshortcode": "AR"
-}, {
-	"id": "259",
-	"countryname_cn": "奥地利",
-	"countryname_en": "Austria",
-	"areacode": "43",
-	"countryshortcode": "AT"
-}, {
-	"id": "260",
-	"countryname_cn": "澳大利亚",
-	"countryname_en": "Australia",
-	"areacode": "61",
-	"countryshortcode": "AU"
-}, {
-	"id": "261",
-	"countryname_cn": "阿鲁巴",
-	"countryname_en": "Aruba",
-	"areacode": "297",
-	"countryshortcode": "AW"
-}, {
-	"id": "263",
-	"countryname_cn": "阿塞拜疆",
-	"countryname_en": "Azerbaijan",
-	"areacode": "994",
-	"countryshortcode": "AZ"
-}, {
-	"id": "264",
-	"countryname_cn": "阿尔及利亚",
-	"countryname_en": "Algeria",
-	"areacode": "213",
-	"countryshortcode": "DZ"
-}, {
-	"id": "265",
-	"countryname_cn": "爱沙尼亚",
-	"countryname_en": "Estonia",
-	"areacode": "372",
-	"countryshortcode": "EE"
-}, {
-	"id": "266",
-	"countryname_cn": "埃及",
-	"countryname_en": "Egypt",
-	"areacode": "20",
-	"countryshortcode": "EG"
-}, {
-	"id": "267",
-	"countryname_cn": "埃塞俄比亚",
-	"countryname_en": "Ethiopia",
-	"areacode": "251",
-	"countryshortcode": "ET"
-}, {
-	"id": "268",
-	"countryname_cn": "爱尔兰",
-	"countryname_en": "Ireland",
-	"areacode": "353",
-	"countryshortcode": "IE"
-}, {
-	"id": "269",
-	"countryname_cn": "阿曼",
-	"countryname_en": "Oman",
-	"areacode": "968",
-	"countryshortcode": "OM"
-}, {
-	"id": "270",
-	"countryname_cn": "波斯尼亚和黑塞哥维那",
-	"countryname_en": "Bosnia & Herzegovina",
-	"areacode": "387",
-	"countryshortcode": "BA"
-}, {
-	"id": "271",
-	"countryname_cn": "巴巴多斯",
-	"countryname_en": "Barbados",
-	"areacode": "1",
-	"countryshortcode": "BB"
-}, {
-	"id": "272",
-	"countryname_cn": "比利时",
-	"countryname_en": "Belgium",
-	"areacode": "32",
-	"countryshortcode": "BE"
-}, {
-	"id": "273",
-	"countryname_cn": "布基纳法索",
-	"countryname_en": "Burkina Faso",
-	"areacode": "226",
-	"countryshortcode": "BF"
-}, {
-	"id": "274",
-	"countryname_cn": "保加利亚",
-	"countryname_en": "Bulgaria",
-	"areacode": "359",
-	"countryshortcode": "BG"
-}, {
-	"id": "275",
-	"countryname_cn": "巴林",
-	"countryname_en": "Bahrain",
-	"areacode": "973",
-	"countryshortcode": "BH"
-}, {
-	"id": "276",
-	"countryname_cn": "布隆迪",
-	"countryname_en": "Burundi",
-	"areacode": "257",
-	"countryshortcode": "BI"
-}, {
-	"id": "277",
-	"countryname_cn": "贝宁",
-	"countryname_en": "Benin",
-	"areacode": "229",
-	"countryshortcode": "BJ"
-}, {
-	"id": "278",
-	"countryname_cn": "百慕大",
-	"countryname_en": "Bermuda",
-	"areacode": "1",
-	"countryshortcode": "BM"
-}, {
-	"id": "279",
-	"countryname_cn": "玻利维亚",
-	"countryname_en": "Bolivia",
-	"areacode": "591",
-	"countryshortcode": "BO"
-}, {
-	"id": "280",
-	"countryname_cn": "巴西",
-	"countryname_en": "Brazil",
-	"areacode": "55",
-	"countryshortcode": "BR"
-}, {
-	"id": "281",
-	"countryname_cn": "巴哈马",
-	"countryname_en": "Bahamas",
-	"areacode": "1",
-	"countryshortcode": "BS"
-}, {
-	"id": "282",
-	"countryname_cn": "不丹",
-	"countryname_en": "Bhutan",
-	"areacode": "975",
-	"countryshortcode": "BT"
-}, {
-	"id": "283",
-	"countryname_cn": "布维岛",
-	"countryname_en": "Bouvet Island",
-	"areacode": "(null)",
-	"countryshortcode": "BV"
-}, {
-	"id": "284",
-	"countryname_cn": "博茨瓦纳",
-	"countryname_en": "Botswana",
-	"areacode": "267",
-	"countryshortcode": "BW"
-}, {
-	"id": "285",
-	"countryname_cn": "白俄罗斯",
-	"countryname_en": "Belarus",
-	"areacode": "375",
-	"countryshortcode": "BY"
-}, {
-	"id": "286",
-	"countryname_cn": "伯利兹",
-	"countryname_en": "Belize",
-	"areacode": "501",
-	"countryshortcode": "BZ"
-}, {
-	"id": "287",
-	"countryname_cn": "冰岛",
-	"countryname_en": "Iceland",
-	"areacode": "354",
-	"countryshortcode": "IS"
-}, {
-	"id": "288",
-	"countryname_cn": "北马里亚纳群岛",
-	"countryname_en": "Northern Mariana Islands",
-	"areacode": "1",
-	"countryshortcode": "MP"
-}, {
-	"id": "289",
-	"countryname_cn": "巴拿马",
-	"countryname_en": "Panama",
-	"areacode": "507",
-	"countryshortcode": "PA"
-}, {
-	"id": "290",
-	"countryname_cn": "巴布亚新几内亚",
-	"countryname_en": "Papua New Guinea",
-	"areacode": "675",
-	"countryshortcode": "PG"
-}, {
-	"id": "291",
-	"countryname_cn": "巴基斯坦",
-	"countryname_en": "Pakistan",
-	"areacode": "92",
-	"countryshortcode": "PK"
-}, {
-	"id": "292",
-	"countryname_cn": "波兰",
-	"countryname_en": "Poland",
-	"areacode": "48",
-	"countryshortcode": "PL"
-}, {
-	"id": "293",
-	"countryname_cn": "波多黎各",
-	"countryname_en": "Puerto Rico",
-	"areacode": "1",
-	"countryshortcode": "PR"
-}, {
-	"id": "294",
-	"countryname_cn": "巴勒斯坦领土",
-	"countryname_en": "Palestinian Territories",
-	"areacode": "970",
-	"countryshortcode": "PS"
-}, {
-	"id": "295",
-	"countryname_cn": "巴拉圭",
-	"countryname_en": "Paraguay",
-	"areacode": "595",
-	"countryshortcode": "PY"
-}, {
-	"id": "296",
-	"countryname_cn": "赤道几内亚",
-	"countryname_en": "Equatorial Guinea",
-	"areacode": "240",
-	"countryshortcode": "GQ"
-}, {
-	"id": "297",
-	"countryname_cn": "朝鲜",
-	"countryname_en": "North Korea",
-	"areacode": "850",
-	"countryshortcode": "KP"
-}, {
-	"id": "298",
-	"countryname_cn": "德国",
-	"countryname_en": "Germany",
-	"areacode": "49",
-	"countryshortcode": "DE"
-}, {
-	"id": "299",
-	"countryname_cn": "丹麦",
-	"countryname_en": "Denmark",
-	"areacode": "45",
-	"countryshortcode": "DK"
-}, {
-	"id": "300",
-	"countryname_cn": "多米尼克",
-	"countryname_en": "Dominica",
-	"areacode": "1",
-	"countryshortcode": "DM"
-}, {
-	"id": "301",
-	"countryname_cn": "多米尼加共和国",
-	"countryname_en": "Dominican Republic",
-	"areacode": "1",
-	"countryshortcode": "DO"
-}, {
-	"id": "302",
-	"countryname_cn": "多哥",
-	"countryname_en": "Togo",
-	"areacode": "228",
-	"countryshortcode": "TG"
-}, {
-	"id": "303",
-	"countryname_cn": "东帝汶",
-	"countryname_en": "Timor-Leste",
-	"areacode": "670",
-	"countryshortcode": "TL"
-}, {
-	"id": "304",
-	"countryname_cn": "厄瓜多尔",
-	"countryname_en": "Ecuador",
-	"areacode": "593",
-	"countryshortcode": "EC"
-}, {
-	"id": "305",
-	"countryname_cn": "厄立特里亚",
-	"countryname_en": "Eritrea",
-	"areacode": "291",
-	"countryshortcode": "ER"
-}, {
-	"id": "306",
-	"countryname_cn": "俄罗斯",
-	"countryname_en": "Russia",
-	"areacode": "7",
-	"countryshortcode": "RU"
-}, {
-	"id": "307",
-	"countryname_cn": "佛得角",
-	"countryname_en": "Cape Verde",
-	"areacode": "238",
-	"countryshortcode": "CV"
-}, {
-	"id": "308",
-	"countryname_cn": "芬兰",
-	"countryname_en": "Finland",
-	"areacode": "358",
-	"countryshortcode": "FI"
-}, {
-	"id": "309",
-	"countryname_cn": "斐济",
-	"countryname_en": "Fiji",
-	"areacode": "679",
-	"countryshortcode": "FJ"
-}, {
-	"id": "310",
-	"countryname_cn": "福克兰群岛",
-	"countryname_en": "Falkland Islands",
-	"areacode": "500",
-	"countryshortcode": "FK"
-}, {
-	"id": "311",
-	"countryname_cn": "法罗群岛",
-	"countryname_en": "Faroe Islands",
-	"areacode": "298",
-	"countryshortcode": "FO"
-}, {
-	"id": "312",
-	"countryname_cn": "法国",
-	"countryname_en": "France",
-	"areacode": "33",
-	"countryshortcode": "FR"
-}, {
-	"id": "313",
-	"countryname_cn": "法属圭亚那",
-	"countryname_en": "French Guiana",
-	"areacode": "594",
-	"countryshortcode": "GF"
-}, {
-	"id": "314",
-	"countryname_cn": "法属圣马丁",
-	"countryname_en": "St. Martin",
-	"areacode": "590",
-	"countryshortcode": "MF"
-}, {
-	"id": "315",
-	"countryname_cn": "法属波利尼西亚",
-	"countryname_en": "French Polynesia",
-	"areacode": "689",
-	"countryshortcode": "PF"
-}, {
-	"id": "316",
-	"countryname_cn": "菲律宾",
-	"countryname_en": "Philippines",
-	"areacode": "63",
-	"countryshortcode": "PH"
-}, {
-	"id": "318",
-	"countryname_cn": "梵蒂冈",
-	"countryname_en": "Vatican City",
-	"areacode": "379",
-	"countryshortcode": "VA"
-}, {
-	"id": "319",
-	"countryname_cn": "刚果（金）",
-	"countryname_en": "Congo - Kinshasa",
-	"areacode": "243",
-	"countryshortcode": "CD"
-}, {
-	"id": "320",
-	"countryname_cn": "刚果（布）",
-	"countryname_en": "Congo - Brazzaville",
-	"areacode": "242",
-	"countryshortcode": "CG"
-}, {
-	"id": "321",
-	"countryname_cn": "哥伦比亚",
-	"countryname_en": "Colombia",
-	"areacode": "57",
-	"countryshortcode": "CO"
-}, {
-	"id": "322",
-	"countryname_cn": "哥斯达黎加",
-	"countryname_en": "Costa Rica",
-	"areacode": "506",
-	"countryshortcode": "CR"
-}, {
-	"id": "323",
-	"countryname_cn": "古巴",
-	"countryname_en": "Cuba",
-	"areacode": "53",
-	"countryshortcode": "CU"
-}, {
-	"id": "324",
-	"countryname_cn": "格林纳达",
-	"countryname_en": "Grenada",
-	"areacode": "1",
-	"countryshortcode": "GD"
-}, {
-	"id": "325",
-	"countryname_cn": "格鲁吉亚",
-	"countryname_en": "Georgia",
-	"areacode": "995",
-	"countryshortcode": "GE"
-}, {
-	"id": "326",
-	"countryname_cn": "根西岛",
-	"countryname_en": "Guernsey",
-	"areacode": "44",
-	"countryshortcode": "GG"
-}, {
-	"id": "327",
-	"countryname_cn": "格陵兰",
-	"countryname_en": "Greenland",
-	"areacode": "299",
-	"countryshortcode": "GL"
-}, {
-	"id": "328",
-	"countryname_cn": "冈比亚",
-	"countryname_en": "Gambia",
-	"areacode": "220",
-	"countryshortcode": "GM"
-}, {
-	"id": "329",
-	"countryname_cn": "瓜德罗普",
-	"countryname_en": "Guadeloupe",
-	"areacode": "590",
-	"countryshortcode": "GP"
-}, {
-	"id": "330",
-	"countryname_cn": "关岛",
-	"countryname_en": "Guam",
-	"areacode": "1",
-	"countryshortcode": "GU"
-}, {
-	"id": "331",
-	"countryname_cn": "圭亚那",
-	"countryname_en": "Guyana",
-	"areacode": "595",
-	"countryshortcode": "GY"
-}, {
-	"id": "332",
-	"countryname_cn": "荷兰加勒比区",
-	"countryname_en": "Caribbean Netherlands",
-	"areacode": "599",
-	"countryshortcode": "BQ"
-}, {
-	"id": "333",
-	"countryname_cn": "赫德岛和麦克唐纳群岛",
-	"countryname_en": "Heard & McDonald Islands",
-	"areacode": "(null)",
-	"countryshortcode": "HM"
-}, {
-	"id": "334",
-	"countryname_cn": "洪都拉斯",
-	"countryname_en": "Honduras",
-	"areacode": "504",
-	"countryshortcode": "HN"
-}, {
-	"id": "335",
-	"countryname_cn": "海地",
-	"countryname_en": "Haiti",
-	"areacode": "509",
-	"countryshortcode": "HT"
-}, {
-	"id": "336",
-	"countryname_cn": "韩国",
-	"countryname_en": "South Korea",
-	"areacode": "82",
-	"countryshortcode": "KR"
-}, {
-	"id": "337",
-	"countryname_cn": "哈萨克斯坦",
-	"countryname_en": "Kazakhstan",
-	"areacode": "77",
-	"countryshortcode": "KZ"
-}, {
-	"id": "338",
-	"countryname_cn": "黑山",
-	"countryname_en": "Montenegro",
-	"areacode": "382",
-	"countryshortcode": "ME"
-}, {
-	"id": "339",
-	"countryname_cn": "荷兰",
-	"countryname_en": "Netherlands",
-	"areacode": "31",
-	"countryshortcode": "NL"
-}, {
-	"id": "340",
-	"countryname_cn": "荷属圣马丁",
-	"countryname_en": "Sint Maarten",
-	"areacode": "599",
-	"countryshortcode": "SX"
-}, {
-	"id": "341",
-	"countryname_cn": "加拿大",
-	"countryname_en": "Canada",
-	"areacode": "1",
-	"countryshortcode": "CA"
-}, {
-	"id": "342",
-	"countryname_cn": "捷克共和国",
-	"countryname_en": "Czech Republic",
-	"areacode": "420",
-	"countryshortcode": "CZ"
-}, {
-	"id": "343",
-	"countryname_cn": "吉布提",
-	"countryname_en": "Djibouti",
-	"areacode": "253",
-	"countryshortcode": "DJ"
-}, {
-	"id": "344",
-	"countryname_cn": "加蓬",
-	"countryname_en": "Gabon",
-	"areacode": "241",
-	"countryshortcode": "GA"
-}, {
-	"id": "345",
-	"countryname_cn": "加纳",
-	"countryname_en": "Ghana",
-	"areacode": "233",
-	"countryshortcode": "GH"
-}, {
-	"id": "346",
-	"countryname_cn": "几内亚",
-	"countryname_en": "Guinea",
-	"areacode": "224",
-	"countryshortcode": "GN"
-}, {
-	"id": "347",
-	"countryname_cn": "几内亚比绍",
-	"countryname_en": "Guinea-Bissau",
-	"areacode": "245",
-	"countryshortcode": "GW"
-}, {
-	"id": "348",
-	"countryname_cn": "吉尔吉斯斯坦",
-	"countryname_en": "Kyrgyzstan",
-	"areacode": "996",
-	"countryshortcode": "KG"
-}, {
-	"id": "349",
-	"countryname_cn": "柬埔寨",
-	"countryname_en": "Cambodia",
-	"areacode": "855",
-	"countryshortcode": "KH"
-}, {
-	"id": "350",
-	"countryname_cn": "基里巴斯",
-	"countryname_en": "Kiribati",
-	"areacode": "686",
-	"countryshortcode": "KI"
-}, {
-	"id": "351",
-	"countryname_cn": "津巴布韦",
-	"countryname_en": "Zimbabwe",
-	"areacode": "263",
-	"countryshortcode": "ZW"
-}, {
-	"id": "352",
-	"countryname_cn": "科科斯（基林）群岛",
-	"countryname_en": "Cocos (Keeling) Islands",
-	"areacode": "61",
-	"countryshortcode": "CC"
-}, {
-	"id": "353",
-	"countryname_cn": "科特迪瓦",
-	"countryname_en": "Côte d’Ivoire",
-	"areacode": "225",
-	"countryshortcode": "CI"
-}, {
-	"id": "354",
-	"countryname_cn": "库克群岛",
-	"countryname_en": "Cook Islands",
-	"areacode": "682",
-	"countryshortcode": "CK"
-}, {
-	"id": "355",
-	"countryname_cn": "喀麦隆",
-	"countryname_en": "Cameroon",
-	"areacode": "237",
-	"countryshortcode": "CM"
-}, {
-	"id": "356",
-	"countryname_cn": "库拉索",
-	"countryname_en": "Curaçao",
-	"areacode": "5999",
-	"countryshortcode": "CW"
-}, {
-	"id": "357",
-	"countryname_cn": "克罗地亚",
-	"countryname_en": "Croatia",
-	"areacode": "385",
-	"countryshortcode": "HR"
-}, {
-	"id": "358",
-	"countryname_cn": "肯尼亚",
-	"countryname_en": "Kenya",
-	"areacode": "254",
-	"countryshortcode": "KE"
-}, {
-	"id": "359",
-	"countryname_cn": "科摩罗",
-	"countryname_en": "Comoros",
-	"areacode": "269",
-	"countryshortcode": "KM"
-}, {
-	"id": "360",
-	"countryname_cn": "科威特",
-	"countryname_en": "Kuwait",
-	"areacode": "965",
-	"countryshortcode": "KW"
-}, {
-	"id": "361",
-	"countryname_cn": "开曼群岛",
-	"countryname_en": "Cayman Islands",
-	"areacode": "345",
-	"countryshortcode": "KY"
-}, {
-	"id": "362",
-	"countryname_cn": "卡塔尔",
-	"countryname_en": "Qatar",
-	"areacode": "974",
-	"countryshortcode": "QA"
-}, {
-	"id": "363",
-	"countryname_cn": "老挝",
-	"countryname_en": "Laos",
-	"areacode": "856",
-	"countryshortcode": "LA"
-}, {
-	"id": "364",
-	"countryname_cn": "黎巴嫩",
-	"countryname_en": "Lebanon",
-	"areacode": "961",
-	"countryshortcode": "LB"
-}, {
-	"id": "365",
-	"countryname_cn": "列支敦士登",
-	"countryname_en": "Liechtenstein",
-	"areacode": "423",
-	"countryshortcode": "LI"
-}, {
-	"id": "366",
-	"countryname_cn": "利比里亚",
-	"countryname_en": "Liberia",
-	"areacode": "231",
-	"countryshortcode": "LR"
-}, {
-	"id": "367",
-	"countryname_cn": "莱索托",
-	"countryname_en": "Lesotho",
-	"areacode": "266",
-	"countryshortcode": "LS"
-}, {
-	"id": "368",
-	"countryname_cn": "立陶宛",
-	"countryname_en": "Lithuania",
-	"areacode": "370",
-	"countryshortcode": "LT"
-}, {
-	"id": "369",
-	"countryname_cn": "卢森堡",
-	"countryname_en": "Luxembourg",
-	"areacode": "352",
-	"countryshortcode": "LU"
-}, {
-	"id": "370",
-	"countryname_cn": "拉脱维亚",
-	"countryname_en": "Latvia",
-	"areacode": "371",
-	"countryshortcode": "LV"
-}, {
-	"id": "371",
-	"countryname_cn": "利比亚",
-	"countryname_en": "Libya",
-	"areacode": "218",
-	"countryshortcode": "LY"
-}, {
-	"id": "372",
-	"countryname_cn": "留尼汪",
-	"countryname_en": "Réunion",
-	"areacode": "262",
-	"countryshortcode": "RE"
-}, {
-	"id": "373",
-	"countryname_cn": "罗马尼亚",
-	"countryname_en": "Romania",
-	"areacode": "40",
-	"countryshortcode": "RO"
-}, {
-	"id": "374",
-	"countryname_cn": "卢旺达",
-	"countryname_en": "Rwanda",
-	"areacode": "250",
-	"countryshortcode": "RW"
-}, {
-	"id": "375",
-	"countryname_cn": "美属萨摩亚",
-	"countryname_en": "American Samoa",
-	"areacode": "1",
-	"countryshortcode": "AS"
-}, {
-	"id": "376",
-	"countryname_cn": "孟加拉国",
-	"countryname_en": "Bangladesh",
-	"areacode": "880",
-	"countryshortcode": "BD"
-}, {
-	"id": "377",
-	"countryname_cn": "密克罗尼西亚",
-	"countryname_en": "Micronesia",
-	"areacode": "691",
-	"countryshortcode": "FM"
-}, {
-	"id": "378",
-	"countryname_cn": "曼岛",
-	"countryname_en": "Isle of Man",
-	"areacode": "44",
-	"countryshortcode": "IM"
-}, {
-	"id": "379",
-	"countryname_cn": "摩洛哥",
-	"countryname_en": "Morocco",
-	"areacode": "212",
-	"countryshortcode": "MA"
-}, {
-	"id": "380",
-	"countryname_cn": "摩纳哥",
-	"countryname_en": "Monaco",
-	"areacode": "377",
-	"countryshortcode": "MC"
-}, {
-	"id": "381",
-	"countryname_cn": "摩尔多瓦",
-	"countryname_en": "Moldova",
-	"areacode": "373",
-	"countryshortcode": "MD"
-}, {
-	"id": "382",
-	"countryname_cn": "马达加斯加",
-	"countryname_en": "Madagascar",
-	"areacode": "261",
-	"countryshortcode": "MG"
-}, {
-	"id": "383",
-	"countryname_cn": "马绍尔群岛",
-	"countryname_en": "Marshall Islands",
-	"areacode": "692",
-	"countryshortcode": "MH"
-}, {
-	"id": "384",
-	"countryname_cn": "马其顿",
-	"countryname_en": "Macedonia",
-	"areacode": "389",
-	"countryshortcode": "MK"
-}, {
-	"id": "385",
-	"countryname_cn": "马里",
-	"countryname_en": "Mali",
-	"areacode": "223",
-	"countryshortcode": "ML"
-}, {
-	"id": "386",
-	"countryname_cn": "缅甸",
-	"countryname_en": "Myanmar (Burma)",
-	"areacode": "95",
-	"countryshortcode": "MM"
-}, {
-	"id": "387",
-	"countryname_cn": "蒙古",
-	"countryname_en": "Mongolia",
-	"areacode": "976",
-	"countryshortcode": "MN"
-}, {
-	"id": "388",
-	"countryname_cn": "马提尼克",
-	"countryname_en": "Martinique",
-	"areacode": "596",
-	"countryshortcode": "MQ"
-}, {
-	"id": "389",
-	"countryname_cn": "毛里塔尼亚",
-	"countryname_en": "Mauritania",
-	"areacode": "222",
-	"countryshortcode": "MR"
-}, {
-	"id": "390",
-	"countryname_cn": "蒙特塞拉特",
-	"countryname_en": "Montserrat",
-	"areacode": "1",
-	"countryshortcode": "MS"
-}, {
-	"id": "391",
-	"countryname_cn": "马耳他",
-	"countryname_en": "Malta",
-	"areacode": "356",
-	"countryshortcode": "MT"
-}, {
-	"id": "392",
-	"countryname_cn": "毛里求斯",
-	"countryname_en": "Mauritius",
-	"areacode": "230",
-	"countryshortcode": "MU"
-}, {
-	"id": "393",
-	"countryname_cn": "马尔代夫",
-	"countryname_en": "Maldives",
-	"areacode": "960",
-	"countryshortcode": "MV"
-}, {
-	"id": "394",
-	"countryname_cn": "马拉维",
-	"countryname_en": "Malawi",
-	"areacode": "265",
-	"countryshortcode": "MW"
-}, {
-	"id": "395",
-	"countryname_cn": "墨西哥",
-	"countryname_en": "Mexico",
-	"areacode": "52",
-	"countryshortcode": "MX"
-}, {
-	"id": "396",
-	"countryname_cn": "马来西亚",
-	"countryname_en": "Malaysia",
-	"areacode": "60",
-	"countryshortcode": "MY"
-}, {
-	"id": "397",
-	"countryname_cn": "莫桑比克",
-	"countryname_en": "Mozambique",
-	"areacode": "258",
-	"countryshortcode": "MZ"
-}, {
-	"id": "398",
-	"countryname_cn": "秘鲁",
-	"countryname_en": "Peru",
-	"areacode": "51",
-	"countryshortcode": "PE"
-}, {
-	"id": "400",
-	"countryname_cn": "美国",
-	"countryname_en": "United States",
-	"areacode": "1",
-	"countryshortcode": "US"
-}, {
-	"id": "401",
-	"countryname_cn": "美属维京群岛",
-	"countryname_en": "U.S. Virgin Islands",
-	"areacode": "1",
-	"countryshortcode": "VI"
-}, {
-	"id": "402",
-	"countryname_cn": "马约特",
-	"countryname_en": "Mayotte",
-	"areacode": "262",
-	"countryshortcode": "YT"
-}, {
-	"id": "403",
-	"countryname_cn": "南极洲",
-	"countryname_en": "Antarctica",
-	"areacode": "672",
-	"countryshortcode": "AQ"
-}, {
-	"id": "404",
-	"countryname_cn": "南乔治亚岛和南桑威齐群岛",
-	"countryname_en": "So. Georgia & So. Sandwich Isl.",
-	"areacode": "500",
-	"countryshortcode": "GS"
-}, {
-	"id": "405",
-	"countryname_cn": "纳米比亚",
-	"countryname_en": "Namibia",
-	"areacode": "264",
-	"countryshortcode": "NA"
-}, {
-	"id": "406",
-	"countryname_cn": "尼日尔",
-	"countryname_en": "Niger",
-	"areacode": "227",
-	"countryshortcode": "NE"
-}, {
-	"id": "407",
-	"countryname_cn": "诺福克岛",
-	"countryname_en": "Norfolk Island",
-	"areacode": "672",
-	"countryshortcode": "NF"
-}, {
-	"id": "408",
-	"countryname_cn": "尼日利亚",
-	"countryname_en": "Nigeria",
-	"areacode": "234",
-	"countryshortcode": "NG"
-}, {
-	"id": "409",
-	"countryname_cn": "尼加拉瓜",
-	"countryname_en": "Nicaragua",
-	"areacode": "505",
-	"countryshortcode": "NI"
-}, {
-	"id": "410",
-	"countryname_cn": "挪威",
-	"countryname_en": "Norway",
-	"areacode": "47",
-	"countryshortcode": "NO"
-}, {
-	"id": "411",
-	"countryname_cn": "尼泊尔",
-	"countryname_en": "Nepal",
-	"areacode": "977",
-	"countryshortcode": "NP"
-}, {
-	"id": "412",
-	"countryname_cn": "瑙鲁",
-	"countryname_en": "Nauru",
-	"areacode": "674",
-	"countryshortcode": "NR"
-}, {
-	"id": "413",
-	"countryname_cn": "纽埃",
-	"countryname_en": "Niue",
-	"areacode": "683",
-	"countryshortcode": "NU"
-}, {
-	"id": "414",
-	"countryname_cn": "南苏丹",
-	"countryname_en": "South Sudan",
-	"areacode": "211",
-	"countryshortcode": "SS"
-}, {
-	"id": "415",
-	"countryname_cn": "南非",
-	"countryname_en": "South Africa",
-	"areacode": "27",
-	"countryshortcode": "ZA"
-}, {
-	"id": "416",
-	"countryname_cn": "皮特凯恩群岛",
-	"countryname_en": "Pitcairn Islands",
-	"areacode": "872",
-	"countryshortcode": "PN"
-}, {
-	"id": "417",
-	"countryname_cn": "葡萄牙",
-	"countryname_en": "Portugal",
-	"areacode": "351",
-	"countryshortcode": "PT"
-}, {
-	"id": "418",
-	"countryname_cn": "帕劳",
-	"countryname_en": "Palau",
-	"areacode": "680",
-	"countryshortcode": "PW"
-}, {
-	"id": "419",
-	"countryname_cn": "瑞士",
-	"countryname_en": "Switzerland",
-	"areacode": "41",
-	"countryshortcode": "CH"
-}, {
-	"id": "420",
-	"countryname_cn": "日本",
-	"countryname_en": "Japan",
-	"areacode": "81",
-	"countryshortcode": "JP"
-}, {
-	"id": "421",
-	"countryname_cn": "瑞典",
-	"countryname_en": "Sweden",
-	"areacode": "46",
-	"countryshortcode": "SE"
-}, {
-	"id": "422",
-	"countryname_cn": "圣巴泰勒米",
-	"countryname_en": "St. Barthélemy",
-	"areacode": "590",
-	"countryshortcode": "BL"
-}, {
-	"id": "423",
-	"countryname_cn": "圣诞岛",
-	"countryname_en": "Christmas Island",
-	"areacode": "61",
-	"countryshortcode": "CX"
-}, {
-	"id": "424",
-	"countryname_cn": "塞浦路斯",
-	"countryname_en": "Cyprus",
-	"areacode": "537",
-	"countryshortcode": "CY"
-}, {
-	"id": "425",
-	"countryname_cn": "圣基茨和尼维斯",
-	"countryname_en": "St. Kitts & Nevis",
-	"areacode": "1",
-	"countryshortcode": "KN"
-}, {
-	"id": "426",
-	"countryname_cn": "圣卢西亚",
-	"countryname_en": "St. Lucia",
-	"areacode": "1",
-	"countryshortcode": "LC"
-}, {
-	"id": "427",
-	"countryname_cn": "斯里兰卡",
-	"countryname_en": "Sri Lanka",
-	"areacode": "94",
-	"countryshortcode": "LK"
-}, {
-	"id": "428",
-	"countryname_cn": "圣皮埃尔和密克隆群岛",
-	"countryname_en": "St. Pierre & Miquelon",
-	"areacode": "508",
-	"countryshortcode": "PM"
-}, {
-	"id": "429",
-	"countryname_cn": "塞尔维亚",
-	"countryname_en": "Serbia",
-	"areacode": "381",
-	"countryshortcode": "RS"
-}, {
-	"id": "430",
-	"countryname_cn": "沙特阿拉伯",
-	"countryname_en": "Saudi Arabia",
-	"areacode": "966",
-	"countryshortcode": "SA"
-}, {
-	"id": "431",
-	"countryname_cn": "所罗门群岛",
-	"countryname_en": "Solomon Islands",
-	"areacode": "677",
-	"countryshortcode": "SB"
-}, {
-	"id": "432",
-	"countryname_cn": "塞舌尔",
-	"countryname_en": "Seychelles",
-	"areacode": "248",
-	"countryshortcode": "SC"
-}, {
-	"id": "433",
-	"countryname_cn": "苏丹",
-	"countryname_en": "Sudan",
-	"areacode": "249",
-	"countryshortcode": "SD"
-}, {
-	"id": "434",
-	"countryname_cn": "圣赫勒拿",
-	"countryname_en": "St. Helena",
-	"areacode": "290",
-	"countryshortcode": "SH"
-}, {
-	"id": "435",
-	"countryname_cn": "斯洛文尼亚",
-	"countryname_en": "Slovenia",
-	"areacode": "386",
-	"countryshortcode": "SI"
-}, {
-	"id": "436",
-	"countryname_cn": "斯瓦尔巴特和扬马延",
-	"countryname_en": "Svalbard & Jan Mayen",
-	"areacode": "47",
-	"countryshortcode": "SJ"
-}, {
-	"id": "437",
-	"countryname_cn": "斯洛伐克",
-	"countryname_en": "Slovakia",
-	"areacode": "421",
-	"countryshortcode": "SK"
-}, {
-	"id": "438",
-	"countryname_cn": "塞拉利昂",
-	"countryname_en": "Sierra Leone",
-	"areacode": "232",
-	"countryshortcode": "SL"
-}, {
-	"id": "439",
-	"countryname_cn": "圣马力诺",
-	"countryname_en": "San Marino",
-	"areacode": "378",
-	"countryshortcode": "SM"
-}, {
-	"id": "440",
-	"countryname_cn": "塞内加尔",
-	"countryname_en": "Senegal",
-	"areacode": "221",
-	"countryshortcode": "SN"
-}, {
-	"id": "441",
-	"countryname_cn": "索马里",
-	"countryname_en": "Somalia",
-	"areacode": "252",
-	"countryshortcode": "SO"
-}, {
-	"id": "442",
-	"countryname_cn": "苏里南",
-	"countryname_en": "Suriname",
-	"areacode": "597",
-	"countryshortcode": "SR"
-}, {
-	"id": "443",
-	"countryname_cn": "圣多美和普林西比",
-	"countryname_en": "São Tomé & Príncipe",
-	"areacode": "239",
-	"countryshortcode": "ST"
-}, {
-	"id": "444",
-	"countryname_cn": "萨尔瓦多",
-	"countryname_en": "El Salvador",
-	"areacode": "503",
-	"countryshortcode": "SV"
-}, {
-	"id": "445",
-	"countryname_cn": "斯威士兰",
-	"countryname_en": "Swaziland",
-	"areacode": "268",
-	"countryshortcode": "SZ"
-}, {
-	"id": "446",
-	"countryname_cn": "圣文森特和格林纳丁斯",
-	"countryname_en": "St. Vincent & Grenadines",
-	"areacode": "1",
-	"countryshortcode": "VC"
-}, {
-	"id": "447",
-	"countryname_cn": "萨摩亚",
-	"countryname_en": "Samoa",
-	"areacode": "685",
-	"countryshortcode": "WS"
-}, {
-	"id": "448",
-	"countryname_cn": "特克斯和凯科斯群岛",
-	"countryname_en": "Turks & Caicos Islands",
-	"areacode": "1",
-	"countryshortcode": "TC"
-}, {
-	"id": "449",
-	"countryname_cn": "泰国",
-	"countryname_en": "Thailand",
-	"areacode": "66",
-	"countryshortcode": "TH"
-}, {
-	"id": "450",
-	"countryname_cn": "塔吉克斯坦",
-	"countryname_en": "Tajikistan",
-	"areacode": "992",
-	"countryshortcode": "TJ"
-}, {
-	"id": "451",
-	"countryname_cn": "托克劳",
-	"countryname_en": "Tokelau",
-	"areacode": "690",
-	"countryshortcode": "TK"
-}, {
-	"id": "452",
-	"countryname_cn": "土库曼斯坦",
-	"countryname_en": "Turkmenistan",
-	"areacode": "993",
-	"countryshortcode": "TM"
-}, {
-	"id": "453",
-	"countryname_cn": "突尼斯",
-	"countryname_en": "Tunisia",
-	"areacode": "216",
-	"countryshortcode": "TN"
-}, {
-	"id": "454",
-	"countryname_cn": "汤加",
-	"countryname_en": "Tonga",
-	"areacode": "676",
-	"countryshortcode": "TO"
-}, {
-	"id": "455",
-	"countryname_cn": "土耳其",
-	"countryname_en": "Turkey",
-	"areacode": "90",
-	"countryshortcode": "TR"
-}, {
-	"id": "456",
-	"countryname_cn": "特立尼达和多巴哥",
-	"countryname_en": "Trinidad & Tobago",
-	"areacode": "1",
-	"countryshortcode": "TT"
-}, {
-	"id": "457",
-	"countryname_cn": "图瓦卢",
-	"countryname_en": "Tuvalu",
-	"areacode": "688",
-	"countryshortcode": "TV"
-}, {
-	"id": "458",
-	"countryname_cn": "台湾",
-	"countryname_en": "Taiwan",
-	"areacode": "886",
-	"countryshortcode": "TW"
-}, {
-	"id": "459",
-	"countryname_cn": "坦桑尼亚",
-	"countryname_en": "Tanzania",
-	"areacode": "255",
-	"countryshortcode": "TZ"
-}, {
-	"id": "460",
-	"countryname_cn": "文莱",
-	"countryname_en": "Brunei",
-	"areacode": "673",
-	"countryshortcode": "BN"
-}, {
-	"id": "461",
-	"countryname_cn": "危地马拉",
-	"countryname_en": "Guatemala",
-	"areacode": "502",
-	"countryshortcode": "GT"
-}, {
-	"id": "462",
-	"countryname_cn": "乌克兰",
-	"countryname_en": "Ukraine",
-	"areacode": "380",
-	"countryshortcode": "UA"
-}, {
-	"id": "463",
-	"countryname_cn": "乌干达",
-	"countryname_en": "Uganda",
-	"areacode": "256",
-	"countryshortcode": "UG"
-}, {
-	"id": "464",
-	"countryname_cn": "乌拉圭",
-	"countryname_en": "Uruguay",
-	"areacode": "598",
-	"countryshortcode": "UY"
-}, {
-	"id": "465",
-	"countryname_cn": "乌兹别克斯坦",
-	"countryname_en": "Uzbekistan",
-	"areacode": "998",
-	"countryshortcode": "UZ"
-}, {
-	"id": "466",
-	"countryname_cn": "委内瑞拉",
-	"countryname_en": "Venezuela",
-	"areacode": "58",
-	"countryshortcode": "VE"
-}, {
-	"id": "467",
-	"countryname_cn": "瓦努阿图",
-	"countryname_en": "Vanuatu",
-	"areacode": "678",
-	"countryshortcode": "VU"
-}, {
-	"id": "468",
-	"countryname_cn": "瓦利斯和富图纳",
-	"countryname_en": "Wallis & Futuna",
-	"areacode": "681",
-	"countryshortcode": "WF"
-}, {
-	"id": "469",
-	"countryname_cn": "西撒哈拉",
-	"countryname_en": "Western Sahara",
-	"areacode": "210",
-	"countryshortcode": "EH"
-}, {
-	"id": "470",
-	"countryname_cn": "西班牙",
-	"countryname_en": "Spain",
-	"areacode": "34",
-	"countryshortcode": "ES"
-}, {
-	"id": "471",
-	"countryname_cn": "希腊",
-	"countryname_en": "Greece",
-	"areacode": "30",
-	"countryshortcode": "GR"
-}, {
-	"id": "472",
-	"countryname_cn": "匈牙利",
-	"countryname_en": "Hungary",
-	"areacode": "36",
-	"countryshortcode": "HU"
-}, {
-	"id": "473",
-	"countryname_cn": "新喀里多尼亚",
-	"countryname_en": "New Caledonia",
-	"areacode": "687",
-	"countryshortcode": "NC"
-}, {
-	"id": "474",
-	"countryname_cn": "新西兰",
-	"countryname_en": "New Zealand",
-	"areacode": "64",
-	"countryshortcode": "NZ"
-}, {
-	"id": "475",
-	"countryname_cn": "新加坡",
-	"countryname_en": "Singapore",
-	"areacode": "65",
-	"countryshortcode": "SG"
-}, {
-	"id": "476",
-	"countryname_cn": "叙利亚",
-	"countryname_en": "Syria",
-	"areacode": "963",
-	"countryshortcode": "SY"
-}, {
-	"id": "477",
-	"countryname_cn": "亚美尼亚",
-	"countryname_en": "Armenia",
-	"areacode": "374",
-	"countryshortcode": "AM"
-}, {
-	"id": "478",
-	"countryname_cn": "英国",
-	"countryname_en": "United Kingdom",
-	"areacode": "44",
-	"countryshortcode": "GB"
-}, {
-	"id": "479",
-	"countryname_cn": "印度尼西亚",
-	"countryname_en": "Indonesia",
-	"areacode": "62",
-	"countryshortcode": "ID"
-}, {
-	"id": "480",
-	"countryname_cn": "以色列",
-	"countryname_en": "Israel",
-	"areacode": "972",
-	"countryshortcode": "IL"
-}, {
-	"id": "481",
-	"countryname_cn": "印度",
-	"countryname_en": "India",
-	"areacode": "91",
-	"countryshortcode": "IN"
-}, {
-	"id": "482",
-	"countryname_cn": "英属印度洋领地",
-	"countryname_en": "British Indian Ocean Territory",
-	"areacode": "246",
-	"countryshortcode": "IO"
-}, {
-	"id": "483",
-	"countryname_cn": "伊拉克",
-	"countryname_en": "Iraq",
-	"areacode": "964",
-	"countryshortcode": "IQ"
-}, {
-	"id": "484",
-	"countryname_cn": "伊朗",
-	"countryname_en": "Iran",
-	"areacode": "98",
-	"countryshortcode": "IR"
-}, {
-	"id": "485",
-	"countryname_cn": "意大利",
-	"countryname_en": "Italy",
-	"areacode": "39",
-	"countryshortcode": "IT"
-}, {
-	"id": "486",
-	"countryname_cn": "牙买加",
-	"countryname_en": "Jamaica",
-	"areacode": "1",
-	"countryshortcode": "JM"
-}, {
-	"id": "487",
-	"countryname_cn": "约旦",
-	"countryname_en": "Jordan",
-	"areacode": "962",
-	"countryshortcode": "JO"
-}, {
-	"id": "488",
-	"countryname_cn": "英属维京群岛",
-	"countryname_en": "British Virgin Islands",
-	"areacode": "1",
-	"countryshortcode": "VG"
-}, {
-	"id": "489",
-	"countryname_cn": "越南",
-	"countryname_en": "Vietnam",
-	"areacode": "84",
-	"countryshortcode": "VN"
-}, {
-	"id": "490",
-	"countryname_cn": "也门",
-	"countryname_en": "Yemen",
-	"areacode": "967",
-	"countryshortcode": "YE"
-}, {
-	"id": "491",
-	"countryname_cn": "中非共和国",
-	"countryname_en": "Central African Republic",
-	"areacode": "236",
-	"countryshortcode": "CF"
-}, {
-	"id": "492",
-	"countryname_cn": "智利",
-	"countryname_en": "Chile",
-	"areacode": "56",
-	"countryshortcode": "CL"
-}, {
-	"id": "493",
-	"countryname_cn": "中国",
-	"countryname_en": "China",
-	"areacode": "86",
-	"countryshortcode": "CN"
-}, {
-	"id": "494",
-	"countryname_cn": "直布罗陀",
-	"countryname_en": "Gibraltar",
-	"areacode": "350",
-	"countryshortcode": "GI"
-}, {
-	"id": "495",
-	"countryname_cn": "中国香港特别行政区",
-	"countryname_en": "Hong Kong SAR China",
-	"areacode": "852",
-	"countryshortcode": "HK"
-}, {
-	"id": "496",
-	"countryname_cn": "泽西岛",
-	"countryname_en": "Jersey",
-	"areacode": "44",
-	"countryshortcode": "JE"
-}, {
-	"id": "497",
-	"countryname_cn": "中国澳门特别行政区",
-	"countryname_en": "Macau SAR China",
-	"areacode": "853",
-	"countryshortcode": "MO"
-}, {
-	"id": "498",
-	"countryname_cn": "乍得",
-	"countryname_en": "Chad",
-	"areacode": "235",
-	"countryshortcode": "TD"
-}, {
-	"id": "499",
-	"countryname_cn": "赞比亚",
-	"countryname_en": "Zambia",
-	"areacode": "260",
-	"countryshortcode": "ZM"
-}]
+﻿{
+	"93": {
+		"id": 1,
+		"countryname_cn": "阿富汗",
+		"countryname_en": "Afghanistan",
+		"areacode": "93",
+		"countryshortcode": "AF",
+		"pinyin": "AFH"
+	},
+	"355": {
+		"id": 2,
+		"countryname_cn": "阿尔巴尼亚",
+		"countryname_en": "Albania",
+		"areacode": "355",
+		"countryshortcode": "AL",
+		"pinyin": "AEBNY"
+	},
+	"213": {
+		"id": 3,
+		"countryname_cn": "阿尔及利亚",
+		"countryname_en": "Algeria",
+		"areacode": "213",
+		"countryshortcode": "DZ",
+		"pinyin": "AEJLY"
+	},
+	"1684": {
+		"id": 4,
+		"countryname_cn": "美属萨摩亚",
+		"countryname_en": "American Samoa",
+		"areacode": "1684",
+		"countryshortcode": "AS",
+		"pinyin": "MSSMY"
+	},
+	"376": {
+		"id": 5,
+		"countryname_cn": "安道尔",
+		"countryname_en": "Andorra",
+		"areacode": "376",
+		"countryshortcode": "AD",
+		"pinyin": "ADE"
+	},
+	"244": {
+		"id": 6,
+		"countryname_cn": "安哥拉",
+		"countryname_en": "Angola",
+		"areacode": "244",
+		"countryshortcode": "AO",
+		"pinyin": "AGL"
+	},
+	"1264": {
+		"id": 7,
+		"countryname_cn": "安圭拉岛",
+		"countryname_en": "Anguilla",
+		"areacode": "1264",
+		"countryshortcode": "AI",
+		"pinyin": "AGLD"
+	},
+	"1268": {
+		"id": 9,
+		"countryname_cn": "安提瓜岛和巴布达",
+		"countryname_en": "Antigua and Barbuda",
+		"areacode": "1268",
+		"countryshortcode": "AG",
+		"pinyin": "ATGDHBBD"
+	},
+	"54": {
+		"id": 10,
+		"countryname_cn": "阿根廷",
+		"countryname_en": "Argentina",
+		"areacode": "54",
+		"countryshortcode": "AR",
+		"pinyin": "AGT"
+	},
+	"374": {
+		"id": 11,
+		"countryname_cn": "亚美尼亚",
+		"countryname_en": "Armenia",
+		"areacode": "374",
+		"countryshortcode": "AM",
+		"pinyin": "YMNY"
+	},
+	"297": {
+		"id": 12,
+		"countryname_cn": "阿鲁巴岛",
+		"countryname_en": "Aruba",
+		"areacode": "297",
+		"countryshortcode": "AW",
+		"pinyin": "ALBD"
+	},
+	"61": {
+		"id": 13,
+		"countryname_cn": "澳大利亚",
+		"countryname_en": "Australia",
+		"areacode": "61",
+		"countryshortcode": "AU",
+		"pinyin": "ADLY"
+	},
+	"43": {
+		"id": 14,
+		"countryname_cn": "奥地利",
+		"countryname_en": "Austria",
+		"areacode": "43",
+		"countryshortcode": "AT",
+		"pinyin": "ADL"
+	},
+	"994": {
+		"id": 15,
+		"countryname_cn": "阿塞拜疆",
+		"countryname_en": "Azerbaijan",
+		"areacode": "994",
+		"countryshortcode": "AZ",
+		"pinyin": "ASBJ"
+	},
+	"1242": {
+		"id": 16,
+		"countryname_cn": "巴哈马群岛",
+		"countryname_en": "Bahamas",
+		"areacode": "1242",
+		"countryshortcode": "BS",
+		"pinyin": "BHMQD"
+	},
+	"973": {
+		"id": 17,
+		"countryname_cn": "巴林",
+		"countryname_en": "Bahrain",
+		"areacode": "973",
+		"countryshortcode": "BH",
+		"pinyin": "BL"
+	},
+	"880": {
+		"id": 18,
+		"countryname_cn": "孟加拉国",
+		"countryname_en": "Bangladesh",
+		"areacode": "880",
+		"countryshortcode": "BD",
+		"pinyin": "MJLG"
+	},
+	"1246": {
+		"id": 19,
+		"countryname_cn": "巴巴多斯",
+		"countryname_en": "Barbados",
+		"areacode": "1246",
+		"countryshortcode": "BB",
+		"pinyin": "BBDS"
+	},
+	"375": {
+		"id": 20,
+		"countryname_cn": "白俄罗斯",
+		"countryname_en": "Belarus",
+		"areacode": "375",
+		"countryshortcode": "BY",
+		"pinyin": "BELS"
+	},
+	"32": {
+		"id": 21,
+		"countryname_cn": "比利时",
+		"countryname_en": "Belgium",
+		"areacode": "32",
+		"countryshortcode": "BE",
+		"pinyin": "BLS"
+	},
+	"501": {
+		"id": 22,
+		"countryname_cn": "伯利兹",
+		"countryname_en": "Belize",
+		"areacode": "501",
+		"countryshortcode": "BZ",
+		"pinyin": "BLZ"
+	},
+	"229": {
+		"id": 23,
+		"countryname_cn": "贝宁",
+		"countryname_en": "Benin",
+		"areacode": "229",
+		"countryshortcode": "BJ",
+		"pinyin": "BN"
+	},
+	"1441": {
+		"id": 24,
+		"countryname_cn": "百慕大",
+		"countryname_en": "Bermuda",
+		"areacode": "1441",
+		"countryshortcode": "BM",
+		"pinyin": "BMD"
+	},
+	"975": {
+		"id": 25,
+		"countryname_cn": "不丹",
+		"countryname_en": "Bhutan",
+		"areacode": "975",
+		"countryshortcode": "BT",
+		"pinyin": "BD"
+	},
+	"591": {
+		"id": 26,
+		"countryname_cn": "玻利维亚",
+		"countryname_en": "Bolivia",
+		"areacode": "591",
+		"countryshortcode": "BO",
+		"pinyin": "BLWY"
+	},
+	"387": {
+		"id": 27,
+		"countryname_cn": "波斯尼亚和黑塞哥维那",
+		"countryname_en": "Bosnia and Herzegovina",
+		"areacode": "387",
+		"countryshortcode": "BA",
+		"pinyin": "BSNYHHSGWN"
+	},
+	"267": {
+		"id": 28,
+		"countryname_cn": "博茨瓦纳",
+		"countryname_en": "Botswana",
+		"areacode": "267",
+		"countryshortcode": "BW",
+		"pinyin": "BCWN"
+	},
+	"55": {
+		"id": 30,
+		"countryname_cn": "巴西",
+		"countryname_en": "Brazil",
+		"areacode": "55",
+		"countryshortcode": "BR",
+		"pinyin": "BX"
+	},
+	"246": {
+		"id": 31,
+		"countryname_cn": "英属印度洋领地",
+		"countryname_en": "British Indian Ocean Territory",
+		"areacode": "246",
+		"countryshortcode": "IO",
+		"pinyin": "YSYDYLD"
+	},
+	"673": {
+		"id": 32,
+		"countryname_cn": "文莱达鲁萨兰国",
+		"countryname_en": "Brunei Darussalam",
+		"areacode": "673",
+		"countryshortcode": "BN",
+		"pinyin": "WLDLSLG"
+	},
+	"359": {
+		"id": 33,
+		"countryname_cn": "保加利亚",
+		"countryname_en": "Bulgaria",
+		"areacode": "359",
+		"countryshortcode": "BG",
+		"pinyin": "BJLY"
+	},
+	"226": {
+		"id": 34,
+		"countryname_cn": "布吉纳法索",
+		"countryname_en": "Burkina Faso",
+		"areacode": "226",
+		"countryshortcode": "BF",
+		"pinyin": "BJNFS"
+	},
+	"257": {
+		"id": 35,
+		"countryname_cn": "布隆迪",
+		"countryname_en": "Burundi",
+		"areacode": "257",
+		"countryshortcode": "BI",
+		"pinyin": "BLD"
+	},
+	"855": {
+		"id": 36,
+		"countryname_cn": "柬埔寨",
+		"countryname_en": "Cambodia",
+		"areacode": "855",
+		"countryshortcode": "KH",
+		"pinyin": "JPZ"
+	},
+	"237": {
+		"id": 37,
+		"countryname_cn": "喀麦隆",
+		"countryname_en": "Cameroon",
+		"areacode": "237",
+		"countryshortcode": "CM",
+		"pinyin": "KML"
+	},
+	"1J": {
+		"id": 38,
+		"countryname_cn": "加拿大",
+		"countryname_en": "Canada",
+		"areacode": "1",
+		"countryshortcode": "CA",
+		"pinyin": "JND"
+	},
+	"238": {
+		"id": 39,
+		"countryname_cn": "佛得角",
+		"countryname_en": "Cape Verde",
+		"areacode": "238",
+		"countryshortcode": "CV",
+		"pinyin": "FDJ"
+	},
+	"1345": {
+		"id": 40,
+		"countryname_cn": "开曼群岛",
+		"countryname_en": "Cayman Islands",
+		"areacode": "1345",
+		"countryshortcode": "KY",
+		"pinyin": "KMQD"
+	},
+	"236": {
+		"id": 41,
+		"countryname_cn": "中非共和国",
+		"countryname_en": "Central African Republic",
+		"areacode": "236",
+		"countryshortcode": "CF",
+		"pinyin": "ZFGHG"
+	},
+	"235": {
+		"id": 42,
+		"countryname_cn": "乍得",
+		"countryname_en": "Chad",
+		"areacode": "235",
+		"countryshortcode": "TD",
+		"pinyin": "ZD"
+	},
+	"56": {
+		"id": 43,
+		"countryname_cn": "智利",
+		"countryname_en": "Chile",
+		"areacode": "56",
+		"countryshortcode": "CL",
+		"pinyin": "ZL"
+	},
+	"86": {
+		"id": 44,
+		"countryname_cn": "中国",
+		"countryname_en": "China",
+		"areacode": "86",
+		"countryshortcode": "CN",
+		"pinyin": "ZG"
+	},
+	"6724": {
+		"id": 45,
+		"countryname_cn": "圣诞岛",
+		"countryname_en": "Christmas Island",
+		"areacode": "6724",
+		"countryshortcode": "CX",
+		"pinyin": "SDD"
+	},
+	"6722": {
+		"id": 46,
+		"countryname_cn": "COCOS(KEELING)岛",
+		"countryname_en": "Cocos (Keeling) Islands",
+		"areacode": "6722",
+		"countryshortcode": "CC",
+		"pinyin": "COCOS(KEELING)D"
+	},
+	"57": {
+		"id": 47,
+		"countryname_cn": "哥伦比亚",
+		"countryname_en": "Colombia",
+		"areacode": "57",
+		"countryshortcode": "CO",
+		"pinyin": "GLBY"
+	},
+	"269": {
+		"id": 48,
+		"countryname_cn": "科摩罗",
+		"countryname_en": "Comoros",
+		"areacode": "269",
+		"countryshortcode": "KM",
+		"pinyin": "KML"
+	},
+	"242": {
+		"id": 49,
+		"countryname_cn": "刚果共和国",
+		"countryname_en": "Congo",
+		"areacode": "242",
+		"countryshortcode": "CG",
+		"pinyin": "GG"
+	},
+	"243": {
+		"id": 239,
+		"countryname_cn": "刚果民主共和国",
+		"countryname_en": "The Democratic Republic of Congo",
+		"areacode": "243",
+		"countryshortcode": "CD",
+		"pinyin": "GGMZGHG"
+	},
+	"682": {
+		"id": 51,
+		"countryname_cn": "库克群岛",
+		"countryname_en": "Cook Islands",
+		"areacode": "682",
+		"countryshortcode": "CK",
+		"pinyin": "KKQD"
+	},
+	"506": {
+		"id": 52,
+		"countryname_cn": "哥斯达黎加",
+		"countryname_en": "Costa Rica",
+		"areacode": "506",
+		"countryshortcode": "CR",
+		"pinyin": "GSDLJ"
+	},
+	"225": {
+		"id": 53,
+		"countryname_cn": "科特迪瓦",
+		"countryname_en": "Cote D’Ivoire",
+		"areacode": "225",
+		"countryshortcode": "CI",
+		"pinyin": "KTDW"
+	},
+	"385": {
+		"id": 54,
+		"countryname_cn": "克罗地亚",
+		"countryname_en": "Croatia",
+		"areacode": "385",
+		"countryshortcode": "HR",
+		"pinyin": "KLDY"
+	},
+	"53": {
+		"id": 55,
+		"countryname_cn": "古巴",
+		"countryname_en": "Cuba",
+		"areacode": "53",
+		"countryshortcode": "CU",
+		"pinyin": "GB"
+	},
+	"357": {
+		"id": 56,
+		"countryname_cn": "塞浦路斯",
+		"countryname_en": "Cyprus",
+		"areacode": "357",
+		"countryshortcode": "CY",
+		"pinyin": "SPLS"
+	},
+	"420": {
+		"id": 57,
+		"countryname_cn": "捷克共和国",
+		"countryname_en": "Czech Republic",
+		"areacode": "420",
+		"countryshortcode": "CZ",
+		"pinyin": "JKGHG"
+	},
+	"45": {
+		"id": 58,
+		"countryname_cn": "丹麦",
+		"countryname_en": "Denmark",
+		"areacode": "45",
+		"countryshortcode": "DK",
+		"pinyin": "DM"
+	},
+	"253": {
+		"id": 59,
+		"countryname_cn": "吉布提",
+		"countryname_en": "Djibouti",
+		"areacode": "253",
+		"countryshortcode": "DJ",
+		"pinyin": "JBT"
+	},
+	"1767": {
+		"id": 60,
+		"countryname_cn": "多米尼加",
+		"countryname_en": "Dominica",
+		"areacode": "1767",
+		"countryshortcode": "DM",
+		"pinyin": "DMNJ"
+	},
+	"1809": {
+		"id": 61,
+		"countryname_cn": "多米尼加共和国",
+		"countryname_en": "Dominican Republic",
+		"areacode": "1809",
+		"countryshortcode": "DO",
+		"pinyin": "DMNJGHG"
+	},
+	"593": {
+		"id": 62,
+		"countryname_cn": "厄瓜多尔",
+		"countryname_en": "Ecuador",
+		"areacode": "593",
+		"countryshortcode": "EC",
+		"pinyin": "EGDE"
+	},
+	"20": {
+		"id": 63,
+		"countryname_cn": "埃及",
+		"countryname_en": "Egypt",
+		"areacode": "20",
+		"countryshortcode": "EG",
+		"pinyin": "AJ"
+	},
+	"503": {
+		"id": 64,
+		"countryname_cn": "萨尔瓦多",
+		"countryname_en": "El Salvador",
+		"areacode": "503",
+		"countryshortcode": "SV",
+		"pinyin": "SEWD"
+	},
+	"240": {
+		"id": 65,
+		"countryname_cn": "赤道几内亚",
+		"countryname_en": "Equatorial Guinea",
+		"areacode": "240",
+		"countryshortcode": "GQ",
+		"pinyin": "CDJNY"
+	},
+	"291": {
+		"id": 66,
+		"countryname_cn": "厄立特里亚",
+		"countryname_en": "Eritrea",
+		"areacode": "291",
+		"countryshortcode": "ER",
+		"pinyin": "ELTLY"
+	},
+	"372": {
+		"id": 67,
+		"countryname_cn": "爱沙尼亚",
+		"countryname_en": "Estonia",
+		"areacode": "372",
+		"countryshortcode": "EE",
+		"pinyin": "ASNY"
+	},
+	"251": {
+		"id": 68,
+		"countryname_cn": "埃塞俄比亚",
+		"countryname_en": "Ethiopia",
+		"areacode": "251",
+		"countryshortcode": "ET",
+		"pinyin": "ASEBY"
+	},
+	"500": {
+		"id": 69,
+		"countryname_cn": "福克兰群岛(马尔维纳斯)",
+		"countryname_en": "Falkland Islands (Malvinas)",
+		"areacode": "500",
+		"countryshortcode": "FK",
+		"pinyin": "FKLQD(MEWNS)"
+	},
+	"298": {
+		"id": 70,
+		"countryname_cn": "法罗群岛",
+		"countryname_en": "Faroe Islands",
+		"areacode": "298",
+		"countryshortcode": "FO",
+		"pinyin": "FLQD"
+	},
+	"679": {
+		"id": 71,
+		"countryname_cn": "斐济",
+		"countryname_en": "Fiji",
+		"areacode": "679",
+		"countryshortcode": "FJ",
+		"pinyin": "FJ"
+	},
+	"358": {
+		"id": 72,
+		"countryname_cn": "芬兰",
+		"countryname_en": "Finland",
+		"areacode": "358",
+		"countryshortcode": "FI",
+		"pinyin": "FL"
+	},
+	"33": {
+		"id": 73,
+		"countryname_cn": "法国",
+		"countryname_en": "France",
+		"areacode": "33",
+		"countryshortcode": "FR",
+		"pinyin": "FG"
+	},
+	"594": {
+		"id": 74,
+		"countryname_cn": "法属圭亚那",
+		"countryname_en": "French Guiana",
+		"areacode": "594",
+		"countryshortcode": "GF",
+		"pinyin": "FSGYN"
+	},
+	"689": {
+		"id": 75,
+		"countryname_cn": "法属波利尼西亚",
+		"countryname_en": "French Polynesia",
+		"areacode": "689",
+		"countryshortcode": "PF",
+		"pinyin": "FSBLNXY"
+	},
+	"241": {
+		"id": 77,
+		"countryname_cn": "加蓬",
+		"countryname_en": "Gabon",
+		"areacode": "241",
+		"countryshortcode": "GA",
+		"pinyin": "JP"
+	},
+	"220": {
+		"id": 78,
+		"countryname_cn": "冈比亚",
+		"countryname_en": "Gambia",
+		"areacode": "220",
+		"countryshortcode": "GM",
+		"pinyin": "GBY"
+	},
+	"995": {
+		"id": 79,
+		"countryname_cn": "乔治亚州",
+		"countryname_en": "Georgia",
+		"areacode": "995",
+		"countryshortcode": "GE",
+		"pinyin": "QZYZ"
+	},
+	"49": {
+		"id": 80,
+		"countryname_cn": "德国",
+		"countryname_en": "Germany",
+		"areacode": "49",
+		"countryshortcode": "DE",
+		"pinyin": "DG"
+	},
+	"233": {
+		"id": 81,
+		"countryname_cn": "加纳",
+		"countryname_en": "Ghana",
+		"areacode": "233",
+		"countryshortcode": "GH",
+		"pinyin": "JN"
+	},
+	"350": {
+		"id": 82,
+		"countryname_cn": "直布罗陀",
+		"countryname_en": "Gibraltar",
+		"areacode": "350",
+		"countryshortcode": "GI",
+		"pinyin": "ZBLT"
+	},
+	"30": {
+		"id": 83,
+		"countryname_cn": "希腊",
+		"countryname_en": "Greece",
+		"areacode": "30",
+		"countryshortcode": "GR",
+		"pinyin": "XL"
+	},
+	"299": {
+		"id": 84,
+		"countryname_cn": "格陵兰岛",
+		"countryname_en": "Greenland",
+		"areacode": "299",
+		"countryshortcode": "GL",
+		"pinyin": "GLLD"
+	},
+	"1473": {
+		"id": 85,
+		"countryname_cn": "格林纳达",
+		"countryname_en": "Grenada",
+		"areacode": "1473",
+		"countryshortcode": "GD",
+		"pinyin": "GLND"
+	},
+	"590": {
+		"id": 86,
+		"countryname_cn": "瓜德罗普岛",
+		"countryname_en": "Guadeloupe",
+		"areacode": "590",
+		"countryshortcode": "GP",
+		"pinyin": "GDLPD"
+	},
+	"1671": {
+		"id": 87,
+		"countryname_cn": "关岛",
+		"countryname_en": "Guam",
+		"areacode": "1671",
+		"countryshortcode": "GU",
+		"pinyin": "GD"
+	},
+	"502": {
+		"id": 88,
+		"countryname_cn": "危地马拉",
+		"countryname_en": "Guatemala",
+		"areacode": "502",
+		"countryshortcode": "GT",
+		"pinyin": "WDML"
+	},
+	"224": {
+		"id": 89,
+		"countryname_cn": "几内亚",
+		"countryname_en": "Guinea",
+		"areacode": "224",
+		"countryshortcode": "GN",
+		"pinyin": "JNY"
+	},
+	"245": {
+		"id": 90,
+		"countryname_cn": "几内亚比绍",
+		"countryname_en": "Guinea-Bissau",
+		"areacode": "245",
+		"countryshortcode": "GW",
+		"pinyin": "JNYBS"
+	},
+	"592": {
+		"id": 91,
+		"countryname_cn": "圭亚那",
+		"countryname_en": "Guyana",
+		"areacode": "592",
+		"countryshortcode": "GY",
+		"pinyin": "GYN"
+	},
+	"509": {
+		"id": 92,
+		"countryname_cn": "海地",
+		"countryname_en": "Haiti",
+		"areacode": "509",
+		"countryshortcode": "HT",
+		"pinyin": "HD"
+	},
+	"504": {
+		"id": 95,
+		"countryname_cn": "洪都拉斯",
+		"countryname_en": "Honduras",
+		"areacode": "504",
+		"countryshortcode": "HN",
+		"pinyin": "HDLS"
+	},
+	"852": {
+		"id": 96,
+		"countryname_cn": "香港",
+		"countryname_en": "Hong Kong",
+		"areacode": "852",
+		"countryshortcode": "HK",
+		"pinyin": "XG"
+	},
+	"36": {
+		"id": 97,
+		"countryname_cn": "匈牙利",
+		"countryname_en": "Hungary",
+		"areacode": "36",
+		"countryshortcode": "HU",
+		"pinyin": "XYL"
+	},
+	"354": {
+		"id": 98,
+		"countryname_cn": "冰岛",
+		"countryname_en": "Iceland",
+		"areacode": "354",
+		"countryshortcode": "IS",
+		"pinyin": "BD"
+	},
+	"91": {
+		"id": 99,
+		"countryname_cn": "印度",
+		"countryname_en": "India",
+		"areacode": "91",
+		"countryshortcode": "IN",
+		"pinyin": "YD"
+	},
+	"62": {
+		"id": 100,
+		"countryname_cn": "印尼",
+		"countryname_en": "Indonesia",
+		"areacode": "62",
+		"countryshortcode": "ID",
+		"pinyin": "YN"
+	},
+	"98": {
+		"id": 101,
+		"countryname_cn": "伊朗伊斯兰共和国",
+		"countryname_en": "The Islamic Republic of Iran",
+		"areacode": "98",
+		"countryshortcode": "IR",
+		"pinyin": "YLYSLGHG"
+	},
+	"964": {
+		"id": 102,
+		"countryname_cn": "伊拉克",
+		"countryname_en": "Iraq",
+		"areacode": "964",
+		"countryshortcode": "IQ",
+		"pinyin": "YLK"
+	},
+	"353": {
+		"id": 103,
+		"countryname_cn": "爱尔兰",
+		"countryname_en": "Ireland",
+		"areacode": "353",
+		"countryshortcode": "IE",
+		"pinyin": "AEL"
+	},
+	"972": {
+		"id": 104,
+		"countryname_cn": "以色列",
+		"countryname_en": "Israel",
+		"areacode": "972",
+		"countryshortcode": "IL",
+		"pinyin": "YSL"
+	},
+	"39": {
+		"id": 105,
+		"countryname_cn": "意大利",
+		"countryname_en": "Italy",
+		"areacode": "39",
+		"countryshortcode": "IT",
+		"pinyin": "YDL"
+	},
+	"1876": {
+		"id": 106,
+		"countryname_cn": "牙买加",
+		"countryname_en": "Jamaica",
+		"areacode": "1876",
+		"countryshortcode": "JM",
+		"pinyin": "YMJ"
+	},
+	"81": {
+		"id": 107,
+		"countryname_cn": "日本",
+		"countryname_en": "Japan",
+		"areacode": "81",
+		"countryshortcode": "JP",
+		"pinyin": "RB"
+	},
+	"962": {
+		"id": 108,
+		"countryname_cn": "约旦",
+		"countryname_en": "Jordan",
+		"areacode": "962",
+		"countryshortcode": "JO",
+		"pinyin": "YD"
+	},
+	"7": {
+		"id": 109,
+		"countryname_cn": "哈萨克斯坦",
+		"countryname_en": "Kazakhstan",
+		"areacode": "7",
+		"countryshortcode": "KZ",
+		"pinyin": "HSKST"
+	},
+	"254": {
+		"id": 110,
+		"countryname_cn": "肯尼亚",
+		"countryname_en": "Kenya",
+		"areacode": "254",
+		"countryshortcode": "KE",
+		"pinyin": "KNY"
+	},
+	"686": {
+		"id": 111,
+		"countryname_cn": "基里巴斯",
+		"countryname_en": "Kiribati",
+		"areacode": "686",
+		"countryshortcode": "KI",
+		"pinyin": "JLBS"
+	},
+	"850": {
+		"id": 112,
+		"countryname_cn": "朝鲜",
+		"countryname_en": "North Korea",
+		"areacode": "850",
+		"countryshortcode": "KP",
+		"pinyin": "CX"
+	},
+	"965": {
+		"id": 113,
+		"countryname_cn": "科威特",
+		"countryname_en": "Kuwait",
+		"areacode": "965",
+		"countryshortcode": "KW",
+		"pinyin": "KWT"
+	},
+	"996": {
+		"id": 114,
+		"countryname_cn": "吉尔吉斯斯坦",
+		"countryname_en": "Kyrgyzstan",
+		"areacode": "996",
+		"countryshortcode": "KG",
+		"pinyin": "JEJSST"
+	},
+	"856": {
+		"id": 115,
+		"countryname_cn": "老挝人民民主共和国",
+		"countryname_en": "Lao People’s Democratic Republic",
+		"areacode": "856",
+		"countryshortcode": "LA",
+		"pinyin": "LWRMMZGHG"
+	},
+	"371": {
+		"id": 116,
+		"countryname_cn": "拉脱维亚",
+		"countryname_en": "Latvia",
+		"areacode": "371",
+		"countryshortcode": "LV",
+		"pinyin": "LTWY"
+	},
+	"961": {
+		"id": 117,
+		"countryname_cn": "黎巴嫩",
+		"countryname_en": "Lebanon",
+		"areacode": "961",
+		"countryshortcode": "LB",
+		"pinyin": "LBN"
+	},
+	"266": {
+		"id": 118,
+		"countryname_cn": "莱索托",
+		"countryname_en": "Lesotho",
+		"areacode": "266",
+		"countryshortcode": "LS",
+		"pinyin": "LST"
+	},
+	"231": {
+		"id": 119,
+		"countryname_cn": "利比里亚",
+		"countryname_en": "Liberia",
+		"areacode": "231",
+		"countryshortcode": "LR",
+		"pinyin": "LBLY"
+	},
+	"218": {
+		"id": 120,
+		"countryname_cn": "阿拉伯利比亚民众国",
+		"countryname_en": "Libyan Arab Jamahiriya",
+		"areacode": "218",
+		"countryshortcode": "LY",
+		"pinyin": "ALBLBYMZG"
+	},
+	"423": {
+		"id": 121,
+		"countryname_cn": "列支敦斯登",
+		"countryname_en": "Liechtenstein",
+		"areacode": "423",
+		"countryshortcode": "LI",
+		"pinyin": "LZDSD"
+	},
+	"370": {
+		"id": 122,
+		"countryname_cn": "立陶宛",
+		"countryname_en": "Lithuania",
+		"areacode": "370",
+		"countryshortcode": "LT",
+		"pinyin": "LTW"
+	},
+	"352": {
+		"id": 123,
+		"countryname_cn": "卢森堡",
+		"countryname_en": "Luxembourg",
+		"areacode": "352",
+		"countryshortcode": "LU",
+		"pinyin": "LSB"
+	},
+	"853": {
+		"id": 124,
+		"countryname_cn": "澳门",
+		"countryname_en": "Macao",
+		"areacode": "853",
+		"countryshortcode": "MO",
+		"pinyin": "AM"
+	},
+	"389": {
+		"id": 125,
+		"countryname_cn": "前南斯拉夫马其顿共和国",
+		"countryname_en": "Macedonia",
+		"areacode": "389",
+		"countryshortcode": "MK",
+		"pinyin": "QNSLFMQDGHG"
+	},
+	"261": {
+		"id": 126,
+		"countryname_cn": "马达加斯加",
+		"countryname_en": "Madagascar",
+		"areacode": "261",
+		"countryshortcode": "MG",
+		"pinyin": "MDJSJ"
+	},
+	"265": {
+		"id": 127,
+		"countryname_cn": "马拉维",
+		"countryname_en": "Malawi",
+		"areacode": "265",
+		"countryshortcode": "MW",
+		"pinyin": "MLW"
+	},
+	"60": {
+		"id": 128,
+		"countryname_cn": "马来西亚",
+		"countryname_en": "Malaysia",
+		"areacode": "60",
+		"countryshortcode": "MY",
+		"pinyin": "MLXY"
+	},
+	"960": {
+		"id": 129,
+		"countryname_cn": "马尔代夫",
+		"countryname_en": "Maldives",
+		"areacode": "960",
+		"countryshortcode": "MV",
+		"pinyin": "MEDF"
+	},
+	"223": {
+		"id": 130,
+		"countryname_cn": "马里",
+		"countryname_en": "Mali",
+		"areacode": "223",
+		"countryshortcode": "ML",
+		"pinyin": "ML"
+	},
+	"356": {
+		"id": 131,
+		"countryname_cn": "马耳他",
+		"countryname_en": "Malta",
+		"areacode": "356",
+		"countryshortcode": "MT",
+		"pinyin": "MET"
+	},
+	"692": {
+		"id": 132,
+		"countryname_cn": "马绍尔群岛",
+		"countryname_en": "Marshall Islands",
+		"areacode": "692",
+		"countryshortcode": "MH",
+		"pinyin": "MSEQD"
+	},
+	"596": {
+		"id": 133,
+		"countryname_cn": "马提尼克岛",
+		"countryname_en": "Martinique",
+		"areacode": "596",
+		"countryshortcode": "MQ",
+		"pinyin": "MTNKD"
+	},
+	"222": {
+		"id": 134,
+		"countryname_cn": "毛利塔尼亚",
+		"countryname_en": "Mauritania",
+		"areacode": "222",
+		"countryshortcode": "MR",
+		"pinyin": "MLTNY"
+	},
+	"230": {
+		"id": 135,
+		"countryname_cn": "毛里求斯",
+		"countryname_en": "Mauritius",
+		"areacode": "230",
+		"countryshortcode": "MU",
+		"pinyin": "MLQS"
+	},
+	"52": {
+		"id": 137,
+		"countryname_cn": "墨西哥",
+		"countryname_en": "Mexico",
+		"areacode": "52",
+		"countryshortcode": "MX",
+		"pinyin": "MXG"
+	},
+	"691": {
+		"id": 138,
+		"countryname_cn": "密克罗尼西亚联邦",
+		"countryname_en": "Micronesia",
+		"areacode": "691",
+		"countryshortcode": "FM",
+		"pinyin": "MKLNXYLB"
+	},
+	"373": {
+		"id": 139,
+		"countryname_cn": "摩尔多瓦共和国",
+		"countryname_en": "Moldova",
+		"areacode": "373",
+		"countryshortcode": "MD",
+		"pinyin": "MEDWGHG"
+	},
+	"377": {
+		"id": 140,
+		"countryname_cn": "摩纳哥",
+		"countryname_en": "Monaco",
+		"areacode": "377",
+		"countryshortcode": "MC",
+		"pinyin": "MNG"
+	},
+	"976": {
+		"id": 141,
+		"countryname_cn": "蒙古",
+		"countryname_en": "Mongolia",
+		"areacode": "976",
+		"countryshortcode": "MN",
+		"pinyin": "MG"
+	},
+	"1664": {
+		"id": 142,
+		"countryname_cn": "蒙特塞拉特",
+		"countryname_en": "Montserrat",
+		"areacode": "1664",
+		"countryshortcode": "MS",
+		"pinyin": "MTSLT"
+	},
+	"212": {
+		"id": 143,
+		"countryname_cn": "摩洛哥",
+		"countryname_en": "Morocco",
+		"areacode": "212",
+		"countryshortcode": "MA",
+		"pinyin": "MLG"
+	},
+	"258": {
+		"id": 144,
+		"countryname_cn": "MOZAMBIQUE",
+		"countryname_en": "Mozambique",
+		"areacode": "258",
+		"countryshortcode": "MZ",
+		"pinyin": "MOZAMBIQUE"
+	},
+	"95": {
+		"id": 145,
+		"countryname_cn": "缅甸",
+		"countryname_en": "Myanmar",
+		"areacode": "95",
+		"countryshortcode": "MM",
+		"pinyin": "MD"
+	},
+	"264": {
+		"id": 146,
+		"countryname_cn": "纳米比亚",
+		"countryname_en": "Namibia",
+		"areacode": "264",
+		"countryshortcode": "NA",
+		"pinyin": "NMBY"
+	},
+	"674": {
+		"id": 147,
+		"countryname_cn": "瑙鲁",
+		"countryname_en": "Nauru",
+		"areacode": "674",
+		"countryshortcode": "NR",
+		"pinyin": "NL"
+	},
+	"977": {
+		"id": 148,
+		"countryname_cn": "尼泊尔",
+		"countryname_en": "Nepal",
+		"areacode": "977",
+		"countryshortcode": "NP",
+		"pinyin": "NBE"
+	},
+	"31": {
+		"id": 149,
+		"countryname_cn": "荷兰",
+		"countryname_en": "Netherlands",
+		"areacode": "31",
+		"countryshortcode": "NL",
+		"pinyin": "HL"
+	},
+	"599": {
+		"id": 150,
+		"countryname_cn": "荷属安的列斯群岛",
+		"countryname_en": "Netherlands Antilles",
+		"areacode": "599",
+		"countryshortcode": "AN",
+		"pinyin": "HSADLSQD"
+	},
+	"687": {
+		"id": 151,
+		"countryname_cn": "新喀里多尼亚",
+		"countryname_en": "New Caledonia",
+		"areacode": "687",
+		"countryshortcode": "NC",
+		"pinyin": "XKLDNY"
+	},
+	"64": {
+		"id": 152,
+		"countryname_cn": "新西兰",
+		"countryname_en": "New Zealand",
+		"areacode": "64",
+		"countryshortcode": "NZ",
+		"pinyin": "XXL"
+	},
+	"505": {
+		"id": 153,
+		"countryname_cn": "尼加拉瓜",
+		"countryname_en": "Nicaragua",
+		"areacode": "505",
+		"countryshortcode": "NI",
+		"pinyin": "NJLG"
+	},
+	"227": {
+		"id": 154,
+		"countryname_cn": "尼日尔",
+		"countryname_en": "Niger",
+		"areacode": "227",
+		"countryshortcode": "NE",
+		"pinyin": "NRE"
+	},
+	"234": {
+		"id": 155,
+		"countryname_cn": "尼日利亚",
+		"countryname_en": "Nigeria",
+		"areacode": "234",
+		"countryshortcode": "NG",
+		"pinyin": "NRLY"
+	},
+	"683": {
+		"id": 156,
+		"countryname_cn": "纽埃岛",
+		"countryname_en": "Niue",
+		"areacode": "683",
+		"countryshortcode": "NU",
+		"pinyin": "NAD"
+	},
+	"6723": {
+		"id": 157,
+		"countryname_cn": "诺福克岛",
+		"countryname_en": "Norfolk Island",
+		"areacode": "6723",
+		"countryshortcode": "NF",
+		"pinyin": "NFKD"
+	},
+	"1670": {
+		"id": 158,
+		"countryname_cn": "北马里亚纳群岛",
+		"countryname_en": "Northern Mariana Islands",
+		"areacode": "1670",
+		"countryshortcode": "MP",
+		"pinyin": "BMLYNQD"
+	},
+	"47": {
+		"id": 159,
+		"countryname_cn": "挪威",
+		"countryname_en": "Norway",
+		"areacode": "47",
+		"countryshortcode": "NO",
+		"pinyin": "NW"
+	},
+	"968": {
+		"id": 160,
+		"countryname_cn": "阿曼",
+		"countryname_en": "Oman",
+		"areacode": "968",
+		"countryshortcode": "OM",
+		"pinyin": "AM"
+	},
+	"92": {
+		"id": 161,
+		"countryname_cn": "巴基斯坦",
+		"countryname_en": "Pakistan",
+		"areacode": "92",
+		"countryshortcode": "PK",
+		"pinyin": "BJST"
+	},
+	"680": {
+		"id": 162,
+		"countryname_cn": "帕劳",
+		"countryname_en": "Palau",
+		"areacode": "680",
+		"countryshortcode": "PW",
+		"pinyin": "PL"
+	},
+	"970": {
+		"id": 163,
+		"countryname_cn": "巴勒斯坦",
+		"countryname_en": "Palestine",
+		"areacode": "970",
+		"countryshortcode": "PS",
+		"pinyin": "BLST"
+	},
+	"507": {
+		"id": 164,
+		"countryname_cn": "巴拿马",
+		"countryname_en": "Panama",
+		"areacode": "507",
+		"countryshortcode": "PA",
+		"pinyin": "BNM"
+	},
+	"675": {
+		"id": 165,
+		"countryname_cn": "巴布新几内亚",
+		"countryname_en": "Papua New Guinea",
+		"areacode": "675",
+		"countryshortcode": "PG",
+		"pinyin": "BBXJNY"
+	},
+	"595": {
+		"id": 166,
+		"countryname_cn": "巴拉圭",
+		"countryname_en": "Paraguay",
+		"areacode": "595",
+		"countryshortcode": "PY",
+		"pinyin": "BLG"
+	},
+	"51": {
+		"id": 167,
+		"countryname_cn": "秘鲁",
+		"countryname_en": "Peru",
+		"areacode": "51",
+		"countryshortcode": "PE",
+		"pinyin": "ML"
+	},
+	"63": {
+		"id": 168,
+		"countryname_cn": "菲律宾",
+		"countryname_en": "Philippines",
+		"areacode": "63",
+		"countryshortcode": "PH",
+		"pinyin": "FLB"
+	},
+	"48": {
+		"id": 170,
+		"countryname_cn": "波兰",
+		"countryname_en": "Poland",
+		"areacode": "48",
+		"countryshortcode": "PL",
+		"pinyin": "BL"
+	},
+	"351": {
+		"id": 171,
+		"countryname_cn": "葡萄牙",
+		"countryname_en": "Portugal",
+		"areacode": "351",
+		"countryshortcode": "PT",
+		"pinyin": "PTY"
+	},
+	"1787": {
+		"id": 172,
+		"countryname_cn": "波多黎各",
+		"countryname_en": "Puerto Rico",
+		"areacode": "1787",
+		"countryshortcode": "PR",
+		"pinyin": "BDLG"
+	},
+	"974": {
+		"id": 173,
+		"countryname_cn": "卡塔尔",
+		"countryname_en": "Qatar",
+		"areacode": "974",
+		"countryshortcode": "QA",
+		"pinyin": "KTE"
+	},
+	"262": {
+		"id": 174,
+		"countryname_cn": "团聚",
+		"countryname_en": "Reunion",
+		"areacode": "262",
+		"countryshortcode": "RE",
+		"pinyin": "TJ"
+	},
+	"40": {
+		"id": 175,
+		"countryname_cn": "罗马尼亚",
+		"countryname_en": "Romania",
+		"areacode": "40",
+		"countryshortcode": "RO",
+		"pinyin": "LMNY"
+	},
+	"70": {
+		"id": 176,
+		"countryname_cn": "俄罗斯联邦",
+		"countryname_en": "Russian Federation",
+		"areacode": "70",
+		"countryshortcode": "RU",
+		"pinyin": "ELSLB"
+	},
+	"250": {
+		"id": 177,
+		"countryname_cn": "卢旺达",
+		"countryname_en": "Rwanda",
+		"areacode": "250",
+		"countryshortcode": "RW",
+		"pinyin": "LWD"
+	},
+	"290": {
+		"id": 178,
+		"countryname_cn": "圣赫勒拿",
+		"countryname_en": "Saint Helena",
+		"areacode": "290",
+		"countryshortcode": "SH",
+		"pinyin": "SHLN"
+	},
+	"1869": {
+		"id": 179,
+		"countryname_cn": "圣基茨和尼维斯",
+		"countryname_en": "Saint Kitts and Nevis",
+		"areacode": "1869",
+		"countryshortcode": "KN",
+		"pinyin": "SJCHNWS"
+	},
+	"1758": {
+		"id": 180,
+		"countryname_cn": "圣卢西亚岛",
+		"countryname_en": "Saint Lucia",
+		"areacode": "1758",
+		"countryshortcode": "LC",
+		"pinyin": "SLXYD"
+	},
+	"508": {
+		"id": 181,
+		"countryname_cn": "圣皮埃尔和密克隆群岛",
+		"countryname_en": "Saint Pierre and Miquelon",
+		"areacode": "508",
+		"countryshortcode": "PM",
+		"pinyin": "SPAEHMIQUELON"
+	},
+	"1784": {
+		"id": 182,
+		"countryname_cn": "圣文森特和格林纳丁斯",
+		"countryname_en": "Saint Vincent and the Grenadines",
+		"areacode": "1784",
+		"countryshortcode": "VC",
+		"pinyin": "SWSTHGLNDS"
+	},
+	"684": {
+		"id": 183,
+		"countryname_cn": "萨摩亚",
+		"countryname_en": "Samoa",
+		"areacode": "684",
+		"countryshortcode": "WS",
+		"pinyin": "SMY"
+	},
+	"378": {
+		"id": 184,
+		"countryname_cn": "圣马力诺",
+		"countryname_en": "San Marino",
+		"areacode": "378",
+		"countryshortcode": "SM",
+		"pinyin": "SMLN"
+	},
+	"239": {
+		"id": 185,
+		"countryname_cn": "圣多美和王子",
+		"countryname_en": "Sao Tome and Principe",
+		"areacode": "239",
+		"countryshortcode": "ST",
+		"pinyin": "SDMHWZ"
+	},
+	"966": {
+		"id": 186,
+		"countryname_cn": "沙特阿拉伯",
+		"countryname_en": "Saudi Arabia",
+		"areacode": "966",
+		"countryshortcode": "SA",
+		"pinyin": "STALB"
+	},
+	"221": {
+		"id": 187,
+		"countryname_cn": "塞内加尔",
+		"countryname_en": "Senegal",
+		"areacode": "221",
+		"countryshortcode": "SN",
+		"pinyin": "SNJE"
+	},
+	"381": {
+		"id": 188,
+		"countryname_cn": "塞尔维亚和黑山",
+		"countryname_en": "Serbia and Montenegro",
+		"areacode": "381",
+		"countryshortcode": "CS",
+		"pinyin": "SEWYHHS"
+	},
+	"248": {
+		"id": 189,
+		"countryname_cn": "塞舌尔",
+		"countryname_en": "Seychelles",
+		"areacode": "248",
+		"countryshortcode": "SC",
+		"pinyin": "SSE"
+	},
+	"232": {
+		"id": 190,
+		"countryname_cn": "塞拉利昂",
+		"countryname_en": "Sierra Leone",
+		"areacode": "232",
+		"countryshortcode": "SL",
+		"pinyin": "SLLA"
+	},
+	"65": {
+		"id": 191,
+		"countryname_cn": "新加坡",
+		"countryname_en": "Singapore",
+		"areacode": "65",
+		"countryshortcode": "SG",
+		"pinyin": "XJP"
+	},
+	"421": {
+		"id": 192,
+		"countryname_cn": "斯洛伐克",
+		"countryname_en": "Slovakia",
+		"areacode": "421",
+		"countryshortcode": "SK",
+		"pinyin": "SLFK"
+	},
+	"386": {
+		"id": 193,
+		"countryname_cn": "斯洛文尼亚",
+		"countryname_en": "Slovenia",
+		"areacode": "386",
+		"countryshortcode": "SI",
+		"pinyin": "SLWNY"
+	},
+	"677": {
+		"id": 194,
+		"countryname_cn": "所罗门群岛",
+		"countryname_en": "Solomon Islands",
+		"areacode": "677",
+		"countryshortcode": "SB",
+		"pinyin": "SLMQD"
+	},
+	"252": {
+		"id": 195,
+		"countryname_cn": "索马里",
+		"countryname_en": "Somalia",
+		"areacode": "252",
+		"countryshortcode": "SO",
+		"pinyin": "SML"
+	},
+	"27": {
+		"id": 196,
+		"countryname_cn": "南非",
+		"countryname_en": "South Africa",
+		"areacode": "27",
+		"countryshortcode": "ZA",
+		"pinyin": "NF"
+	},
+	"34": {
+		"id": 198,
+		"countryname_cn": "西班牙",
+		"countryname_en": "Spain",
+		"areacode": "34",
+		"countryshortcode": "ES",
+		"pinyin": "XBY"
+	},
+	"94": {
+		"id": 199,
+		"countryname_cn": "斯里兰卡",
+		"countryname_en": "Sri Lanka",
+		"areacode": "94",
+		"countryshortcode": "LK",
+		"pinyin": "SLLK"
+	},
+	"249": {
+		"id": 200,
+		"countryname_cn": "苏丹",
+		"countryname_en": "Sudan",
+		"areacode": "249",
+		"countryshortcode": "SD",
+		"pinyin": "SD"
+	},
+	"597": {
+		"id": 201,
+		"countryname_cn": "苏里南",
+		"countryname_en": "Suriname",
+		"areacode": "597",
+		"countryshortcode": "SR",
+		"pinyin": "SLN"
+	},
+	"382": {
+		"id": 241,
+		"countryname_cn": "黑山共和国",
+		"countryname_en": "Montenegro",
+		"areacode": "382",
+		"countryshortcode": "",
+		"pinyin": "HSGHG"
+	},
+	"268": {
+		"id": 203,
+		"countryname_cn": "斯威士兰",
+		"countryname_en": "Swaziland",
+		"areacode": "268",
+		"countryshortcode": "SZ",
+		"pinyin": "SWSL"
+	},
+	"46": {
+		"id": 204,
+		"countryname_cn": "瑞典",
+		"countryname_en": "Sweden",
+		"areacode": "46",
+		"countryshortcode": "SE",
+		"pinyin": "RD"
+	},
+	"41": {
+		"id": 205,
+		"countryname_cn": "瑞士",
+		"countryname_en": "Switzerland",
+		"areacode": "41",
+		"countryshortcode": "CH",
+		"pinyin": "RS"
+	},
+	"963": {
+		"id": 206,
+		"countryname_cn": "阿拉伯叙利亚共和国",
+		"countryname_en": "Syrian Arab Republic",
+		"areacode": "963",
+		"countryshortcode": "SY",
+		"pinyin": "ALBXLYGHG"
+	},
+	"886": {
+		"id": 207,
+		"countryname_cn": "台湾",
+		"countryname_en": "Taiwan",
+		"areacode": "886",
+		"countryshortcode": "TW",
+		"pinyin": "TW"
+	},
+	"992": {
+		"id": 208,
+		"countryname_cn": "塔吉克斯坦",
+		"countryname_en": "Tajikistan",
+		"areacode": "992",
+		"countryshortcode": "TJ",
+		"pinyin": "TJKST"
+	},
+	"255": {
+		"id": 209,
+		"countryname_cn": "坦桑尼亚联合共和国",
+		"countryname_en": "Tanzania",
+		"areacode": "255",
+		"countryshortcode": "TZ",
+		"pinyin": "TSNYLHGHG"
+	},
+	"66": {
+		"id": 210,
+		"countryname_cn": "泰国",
+		"countryname_en": "Thailand",
+		"areacode": "66",
+		"countryshortcode": "TH",
+		"pinyin": "TG"
+	},
+	"670": {
+		"id": 211,
+		"countryname_cn": "东帝汶",
+		"countryname_en": "Timor-Leste",
+		"areacode": "670",
+		"countryshortcode": "TL",
+		"pinyin": "DDW"
+	},
+	"228": {
+		"id": 212,
+		"countryname_cn": "多哥",
+		"countryname_en": "Togo",
+		"areacode": "228",
+		"countryshortcode": "TG",
+		"pinyin": "DG"
+	},
+	"690": {
+		"id": 213,
+		"countryname_cn": "托克劳",
+		"countryname_en": "Tokelau",
+		"areacode": "690",
+		"countryshortcode": "TK",
+		"pinyin": "TKL"
+	},
+	"676": {
+		"id": 214,
+		"countryname_cn": "汤加",
+		"countryname_en": "Tonga",
+		"areacode": "676",
+		"countryshortcode": "TO",
+		"pinyin": "TJ"
+	},
+	"1868": {
+		"id": 215,
+		"countryname_cn": "特立尼达和多巴哥",
+		"countryname_en": "Trinidad and Tobago",
+		"areacode": "1868",
+		"countryshortcode": "TT",
+		"pinyin": "TLNDHDBG"
+	},
+	"216": {
+		"id": 216,
+		"countryname_cn": "突尼斯",
+		"countryname_en": "Tunisia",
+		"areacode": "216",
+		"countryshortcode": "TN",
+		"pinyin": "TNS"
+	},
+	"90": {
+		"id": 217,
+		"countryname_cn": "土耳其",
+		"countryname_en": "Turkey",
+		"areacode": "90",
+		"countryshortcode": "TR",
+		"pinyin": "TEQ"
+	},
+	"7370": {
+		"id": 218,
+		"countryname_cn": "土库曼斯坦",
+		"countryname_en": "Turkmenistan",
+		"areacode": "7370",
+		"countryshortcode": "TM",
+		"pinyin": "TKMST"
+	},
+	"1649": {
+		"id": 219,
+		"countryname_cn": "特克斯和凯科斯群岛",
+		"countryname_en": "Turks and Caicos Islands",
+		"areacode": "1649",
+		"countryshortcode": "TC",
+		"pinyin": "TKSHKKSQD"
+	},
+	"688": {
+		"id": 220,
+		"countryname_cn": "图瓦卢",
+		"countryname_en": "Tuvalu",
+		"areacode": "688",
+		"countryshortcode": "TV",
+		"pinyin": "TWL"
+	},
+	"256": {
+		"id": 221,
+		"countryname_cn": "乌干达",
+		"countryname_en": "Uganda",
+		"areacode": "256",
+		"countryshortcode": "UG",
+		"pinyin": "WGD"
+	},
+	"380": {
+		"id": 222,
+		"countryname_cn": "乌克兰",
+		"countryname_en": "Ukraine",
+		"areacode": "380",
+		"countryshortcode": "UA",
+		"pinyin": "WKL"
+	},
+	"971": {
+		"id": 223,
+		"countryname_cn": "阿拉伯联合酋长国",
+		"countryname_en": "United Arab Emirates",
+		"areacode": "971",
+		"countryshortcode": "AE",
+		"pinyin": "ALBLHQZG"
+	},
+	"44": {
+		"id": 224,
+		"countryname_cn": "联合王国",
+		"countryname_en": "United Kingdom",
+		"areacode": "44",
+		"countryshortcode": "GB",
+		"pinyin": "LHWG"
+	},
+	"1M": {
+		"id": 225,
+		"countryname_cn": "美国",
+		"countryname_en": "United States",
+		"areacode": "1",
+		"countryshortcode": "US",
+		"pinyin": "MG"
+	},
+	"598": {
+		"id": 227,
+		"countryname_cn": "乌拉圭",
+		"countryname_en": "Uruguay",
+		"areacode": "598",
+		"countryshortcode": "UY",
+		"pinyin": "WLG"
+	},
+	"998": {
+		"id": 228,
+		"countryname_cn": "乌兹别克斯坦",
+		"countryname_en": "Uzbekistan",
+		"areacode": "998",
+		"countryshortcode": "UZ",
+		"pinyin": "WZBKST"
+	},
+	"678": {
+		"id": 229,
+		"countryname_cn": "瓦努阿图",
+		"countryname_en": "Vanuatu",
+		"areacode": "678",
+		"countryshortcode": "VU",
+		"pinyin": "WNAT"
+	},
+	"58": {
+		"id": 230,
+		"countryname_cn": "委内瑞拉",
+		"countryname_en": "Venezuela",
+		"areacode": "58",
+		"countryshortcode": "VE",
+		"pinyin": "WNRL"
+	},
+	"84": {
+		"id": 231,
+		"countryname_cn": "越南",
+		"countryname_en": "Viet Nam",
+		"areacode": "84",
+		"countryshortcode": "VN",
+		"pinyin": "YN"
+	},
+	"1284": {
+		"id": 232,
+		"countryname_cn": "维尔京群岛-英国",
+		"countryname_en": "Virgin Islands-British",
+		"areacode": "1284",
+		"countryshortcode": "VG",
+		"pinyin": "WEJQD-YG"
+	},
+	"1340": {
+		"id": 233,
+		"countryname_cn": "维尔京群岛-美国",
+		"countryname_en": "Virgin Islands-U.s.",
+		"areacode": "1340",
+		"countryshortcode": "VI",
+		"pinyin": "WEJQD-MG"
+	},
+	"681": {
+		"id": 234,
+		"countryname_cn": "瓦利斯群岛和富图纳群岛",
+		"countryname_en": "Wallis and Futuna",
+		"areacode": "681",
+		"countryshortcode": "WF",
+		"pinyin": "WLSQDHFTNQD"
+	},
+	"967": {
+		"id": 236,
+		"countryname_cn": "也门",
+		"countryname_en": "Yemen",
+		"areacode": "967",
+		"countryshortcode": "YE",
+		"pinyin": "YM"
+	},
+	"260": {
+		"id": 237,
+		"countryname_cn": "赞比亚",
+		"countryname_en": "Zambia",
+		"areacode": "260",
+		"countryshortcode": "ZM",
+		"pinyin": "ZBY"
+	},
+	"263": {
+		"id": 238,
+		"countryname_cn": "津巴布韦",
+		"countryname_en": "Zimbabwe",
+		"areacode": "263",
+		"countryshortcode": "ZW",
+		"pinyin": "JBBW"
+	}
+}

@@ -46,7 +46,6 @@ public class Note extends BaseFragment{
     private HorizontalScrollView hsv;
     private PullLoadMoreRecyclerView listView;
     private TextView title;
-    SparseArray<ArrayList<NoteMenuBean>> notemenubeans=new SparseArray<>();
     ArrayList<NoteBean> notebeans=new ArrayList<>();
     private RadioButton recordbutton;
     private boolean hasmoredata=true;
@@ -108,7 +107,12 @@ public class Note extends BaseFragment{
             @Override
             public void onSuccessOfMe(JSONObject jsonObject) {
                 super.onSuccessOfMe(jsonObject);
-                if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))return;
+
+                if(!jsonObject.optString("status","").equalsIgnoreCase("000000"))
+                {
+                    ToastUtil.showMessage(getActivity(),jsonObject.optString("info",""));
+                    return;
+                }
                 JSONObject datas=jsonObject.optJSONObject("datas");
                 JSONArray notemenu=datas.optJSONArray("notemenu");
                 RadioGroup videomain = new RadioGroup(getActivity());
@@ -121,7 +125,6 @@ public class Note extends BaseFragment{
                     {
                         ArrayList<NoteMenuBean> arrnotebean=new ArrayList<NoteMenuBean>();
                         arrnotebean.add(notebean);
-                        notemenubeans.put(notebean.getId(),arrnotebean);
 
                         RadioButton textview = new RadioButton(getActivity());
                         textview.setButtonDrawable(new ColorDrawable(0));
@@ -146,11 +149,6 @@ public class Note extends BaseFragment{
                             }
                         });
                         videomain.addView(textview);
-                    }
-                    else
-                    {
-                        if(notemenubeans.get(notebean.getParentid())!=null)
-                            notemenubeans.get(notebean.getParentid()).add(notebean);
                     }
                 }
                 hsv.removeAllViews();

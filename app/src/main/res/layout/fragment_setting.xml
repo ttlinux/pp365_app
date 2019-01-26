@@ -57,7 +57,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/loginreglayout"
+                android:id="@+id/notyetloginlayout"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal">
@@ -82,24 +82,18 @@
                     android:text="注册"
                     android:textColor="@color/white" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/textview2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nologinlayout"
+            android:id="@+id/logonlayout"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignTop="@+id/imagehead"
             android:layout_marginStart="14dp"
             android:layout_toRightOf="@+id/imagehead"
-            android:orientation="vertical"
             android:visibility="gone"
+            android:orientation="vertical"
             >
 
             <LinearLayout
@@ -108,11 +102,19 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="未登录"
                     android:textColor="@color/white" />
 
+                <TextView
+                    android:id="@+id/country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="未登录"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,6 +124,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/levelname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请注册账号或登录您的账号"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/expiretime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="请注册账号或登录您的账号"

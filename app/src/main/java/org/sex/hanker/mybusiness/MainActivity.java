@@ -29,6 +29,7 @@ import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.Permission;
 import org.sex.hanker.Utils.ToastUtil;
+import org.sex.hanker.View.ScreenLockDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,6 +79,15 @@ public class MainActivity extends BaseFragmentActivity implements RadioGroup.OnC
         bottomview=(RadioGroup)findViewById(R.id.bottomview);
         bottomview.setOnCheckedChangeListener(this);
         ((RadioButton)bottomview.getChildAt(0)).performClick();
+
+        Boolean EnbleAPPScreenLock=((BaseApplication)getApplication()).getSharedPreferences().getBoolean(BundleTag.EnbleAPPScreenLock,false);
+        if(EnbleAPPScreenLock)
+        {
+            LogTools.e("DDDDDDDDD","MMMMMMMMMMM");
+            ScreenLockDialog dialog=new ScreenLockDialog(this);
+            dialog.show();
+        }
+
     }
 
     public void IsFirsttimeOpen()

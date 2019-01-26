@@ -21,11 +21,15 @@ public class BundleTag {
     public static final String StatusTag = "StatusTag";
     public static final String ProductId = "pid";
     public static final String Country = "Country";
+    public static final String Username = "Username";
+    public static final String Password = "Password";
     public static final String IsfirstTime = "IsfirstTime";
     public static final String US = "US";
     public static final String ASIA = "ASIA";
-    public static final String ScreenLockPassword = "ScreenLockPassword";
     public static final String ScreenLockStatus = "ScreenLockStatus";
+    public static final String EnbleAPPScreenLock = "EnbleAPPScreenLock";
+    public static final String EnbleAutoScreenLock = "EnbleAutoScreenLock";
+    public static final String EnbleResumeScreenLock = "EnbleResumeScreenLock";
     public static final String Postion = "Postion";
     public static final String Data = "Data";
     public static final String ExcuteType = "ExcuteType";
@@ -36,11 +40,13 @@ public class BundleTag {
     public static final String ID = "ID";
     public static final String URL = "URL";
     public static final String Title = "Title";
+    public static final String Token = "Token";
     public static final int Complete = 666;
     public static final String NoteRecord = "NoteRecord";
     public static final String PageRecord = "PageRecord";
     public static final String password = "password";
     public static final String userName = "userName";
+    public static final String UserInfo = "UserInfo";
 
     public static final String PicSavePath = "/PP365/Picture/";
     public static final String VideoCachePath = Environment.getExternalStorageDirectory().getPath() + "/Xokong/";

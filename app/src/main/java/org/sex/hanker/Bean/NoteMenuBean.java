@@ -62,9 +62,9 @@ public class NoteMenuBean {
     {
         NoteMenuBean noteMenuBean =new NoteMenuBean();
         noteMenuBean.setTitle(jsonObject.optString("title"));
-        noteMenuBean.setContentpath(jsonObject.optString("contentpath"));
-        noteMenuBean.setCreatetime(jsonObject.optString("createtime"));
-        noteMenuBean.setPicpath(jsonObject.optString("picpath"));
+//        noteMenuBean.setContentpath(jsonObject.optString("contentpath"));
+//        noteMenuBean.setCreatetime(jsonObject.optString("createtime"));
+//        noteMenuBean.setPicpath(jsonObject.optString("picpath"));
         noteMenuBean.setId(jsonObject.optInt("id", 1));
         noteMenuBean.setParentid(jsonObject.optInt("parentid",2));
         return noteMenuBean;

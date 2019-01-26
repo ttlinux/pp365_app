@@ -35,7 +35,7 @@ public class Httputils {
     public static boolean isShow = false;//
     public static String AndroidApkPath;
     public static String AndroidUpdate="";
-    public static String BaseUrl="http://192.168.1.108:8080/pp365/";//http://www.xokong.com
+    public static String BaseUrl="http://192.168.254.104:8080/pp365";//http://www.xokong.com
     public static String WSBaseurl="ws://www.xokong.com/pp365/websocket?";//ws://www.xokong.com/pp365/websocket?
     public static String ImgBaseUrl="http://www.xokong.com/pp365";
     public static String Home="/interface/Home";
@@ -56,7 +56,14 @@ public class Httputils {
     public static String picturedetail="/interface/picturedetail";
     //注册登陆
     public static String login="/interface/userlogin";
-    public static String register="/interface/register";
+    public static String Auth="/interface/getAuth";
+    public static String register="/user/register";
+
+    //用户中心接口
+    public static String EnableOrEditScreenPassword="/user/EnableOrEditScreenPassword";
+    public static String OffScreenPassword="/user/OffScreenPassword";
+    public static String ScreenLockControll="/user/ScreenLockControll";
+    public static String VerifyScreenPassword="/user/VerifyScreenPassword";
 
     //聊天记录
     public static String MessageRecord="/interface/MessageRecord";

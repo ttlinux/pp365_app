@@ -11,10 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 import org.sex.hanker.BaseParent.BaseActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.Utils.BundleTag;
+import org.sex.hanker.Utils.Httputils;
+import org.sex.hanker.Utils.LogTools;
+import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ToastUtil;
+import org.sex.hanker.View.ScreenLockDialog;
 import org.sex.hanker.View.SwitchView;
 import org.sex.hanker.View.WheelDialog;
 import org.sex.hanker.mybusiness.BuildConfig;
@@ -37,8 +44,6 @@ public class ScreenLockParentActivity extends BaseActivity implements View.OnCli
             return this.index;
         }
     }
-    SharedPreferences sharedPreferences;
-    String password;
     LinearLayout mainll,tipslayout,settinglayout;
     TextView off,edit,start,hanguptime;
     int status;
@@ -50,6 +55,8 @@ public class ScreenLockParentActivity extends BaseActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screenlock_parent);
         InitView();
+        ScreenLockDialog dialog=new ScreenLockDialog(this);
+        dialog.show();
     }
 
     private void InitView()
@@ -73,15 +80,20 @@ public class ScreenLockParentActivity extends BaseActivity implements View.OnCli
         hanguptimelayout.setOnClickListener(this);
         setActivityTitle(getIntent().getStringExtra(BundleTag.Title));
 
-        sharedPreferences=((BaseApplication)getApplication()).getSharedPreferences();
         RefreshStatus();
     }
 
     private void RefreshStatus()
     {
-        password=sharedPreferences.getString(BundleTag.ScreenLockPassword, "");
-        status=sharedPreferences.getInt(BundleTag.ScreenLockStatus,Status.Start.getIndex());
-
+        status=Integer.valueOf(getSharedPreferences().getString(BundleTag.ScreenLockStatus, Status.Start.getIndex() + ""));
+        boolean homeswitch=getSharedPreferences().getBoolean(BundleTag.EnbleAPPScreenLock,false);
+        switch_onexit.toggleSwitch(isActivityResumeScreenLockStatus());
+        switch_onhome.toggleSwitch(homeswitch);
+        String temp=String.valueOf(getAutoScreenLock())+getResources().getString(R.string.time_minute);
+        SpannableStringBuilder spannableStringBuilder=new SpannableStringBuilder();
+        spannableStringBuilder.append(temp);
+        spannableStringBuilder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red3)), 0, getAutoScreenLock() > 9 ? 2 : 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        hanguptime.setText(spannableStringBuilder);
         switch (status)
         {
             case 1:
@@ -131,25 +143,24 @@ public class ScreenLockParentActivity extends BaseActivity implements View.OnCli
         switch (v.getId())
         {
             case R.id.off:
-                ((BaseApplication)getApplication()).setScreenLockOpenStatus(Status.Off.getIndex());
-                sharedPreferences.edit().putInt(BundleTag.ScreenLockStatus,Status.Off.getIndex()).commit();
-                RefreshStatus();
-                ToastUtil.showMessage(this,getResources().getString(R.string.screenlocktips2));
+                intent=new Intent();
+                intent.setClass(this, ScreenLockActivity.class);
+                intent.putExtra(BundleTag.ScreenLockStatus, Status.Off.getIndex());
+                intent.putExtra(BundleTag.Title, getResources().getString(R.string.switchoffscreenlock));
+                startActivityForResult(intent, BundleTag.RequestCode);
                 break;
             case R.id.edit:
                 intent=new Intent();
-                intent.setClass(this,ScreenLockActivity.class);
-                intent.putExtra(BundleTag.ScreenLockPassword, password);
+                intent.setClass(this, ScreenLockActivity.class);
                 intent.putExtra(BundleTag.ScreenLockStatus, Status.Edit.getIndex());
                 intent.putExtra(BundleTag.Title,getResources().getString(R.string.editscreenlock));
                 startActivityForResult(intent, BundleTag.RequestCode);
                 break;
             case R.id.start:
-                if(password!=null && password.length()>0)
+                status=Integer.valueOf(getSharedPreferences().getString(BundleTag.ScreenLockStatus, String.valueOf(Status.Start.getIndex())));
+                if(status==Status.Off.getIndex())
                 {
-                    ((BaseApplication)getApplication()).setScreenLockOpenStatus(Status.On.getIndex());
-                    sharedPreferences.edit().putInt(BundleTag.ScreenLockStatus,Status.On.getIndex()).commit();
-                    RefreshStatus();
+                    ScreenLockControll(3,0,null);
                 }
                 else
                 {
@@ -166,26 +177,86 @@ public class ScreenLockParentActivity extends BaseActivity implements View.OnCli
                 wheelDialog.setOnSelectListener(new WheelDialog.OnSelectListener() {
                     @Override
                     public void OnSelect(int min) {
-                        String temp=String.valueOf(min)+getResources().getString(R.string.time_minute);
-                        SpannableStringBuilder spannableStringBuilder=new SpannableStringBuilder();
-                        spannableStringBuilder.append(temp);
-                        spannableStringBuilder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red3)), 0, min>9?2:1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        hanguptime.setText(spannableStringBuilder);
+                        ScreenLockControll(2,min,hanguptime);
                     }
                 });
                 wheelDialog.show();
             break;
             case R.id.switch_onexit:
                 SwitchView switchView=(SwitchView)v;
-                switchView.toggleSwitch(!switchView.isCheck());
+                ScreenLockControll(0,switchView.isCheck()?0:1,v);
                 break;
             case R.id.switch_onhome:
                 SwitchView switchView2=(SwitchView)v;
-                switchView2.toggleSwitch(!switchView2.isCheck());
-
+                ScreenLockControll(1,switchView2.isCheck()?0:1,v);
                 break;
         }
     }
 
+    private void ScreenLockControll(final int type,final int value,final View view)
+    {
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("phone", ((BaseApplication) getApplication()).getUsername());
+        switch (type)
+        {
+            case 0:
+                requestParams.put("Homreturnlock",value+"");
+                break;
+            case 1:
+                requestParams.put("Applock",value+"");
+                break;
+            case 2:
+                requestParams.put("Autolock",value+"");
+                break;
+            case 3:
+                requestParams.put("openlock","1");
+        }
+        Httputils.PostWithBaseUrl(Httputils.ScreenLockControll,requestParams,new MyJsonHttpResponseHandler(this,true){
+            @Override
+            public void onFailureOfMe(Throwable throwable, String s) {
+                super.onFailureOfMe(throwable, s);
 
+            }
+
+            @Override
+            public void onSuccessOfMe(JSONObject jsonObject) {
+                super.onSuccessOfMe(jsonObject);
+                if (jsonObject.optString("status", "").equalsIgnoreCase("000000")) {
+                    switch (type)
+                    {
+                        case 0:
+                            SwitchView switchView=(SwitchView)view;
+                            switchView.toggleSwitch(value>0);
+                            ActivityResumeScreenLockStatus=switchView.isCheck();
+                            LogTools.e("ActivityResumeScreenLockStatus",ActivityResumeScreenLockStatus+"");
+                            getSharedPreferences().edit().putBoolean(BundleTag.EnbleResumeScreenLock,ActivityResumeScreenLockStatus).commit();
+                            break;
+                        case 1:
+                            SwitchView switchView2=(SwitchView)view;
+                            switchView2.toggleSwitch(value>0);
+                            getSharedPreferences().edit().putBoolean(BundleTag.EnbleAPPScreenLock,ActivityResumeScreenLockStatus).commit();
+                            break;
+                        case 2:
+                            TextView textView=(TextView)view;
+                            AutoScreenLock=value;
+                            String temp=String.valueOf(value)+getResources().getString(R.string.time_minute);
+                            SpannableStringBuilder spannableStringBuilder=new SpannableStringBuilder();
+                            spannableStringBuilder.append(temp);
+                            spannableStringBuilder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red3)), 0, value > 9 ? 2 : 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            textView.setText(spannableStringBuilder);
+                            getSharedPreferences().edit().putString(BundleTag.EnbleAutoScreenLock, String.valueOf(value)).commit();
+                            break;
+                        case 3:
+                            getSharedPreferences().edit().putString(BundleTag.ScreenLockStatus, Status.On.getIndex()+"").commit();
+                            RefreshStatus();
+                            break;
+                    }
+                }
+                else
+                {
+                    ToastUtil.showMessage(ScreenLockParentActivity.this,jsonObject.optString("info",""));
+                }
+            }
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package org.sex.hanker.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -53,9 +54,22 @@ public class MyJsonHttpResponseHandler2 extends JsonHttpResponseHandler {
         super.onFailure(throwable, s);
         onFailureOfMe(throwable, s);
         if (context != null ) {
-            if (state) {
-                if (publicDialog != null) {
-                    publicDialog.dismiss();
+            if(context instanceof Activity)
+            {
+                Activity activity=(Activity)context;
+                if(!activity.isDestroyed() && !activity.isFinishing())
+                {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
+                }
+            }
+            else
+            {
+                if (state) {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
                 }
             }
             ToastUtil.showMessage(context, context.getString(R.string.connecterr));
@@ -66,11 +80,25 @@ public class MyJsonHttpResponseHandler2 extends JsonHttpResponseHandler {
     @Override
     protected Object parseResponse(String s) throws JSONException {
         if (context != null ) {
-            if (state) {
-                if (publicDialog != null) {
-                    publicDialog.dismiss();
+            if(context instanceof Activity)
+            {
+                Activity activity=(Activity)context;
+                if(!activity.isDestroyed() && !activity.isFinishing())
+                {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
                 }
             }
+            else
+            {
+                if (state) {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
+                }
+            }
+            ToastUtil.showMessage(context, context.getString(R.string.connecterr));
         }
         return super.parseResponse(s);
     }
@@ -80,9 +108,22 @@ public class MyJsonHttpResponseHandler2 extends JsonHttpResponseHandler {
         super.onSuccess(jsonObject);
 
         if (context != null ) {
-            if (state) {
-                if (publicDialog != null) {
-                    publicDialog.dismiss();
+            if(context instanceof Activity)
+            {
+                Activity activity=(Activity)context;
+                if(!activity.isDestroyed() && !activity.isFinishing())
+                {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
+                }
+            }
+            else
+            {
+                if (state) {
+                    if (publicDialog != null) {
+                        publicDialog.dismiss();
+                    }
                 }
             }
             //掉线的

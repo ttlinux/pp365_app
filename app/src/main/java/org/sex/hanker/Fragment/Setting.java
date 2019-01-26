@@ -1,6 +1,7 @@
 package org.sex.hanker.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,14 +11,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.sex.hanker.Activity.LoginActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sex.hanker.BaseParent.BaseActivity;
+import org.sex.hanker.BaseParent.BaseFragmentActivity;
+import org.sex.hanker.User.LoginActivity;
 import org.sex.hanker.Activity.VideoTask.VideoTaskActivity;
 import org.sex.hanker.BaseParent.BaseApplication;
 import org.sex.hanker.BaseParent.BaseFragment;
-import org.sex.hanker.Bean.user;
 import org.sex.hanker.User.ScreenLockParentActivity;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.ClearCache;
+import org.sex.hanker.Utils.LogTools;
+import org.sex.hanker.Utils.TimeUtils;
+import org.sex.hanker.Utils.ToastUtil;
 import org.sex.hanker.View.MyRelativeLayout;
 import org.sex.hanker.mybusiness.R;
 
@@ -27,9 +34,12 @@ import org.sex.hanker.mybusiness.R;
 public class Setting extends BaseFragment implements View.OnClickListener{
 
     public static Setting setting;
-    private LinearLayout list_item,loginlayout;
+    private LinearLayout list_item,logonlayout,notyetloginlayout;
     private ImageView imagehead;
-    private TextView textview1, textview2, textview3, textview4;
+    private TextView levelname,expiretime,username,country;
+    boolean islogin=false;
+    SharedPreferences sharedPreferences;
+
 
     public static Setting GetInstance(Bundle arg) {
         if (setting == null)
@@ -54,19 +64,24 @@ public class Setting extends BaseFragment implements View.OnClickListener{
     @Override
     public void OnViewShowOrHide(boolean state) {
         super.OnViewShowOrHide(state);
-        if(!state)
+        if(!state && islogin==false && ((BaseApplication)getActivity().getApplication()).getUsername()!=null)
+        {
             Onlogin();
+        }
+
     }
 
     private void Init()
     {
-        textview1 = (TextView) FindView(R.id.textview1);
-        textview2 = (TextView) FindView(R.id.textview2);
-        textview3 = (TextView) FindView(R.id.textview3);
-        textview4 = (TextView) FindView(R.id.textview4);
+        sharedPreferences=((BaseApplication)getActivity().getApplication()).getSharedPreferences();
+        levelname=(TextView)getView().findViewById(R.id.levelname);
+        expiretime=(TextView)getView().findViewById(R.id.expiretime);
+        username=(TextView)getView().findViewById(R.id.username);
+        country=(TextView)getView().findViewById(R.id.country);
         imagehead=(ImageView)FindView(R.id.imagehead);
-        loginlayout=(LinearLayout)FindView(R.id.loginlayout);
-        loginlayout.setOnClickListener(this);
+        logonlayout=(LinearLayout)FindView(R.id.logonlayout);
+        notyetloginlayout=(LinearLayout)FindView(R.id.notyetloginlayout);
+        notyetloginlayout.setOnClickListener(this);
         imagehead.setOnClickListener(this);
         list_item=(LinearLayout)FindView(R.id.list_item);
         String titles[]=getResources().getStringArray(R.array.settingmenu);
@@ -85,6 +100,12 @@ public class Setting extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         if(v.getTag()!=null)
         {
+            String Username=((BaseApplication)getActivity().getApplication()).getUsername();
+            if(Username==null || Username.length()==0)
+            {
+                ToastUtil.showMessage(getActivity(),getString(R.string.plzlogin));
+                return;
+            }
             Intent intent;
             TextView textView=(TextView)v;
             switch ((int)v.getTag())
@@ -110,7 +131,7 @@ public class Setting extends BaseFragment implements View.OnClickListener{
             switch (v.getId())
             {
                 case R.id.imagehead:
-                case R.id.loginlayout:
+                case R.id.notyetloginlayout:
                     startActivityForResult(new Intent(getActivity(), LoginActivity.class), BundleTag.RequestCode);
                     break;
             }
@@ -130,21 +151,48 @@ public class Setting extends BaseFragment implements View.OnClickListener{
 
     private void Onlogin()
     {
-        BaseApplication app=(BaseApplication)getActivity().getApplication();
-        user user=app.getUser();
-        if(user==null)return;
-        textview1.setText(getString(R.string.account) + ": " + user.getUsename());
-        textview3.setVisibility(View.GONE);
-        textview4.setVisibility(View.GONE);
-        switch (user.getLevel())
-        {
-            case 0:
-                textview2.setText("普通会员");
-                break;
-            case 1:
-                textview2.setText("付费会员");
-                break;
-        }
 
+        logonlayout.setVisibility(View.VISIBLE);
+        notyetloginlayout.setVisibility(View.GONE);
+        String userinfo=sharedPreferences.getString(BundleTag.UserInfo,"");
+        if(userinfo!=null && userinfo.length()>0)
+        {
+            islogin=true;
+            try {
+                JSONObject jsonObject=new JSONObject(userinfo);
+                long time=Long.valueOf(jsonObject.optString("remainoperationtime", ""));
+                TimeUtils.setM_time(time);
+                TimeUtils.setSixtySecondInterface(new TimeUtils.SixtySecondInterface() {
+                    @Override
+                    public void onTik(long mtime) {
+                        expiretime.setText(getString(R.string.remaintritrialtime)+"  "+ TimeUtils.FormatTime2(mtime));
+                    }
+                });
+                expiretime.setText(getString(R.string.remaintritrialtime)+"  "+ TimeUtils.FormatTime2(time));
+                levelname.setText(jsonObject.optString("levelname", ""));
+                username.setText(jsonObject.optString("usename", ""));
+                String countrys[]=jsonObject.optString("countryname","").split("\\|");
+                BaseFragmentActivity baseActivity=(BaseFragmentActivity)getActivity();
+                if(countrys!=null && countrys.length>1)
+                {
+                    if(baseActivity.getIsChina())
+                    {
+                        country.setText(countrys[1]);
+                    }
+                    else
+                    {
+                        country.setText(countrys[0]);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        TimeUtils.setSixtySecondInterface(null);
     }
 }

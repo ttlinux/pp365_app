@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.os.StatFs;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -23,13 +20,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.sex.hanker.Activity.LoginActivity;
+import org.sex.hanker.User.LoginActivity;
 import org.sex.hanker.Activity.NewVideoActivity;
 import org.sex.hanker.Adapter.MainbannerPagerAdapter;
 import org.sex.hanker.BaseParent.BaseApplication;
@@ -37,7 +33,6 @@ import org.sex.hanker.BaseParent.BaseFragment;
 import org.sex.hanker.User.RegisterActivity;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Httputils;
-import org.sex.hanker.Utils.LogTools;
 import org.sex.hanker.Utils.MyJsonHttpResponseHandler;
 import org.sex.hanker.Utils.ScreenUtils;
 import org.sex.hanker.View.MyViewPager;
@@ -45,10 +40,6 @@ import org.sex.hanker.mybusiness.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * Created by Administrator on 2017/11/3.

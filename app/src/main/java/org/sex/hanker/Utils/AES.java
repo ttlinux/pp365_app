@@ -201,7 +201,7 @@ public class AES {
     }
      
         //注意: 这里的password(秘钥必须是16位的)
-    private static final String keyBytes = "abcdefgabcdefg12";
+    private static final String keyBytes = "4n3oq5s6cc28e131";
      
     /**
     *加密

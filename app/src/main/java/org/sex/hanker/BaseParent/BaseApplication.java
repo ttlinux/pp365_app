@@ -5,19 +5,14 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 
 import com.mob.MobSDK;
@@ -31,9 +26,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.sex.hanker.Bean.user;
 import org.sex.hanker.Utils.BundleTag;
 import org.sex.hanker.Utils.Crasherr;
 import org.sex.hanker.Utils.LogTools;
@@ -47,14 +40,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-
-import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -65,22 +53,20 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public ImageLoader imageloader = null;
     public DisplayImageOptions options = null;
     public ImageLoaderConfiguration config = null;
-    public static user user;//用户名
     public static boolean NoticehasClick = false;
     public static NetBroadcastReceiver.NetEvevt evevt;
     public static String packagename;
     public Activity activity;
     public boolean isAppBackstage;
-    public int ScreenLockOpenStatus;
     SharedPreferences sharedPreferences;
+    public String Username;
 
-
-    public int isScreenLockOpenStatus() {
-        return ScreenLockOpenStatus;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setScreenLockOpenStatus(int screenLockOpenStatus) {
-        ScreenLockOpenStatus = screenLockOpenStatus;
+    public void setUsername(String username) {
+        Username = username;
     }
 
     /**
@@ -90,13 +76,7 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
     public static boolean isMNC() {
         return Build.VERSION.SDK_INT >= 23;
     }
-    public user getUser() {
-        return user;
-    }
 
-    public void setUser(user user) {
-        this.user = user;
-    }
 
     public SharedPreferences getSharedPreferences() {
         if(sharedPreferences==null)
@@ -133,7 +113,6 @@ public class BaseApplication extends Application implements NetBroadcastReceiver
 //        JPushInterface.setLatestNotificationNumber(this, 3);
         setActivityCallBack();
         VideoSQL.InitSQL(this);
-        ScreenLockOpenStatus=getSharedPreferences().getInt(BundleTag.ScreenLockStatus,-1);
         MobSDK.init(this);
     }
 

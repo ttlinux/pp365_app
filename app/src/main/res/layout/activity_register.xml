@@ -2,100 +2,241 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/gray25"
-    >
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/app_toplayout"/>
+    <include layout="@layout/app_toplayout" />
 
-    <EditText
-        android:id="@+id/phonenumber"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dip"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        android:background="@null"
-        android:textSize="15sp"
-        android:paddingTop="8dip"
-        android:paddingBottom="8dip"
-        android:singleLine="true"
-        android:maxLength="12"
-        android:hint="手机号"
-        android:textColorHint="@color/gray27"
-        />
+        android:layout_marginTop="30dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/country"
+            android:textColor="@color/black2"
+            android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/countryselector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dip"
+                >
+
+                <TextView
+                    android:id="@+id/countrycode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black2"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:src="@drawable/right_icon"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+    </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray27"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        />
+        android:background="@color/gray27" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
         android:layout_marginTop="10dip"
-        >
+        android:orientation="horizontal">
+
         <TextView
-            android:id="@+id/getauth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/green3"
-            android:text="获取验证码"
-            android:layout_alignParentRight="true"
-            android:padding="8dip"
-            />
+            android:layout_gravity="center_vertical"
+            android:text="@string/phonenum"
+            android:textColor="@color/black2"
+            android:textSize="15sp" />
+
         <EditText
-            android:id="@+id/verifycode"
+            android:id="@+id/phonenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/getauth"
+            android:layout_marginLeft="15dip"
             android:background="@null"
-            android:textSize="15sp"
-            android:paddingTop="8dip"
-            android:paddingBottom="8dip"
-            android:singleLine="true"
+            android:hint="@string/plzphonenum"
             android:maxLength="12"
-            android:hint="验证码"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:singleLine="true"
             android:textColorHint="@color/gray27"
-            />
+            android:inputType="number"
+            android:textSize="15sp" />
+    </LinearLayout>
 
-    </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray27"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        />
-    <EditText
-        android:id="@+id/password"
+        android:background="@color/gray27" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dip"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        android:background="@null"
-        android:textSize="15sp"
-        android:paddingTop="8dip"
-        android:paddingBottom="8dip"
-        android:singleLine="true"
-        android:maxLength="12"
-        android:hint="密码"
-        android:textColorHint="@color/gray27"
-        />
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/authcode"
+            android:textColor="@color/black2"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip">
+
+            <TextView
+                android:id="@+id/getauth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="8dip"
+                android:text="获取验证码"
+                android:textColor="@color/green3"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/verifycode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/getauth"
+                android:background="@null"
+                android:hint="@string/plzauthcode"
+                android:maxLength="12"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip"
+                android:singleLine="true"
+                android:textColorHint="@color/gray27"
+                android:inputType="number"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray27"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        />
+        android:background="@color/gray27" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="15dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/password"
+            android:textColor="@color/black2"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dip"
+            android:background="@null"
+            android:hint="@string/plzpassword"
+            android:maxLength="12"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:password="true"
+            android:singleLine="true"
+            android:textColorHint="@color/gray27"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:background="@color/gray27" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginTop="15dip"
+        android:text="@string/sexual"
+        android:textSize="15sp" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="15dip"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gay"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lesbian"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shemale"
+            android:textSize="13sp" />
+
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/comit"
@@ -109,27 +250,27 @@
         android:padding="10dp"
         android:text="注册"
         android:textColor="@color/white" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dip"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/gray23"
-        android:text="注册代表你同意"
-        />
+        android:layout_marginTop="20dip"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/green3"
+            android:text="注册代表你同意"
+            android:textColor="@color/gray23"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="《创吧使用协议》"
-            />
+            android:textColor="@color/green3"
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>
